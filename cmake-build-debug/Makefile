@@ -122,6 +122,33 @@ SPL_Compiler/fast:
 	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/build
 .PHONY : SPL_Compiler/fast
 
+absyn.obj: absyn.c.obj
+
+.PHONY : absyn.obj
+
+# target to build an object file
+absyn.c.obj:
+	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/absyn.c.obj
+.PHONY : absyn.c.obj
+
+absyn.i: absyn.c.i
+
+.PHONY : absyn.i
+
+# target to preprocess a source file
+absyn.c.i:
+	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/absyn.c.i
+.PHONY : absyn.c.i
+
+absyn.s: absyn.c.s
+
+.PHONY : absyn.s
+
+# target to generate assembly for a file
+absyn.c.s:
+	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/absyn.c.s
+.PHONY : absyn.c.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -149,6 +176,87 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+symbol.obj: symbol.c.obj
+
+.PHONY : symbol.obj
+
+# target to build an object file
+symbol.c.obj:
+	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/symbol.c.obj
+.PHONY : symbol.c.obj
+
+symbol.i: symbol.c.i
+
+.PHONY : symbol.i
+
+# target to preprocess a source file
+symbol.c.i:
+	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/symbol.c.i
+.PHONY : symbol.c.i
+
+symbol.s: symbol.c.s
+
+.PHONY : symbol.s
+
+# target to generate assembly for a file
+symbol.c.s:
+	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/symbol.c.s
+.PHONY : symbol.c.s
+
+table.obj: table.c.obj
+
+.PHONY : table.obj
+
+# target to build an object file
+table.c.obj:
+	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/table.c.obj
+.PHONY : table.c.obj
+
+table.i: table.c.i
+
+.PHONY : table.i
+
+# target to preprocess a source file
+table.c.i:
+	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/table.c.i
+.PHONY : table.c.i
+
+table.s: table.c.s
+
+.PHONY : table.s
+
+# target to generate assembly for a file
+table.c.s:
+	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/table.c.s
+.PHONY : table.c.s
+
+util.obj: util.c.obj
+
+.PHONY : util.obj
+
+# target to build an object file
+util.c.obj:
+	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/util.c.obj
+.PHONY : util.c.obj
+
+util.i: util.c.i
+
+.PHONY : util.i
+
+# target to preprocess a source file
+util.c.i:
+	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/util.c.i
+.PHONY : util.c.i
+
+util.s: util.c.s
+
+.PHONY : util.s
+
+# target to generate assembly for a file
+util.c.s:
+	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/util.c.s
+.PHONY : util.c.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -158,9 +266,21 @@ help:
 	@echo ... SPL_Compiler
 	@echo ... edit_cache
 	@echo ... rebuild_cache
+	@echo ... absyn.obj
+	@echo ... absyn.i
+	@echo ... absyn.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... symbol.obj
+	@echo ... symbol.i
+	@echo ... symbol.s
+	@echo ... table.obj
+	@echo ... table.i
+	@echo ... table.s
+	@echo ... util.obj
+	@echo ... util.i
+	@echo ... util.s
 .PHONY : help
 
 

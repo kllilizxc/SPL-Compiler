@@ -80,7 +80,40 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/absyn.c">
+			<Option target="SPL_Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/absyn.h">
+			<Option target="SPL_Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/env.hpp">
+			<Option target="SPL_Compiler"/>
+		</Unit>
 		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/main.cpp">
+			<Option target="SPL_Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/semant.hpp">
+			<Option target="SPL_Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/symbol.c">
+			<Option target="SPL_Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/symbol.h">
+			<Option target="SPL_Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/table.c">
+			<Option target="SPL_Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/table.h">
+			<Option target="SPL_Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/types.hpp">
+			<Option target="SPL_Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/util.c">
+			<Option target="SPL_Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/util.h">
 			<Option target="SPL_Compiler"/>
 		</Unit>
 		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/CMakeLists.txt">

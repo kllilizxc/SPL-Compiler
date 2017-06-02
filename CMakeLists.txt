@@ -3,5 +3,5 @@ project(SPL_Compiler)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES main.cpp types.hpp env.hpp semant.hpp table.h table.c util.h util.c symbol.h symbol.c absyn.h absyn.c)
 add_executable(SPL_Compiler ${SOURCE_FILES})

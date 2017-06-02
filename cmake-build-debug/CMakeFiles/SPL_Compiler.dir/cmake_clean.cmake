@@ -1,5 +1,9 @@
 file(REMOVE_RECURSE
   "CMakeFiles/SPL_Compiler.dir/main.cpp.obj"
+  "CMakeFiles/SPL_Compiler.dir/table.c.obj"
+  "CMakeFiles/SPL_Compiler.dir/util.c.obj"
+  "CMakeFiles/SPL_Compiler.dir/symbol.c.obj"
+  "CMakeFiles/SPL_Compiler.dir/absyn.c.obj"
   "SPL_Compiler.pdb"
   "SPL_Compiler.exe"
   "SPL_Compiler.exe.manifest"
@@ -7,6 +11,6 @@ file(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-foreach(lang CXX)
+foreach(lang C CXX)
   include(CMakeFiles/SPL_Compiler.dir/cmake_clean_${lang}.cmake OPTIONAL)
 endforeach()
