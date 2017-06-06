@@ -2309,7 +2309,7 @@ yyreduce:
 
   case 111:
 #line 272 "spl.y"
-    {(yyval.exp) = A_OpExp(EM_tokPos, A_timesOp, (yyvsp[(1) - (3)].exp), (yyvsp[(3) - (3)].exp));}
+    {(yyval.exp) = A_OpExp(EM_tokPos, A_modOp, (yyvsp[(1) - (3)].exp), (yyvsp[(3) - (3)].exp));}
     break;
 
   case 112:
