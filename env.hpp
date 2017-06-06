@@ -8,42 +8,42 @@
 #include "types.hpp"
 #include "symbol.h"
 
+//used to store in the symbol table, used for variable environment
+
+enum class EntryKind {
+    VariableEntry, FunctionEntry
+};
+
 class EnvironmentEntry {
 public:
-    Kind getKind() const {
-        return kind;
-    }
+    EnvironmentEntry(EntryKind entryKind) : entryKind(entryKind) {};
 
-    EnvironmentEntry(EnvironmentEntry::Kind kind) : kind(kind) {};
-
-    S_table enterBaseTypeEnvironment() {
-        S_table environment = S_empty();
-        S_enter(environment, S_Symbol("boolean"), new VariableEnvironmentEntry(new Type(Type::Boolean)));
-        S_enter(environment, S_Symbol("char"), new VariableEnvironmentEntry(new Type(Type::Char)));
-        S_enter(environment, S_Symbol("integer"), new VariableEnvironmentEntry(new Type(Type::Integer)));
-        S_enter(environment, S_Symbol("real"), new VariableEnvironmentEntry(new Type(Type::Real)));
-        return environment;
-    }
-
-    S_table enterBaseValueEnvironment() {
-        S_table environment = S_empty();
-        //TODO
-        return environment;
+    EntryKind getKind() const {
+        return entryKind;
     }
 
 private:
-    enum Kind {
-        VariableEntry, FunctionEntry
-    } kind;
+
+    EntryKind entryKind;
 };
+
+char *toCharString(const std::string s) {
+    return const_cast<char *>(s.data());
+}
 
 class VariableEnvironmentEntry : public EnvironmentEntry {
 public:
-    VariableEnvironmentEntry(std::shared_ptr<Type> type) : EnvironmentEntry(EnvironmentEntry::VariableEntry),
+    VariableEnvironmentEntry(std::shared_ptr<Type> type) : EnvironmentEntry(EntryKind::VariableEntry),
                                                            type(type) {};
 
-    std::shared_ptr<Type> &getType() const {
+    std::shared_ptr<Type> &getType() {
         return type;
+    }
+
+    static S_table enterBaseValueEnvironment() {
+        S_table environment = S_empty();
+        //TODO
+        return environment;
     }
 
 private:
@@ -52,23 +52,32 @@ private:
 
 class FunctionEnvironmentEntry : public EnvironmentEntry {
 public:
-    FunctionEnvironmentEntry() : EnvironmentEntry(EnvironmentEntry::FunctionEntry) {};
+    FunctionEnvironmentEntry() : EnvironmentEntry(EntryKind::FunctionEntry) {};
 
-    FunctionEnvironmentEntry(std::list<Type> &formals, std::shared_ptr<Type> result)
-            : FunctionEnvironmentEntry(), formals(formals), result(result) {};
+    FunctionEnvironmentEntry(std::list<std::shared_ptr<Type>> &formals, std::shared_ptr<Type> result)
+            : EnvironmentEntry(EntryKind::FunctionEntry), formals(formals), result(result) {};
 
-    FunctionEnvironmentEntry(std::shared_ptr<Type> result) : FunctionEnvironmentEntry(), result(result) {};
+    FunctionEnvironmentEntry(std::shared_ptr<Type> result) : EnvironmentEntry(EntryKind::FunctionEntry), result(result) {};
 
-    std::list<Type> &getFormals() const {
+    std::list<std::shared_ptr<Type>> &getFormals() {
         return formals;
     }
 
-    std::shared_ptr<Type> getResult() const {
+    std::shared_ptr<Type> getResult() {
         return result;
     }
 
+    static S_table enterBaseTypeEnvironment() {
+        S_table environment = S_empty();
+        S_enter(environment, S_Symbol(toCharString("boolean")), new VariableEnvironmentEntry(std::shared_ptr<Type>(new Type(TypeKind::Boolean))));
+        S_enter(environment, S_Symbol(toCharString("char")), new VariableEnvironmentEntry(std::shared_ptr<Type>(new Type(TypeKind::Char))));
+        S_enter(environment, S_Symbol(toCharString("integer")), new VariableEnvironmentEntry(std::shared_ptr<Type>(new Type(TypeKind::Integer))));
+        S_enter(environment, S_Symbol(toCharString("real")), new VariableEnvironmentEntry(std::shared_ptr<Type>(new Type(TypeKind::Real))));
+        return environment;
+    }
+
 private:
-    std::list<Type> formals;
+    std::list<std::shared_ptr<Type>> formals;
 
     std::shared_ptr<Type> result;
 };

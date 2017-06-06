@@ -176,6 +176,33 @@ errormsg.c.s:
 	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/errormsg.c.s
 .PHONY : errormsg.c.s
 
+lex.yy.obj: lex.yy.c.obj
+
+.PHONY : lex.yy.obj
+
+# target to build an object file
+lex.yy.c.obj:
+	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/lex.yy.c.obj
+.PHONY : lex.yy.c.obj
+
+lex.yy.i: lex.yy.c.i
+
+.PHONY : lex.yy.i
+
+# target to preprocess a source file
+lex.yy.c.i:
+	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/lex.yy.c.i
+.PHONY : lex.yy.c.i
+
+lex.yy.s: lex.yy.c.s
+
+.PHONY : lex.yy.s
+
+# target to generate assembly for a file
+lex.yy.c.s:
+	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/lex.yy.c.s
+.PHONY : lex.yy.c.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -311,6 +338,33 @@ util.c.s:
 	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/util.c.s
 .PHONY : util.c.s
 
+y.tab.obj: y.tab.c.obj
+
+.PHONY : y.tab.obj
+
+# target to build an object file
+y.tab.c.obj:
+	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/y.tab.c.obj
+.PHONY : y.tab.c.obj
+
+y.tab.i: y.tab.c.i
+
+.PHONY : y.tab.i
+
+# target to preprocess a source file
+y.tab.c.i:
+	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/y.tab.c.i
+.PHONY : y.tab.c.i
+
+y.tab.s: y.tab.c.s
+
+.PHONY : y.tab.s
+
+# target to generate assembly for a file
+y.tab.c.s:
+	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/y.tab.c.s
+.PHONY : y.tab.c.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -326,6 +380,9 @@ help:
 	@echo ... errormsg.obj
 	@echo ... errormsg.i
 	@echo ... errormsg.s
+	@echo ... lex.yy.obj
+	@echo ... lex.yy.i
+	@echo ... lex.yy.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
@@ -341,6 +398,9 @@ help:
 	@echo ... util.obj
 	@echo ... util.i
 	@echo ... util.s
+	@echo ... y.tab.obj
+	@echo ... y.tab.i
+	@echo ... y.tab.s
 .PHONY : help
 
 

@@ -1,10 +1,9 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include "util.h"
-#include "symbol.h"
 #include "absyn.h"
 #include "errormsg.h"
 #include "prabsyn.h"
+#include "semant.hpp"
 
 extern int yyparse(void);
 extern A_pro absyn_root;
@@ -20,9 +19,13 @@ A_pro parse(string fname)
 
 int main(){
     char fname[20];
+    S_table valueTable = VariableEnvironmentEntry::enterBaseValueEnvironment();
+    S_table typeTable = FunctionEnvironmentEntry::enterBaseTypeEnvironment();
+
     scanf("%s", fname);
     parse(fname);
     pr_pro(stderr,absyn_root,0);
+    Semant::translateProgram(valueTable, typeTable, absyn_root);
     fprintf(stderr,"\n");
     return 0;
 }

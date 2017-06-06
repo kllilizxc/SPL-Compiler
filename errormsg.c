@@ -19,7 +19,7 @@
 #include "errormsg.h"
 
 
-bool anyErrors= FALSE;
+Bool anyErrors= FALSE;
 
 static string fileName = "";
 

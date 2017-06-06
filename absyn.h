@@ -10,6 +10,7 @@
 #ifndef absyn_h
 #define absyn_h
 
+#include "symbol.h"
 
 
 typedef int A_pos;
@@ -106,13 +107,15 @@ struct A_ty_ {enum A_ty_Kind kind;
 };
 
 enum A_simpleTy_Kind {A_sysTy, A_singleTy, A_doubleCTy, A_doubleNTy, A_listTy};
+typedef struct {A_exp left; A_exp right;} _A_doubleC_;
+typedef struct {S_symbol left; S_symbol right;} _A_doubleN_;
 struct A_simpleTy_ { enum A_simpleTy_Kind kind;
     A_pos pos;
     union{
         S_symbol systy;
         S_symbol single;
-        struct {A_exp left; A_exp right;} doubleC;
-        struct {S_symbol left; S_symbol right;} doubleN;
+        _A_doubleC_ doubleC;
+        _A_doubleN_ doubleN;
         A_nameList nameList;
     } u;
     

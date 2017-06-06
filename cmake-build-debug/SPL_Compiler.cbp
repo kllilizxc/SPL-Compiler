@@ -98,6 +98,9 @@
 		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/frame.hpp">
 			<Option target="SPL_Compiler"/>
 		</Unit>
+		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/lex.yy.c">
+			<Option target="SPL_Compiler"/>
+		</Unit>
 		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/main.cpp">
 			<Option target="SPL_Compiler"/>
 		</Unit>
@@ -135,6 +138,12 @@
 			<Option target="SPL_Compiler"/>
 		</Unit>
 		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/util.h">
+			<Option target="SPL_Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/y.tab.c">
+			<Option target="SPL_Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/y.tab.h">
 			<Option target="SPL_Compiler"/>
 		</Unit>
 		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/CMakeLists.txt">
