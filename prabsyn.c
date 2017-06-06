@@ -427,7 +427,7 @@ static void pr_case(FILE *out, A_case v, int d)
 }
 
 static char str_oper[][12] = {
-    "PLUS", "MINUS", "TIMES", "DIVIDE",
+    "PLUS", "MINUS", "TIMES", "MOD", "DIVIDE",
     "EQUAL", "NOTEQUAL", "LESSTHAN", "LESSEQ", "GREAT", "GREATEQ"};
 static void pr_oper(FILE *out, A_oper d) {
     fprintf(out, "%s", str_oper[d]);

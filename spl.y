@@ -269,7 +269,7 @@ literalExp : const_value {$$ = A_ConstExp(EM_tokPos, $1);}
 
 arithmeticExp : exp PLUS exp {$$ = A_OpExp(EM_tokPos, A_plusOp, $1, $3);}
               | exp MINUS exp {$$ = A_OpExp(EM_tokPos, A_minusOp, $1, $3);}
-              | exp MOD exp {$$ = A_OpExp(EM_tokPos, A_timesOp, $1, $3);}
+              | exp MOD exp {$$ = A_OpExp(EM_tokPos, A_modOp, $1, $3);}
               | exp MUL exp {$$ = A_OpExp(EM_tokPos, A_timesOp, $1, $3);}
               | exp DIV exp {$$ = A_OpExp(EM_tokPos, A_divideOp, $1, $3);}
               | MINUS exp %prec UMINUS {$$ = A_OpExp(EM_tokPos, A_minusOp, A_ConstExp(EM_tokPos, 0), $2);}
