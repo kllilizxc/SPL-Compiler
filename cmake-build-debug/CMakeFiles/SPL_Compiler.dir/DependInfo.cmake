@@ -6,6 +6,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
   "C:/Users/54179/CLion Projects/SPL Compiler/absyn.c" "C:/Users/54179/CLion Projects/SPL Compiler/cmake-build-debug/CMakeFiles/SPL_Compiler.dir/absyn.c.obj"
+  "C:/Users/54179/CLion Projects/SPL Compiler/errormsg.c" "C:/Users/54179/CLion Projects/SPL Compiler/cmake-build-debug/CMakeFiles/SPL_Compiler.dir/errormsg.c.obj"
+  "C:/Users/54179/CLion Projects/SPL Compiler/prabsyn.c" "C:/Users/54179/CLion Projects/SPL Compiler/cmake-build-debug/CMakeFiles/SPL_Compiler.dir/prabsyn.c.obj"
   "C:/Users/54179/CLion Projects/SPL Compiler/symbol.c" "C:/Users/54179/CLion Projects/SPL Compiler/cmake-build-debug/CMakeFiles/SPL_Compiler.dir/symbol.c.obj"
   "C:/Users/54179/CLion Projects/SPL Compiler/table.c" "C:/Users/54179/CLion Projects/SPL Compiler/cmake-build-debug/CMakeFiles/SPL_Compiler.dir/table.c.obj"
   "C:/Users/54179/CLion Projects/SPL Compiler/util.c" "C:/Users/54179/CLion Projects/SPL Compiler/cmake-build-debug/CMakeFiles/SPL_Compiler.dir/util.c.obj"

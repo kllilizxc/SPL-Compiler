@@ -1,3 +1,11 @@
+//
+//  util.c
+//  SPL-compiler
+//
+//  Created by cai on 2017/6/3.
+//  Copyright © 2017年 cai. All rights reserved.
+//
+
 /*
  * util.c - commonly used utility functions.
  */
@@ -16,7 +24,7 @@ void *checked_malloc(int len)
 }
 
 string String(char *s)
-{string p = checked_malloc(strlen(s)+1);
+{string p = checked_malloc(strlen(s) + 1);
     strcpy(p,s);
     return p;
 }
@@ -27,3 +35,4 @@ U_boolList U_BoolList(bool head, U_boolList tail)
     list->tail = tail;
     return list;
 }
+

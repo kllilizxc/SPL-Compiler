@@ -149,6 +149,33 @@ absyn.c.s:
 	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/absyn.c.s
 .PHONY : absyn.c.s
 
+errormsg.obj: errormsg.c.obj
+
+.PHONY : errormsg.obj
+
+# target to build an object file
+errormsg.c.obj:
+	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/errormsg.c.obj
+.PHONY : errormsg.c.obj
+
+errormsg.i: errormsg.c.i
+
+.PHONY : errormsg.i
+
+# target to preprocess a source file
+errormsg.c.i:
+	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/errormsg.c.i
+.PHONY : errormsg.c.i
+
+errormsg.s: errormsg.c.s
+
+.PHONY : errormsg.s
+
+# target to generate assembly for a file
+errormsg.c.s:
+	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/errormsg.c.s
+.PHONY : errormsg.c.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -175,6 +202,33 @@ main.s: main.cpp.s
 main.cpp.s:
 	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/main.cpp.s
 .PHONY : main.cpp.s
+
+prabsyn.obj: prabsyn.c.obj
+
+.PHONY : prabsyn.obj
+
+# target to build an object file
+prabsyn.c.obj:
+	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/prabsyn.c.obj
+.PHONY : prabsyn.c.obj
+
+prabsyn.i: prabsyn.c.i
+
+.PHONY : prabsyn.i
+
+# target to preprocess a source file
+prabsyn.c.i:
+	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/prabsyn.c.i
+.PHONY : prabsyn.c.i
+
+prabsyn.s: prabsyn.c.s
+
+.PHONY : prabsyn.s
+
+# target to generate assembly for a file
+prabsyn.c.s:
+	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/prabsyn.c.s
+.PHONY : prabsyn.c.s
 
 symbol.obj: symbol.c.obj
 
@@ -269,9 +323,15 @@ help:
 	@echo ... absyn.obj
 	@echo ... absyn.i
 	@echo ... absyn.s
+	@echo ... errormsg.obj
+	@echo ... errormsg.i
+	@echo ... errormsg.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... prabsyn.obj
+	@echo ... prabsyn.i
+	@echo ... prabsyn.s
 	@echo ... symbol.obj
 	@echo ... symbol.i
 	@echo ... symbol.s

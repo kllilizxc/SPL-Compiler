@@ -1,9 +1,13 @@
 //
-// Created by 54179 on 2017/6/2.
+//  util.h
+//  SPL-compiler
+//
+//  Created by cai on 2017/6/3.
+//  Copyright © 2017年 cai. All rights reserved.
 //
 
-#ifndef SPL_COMPILER_UTIL_H
-#define SPL_COMPILER_UTIL_H
+#ifndef util_h
+#define util_h
 #include <assert.h>
 
 typedef char *string;
@@ -18,4 +22,4 @@ string String(char *);
 typedef struct U_boolList_ *U_boolList;
 struct U_boolList_ {bool head; U_boolList tail;};
 U_boolList U_BoolList(bool head, U_boolList tail);
-#endif //SPL_COMPILER_UTIL_H
+#endif

@@ -4,6 +4,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/SPL_Compiler.dir/util.c.obj"
   "CMakeFiles/SPL_Compiler.dir/symbol.c.obj"
   "CMakeFiles/SPL_Compiler.dir/absyn.c.obj"
+  "CMakeFiles/SPL_Compiler.dir/errormsg.c.obj"
+  "CMakeFiles/SPL_Compiler.dir/prabsyn.c.obj"
   "SPL_Compiler.pdb"
   "SPL_Compiler.exe"
   "SPL_Compiler.exe.manifest"

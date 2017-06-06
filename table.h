@@ -1,9 +1,14 @@
 //
-// Created by 54179 on 2017/6/2.
+//  table.h
+//  SPL-compiler
+//
+//  Created by cai on 2017/6/3.
+//  Copyright © 2017年 cai. All rights reserved.
 //
 
-#ifndef SPL_COMPILER_TABLE_H
-#define SPL_COMPILER_TABLE_H
+#ifndef table_h
+#define table_h
+
 /*
  * table.h - generic hash table
  *
@@ -34,4 +39,7 @@ void *TAB_pop(TAB_table t);
  *  including shadowed bindings, in order from the most
  *  recent binding of any key to the oldest binding in the table */
 void TAB_dump(TAB_table t, void (*show)(void *key, void *value));
-#endif //SPL_COMPILER_TABLE_H
+
+
+
+#endif /* table_h */

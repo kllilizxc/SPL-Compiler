@@ -89,7 +89,25 @@
 		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/env.hpp">
 			<Option target="SPL_Compiler"/>
 		</Unit>
+		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/errormsg.c">
+			<Option target="SPL_Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/errormsg.h">
+			<Option target="SPL_Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/frame.hpp">
+			<Option target="SPL_Compiler"/>
+		</Unit>
 		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/main.cpp">
+			<Option target="SPL_Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/mipsframe.hpp">
+			<Option target="SPL_Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/prabsyn.c">
+			<Option target="SPL_Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/prabsyn.h">
 			<Option target="SPL_Compiler"/>
 		</Unit>
 		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/semant.hpp">
@@ -105,6 +123,9 @@
 			<Option target="SPL_Compiler"/>
 		</Unit>
 		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/table.h">
+			<Option target="SPL_Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/temp.hpp">
 			<Option target="SPL_Compiler"/>
 		</Unit>
 		<Unit filename="C:/Users/54179/CLion Projects/SPL Compiler/types.hpp">

@@ -1,9 +1,16 @@
 //
-// Created by 54179 on 2017/6/2.
+//  symbol.h
+//  SPL-compiler
+//
+//  Created by cai on 2017/6/3.
+//  Copyright © 2017年 cai. All rights reserved.
 //
 
-#ifndef SPL_COMPILER_SYMBOL_H
-#define SPL_COMPILER_SYMBOL_H
+#ifndef symbol_h
+#define symbol_h
+
+#ifndef SYMBOL_H
+#define SYMBOL_H
 /*
  * symbol.h - Symbols and symbol-tables
  *
@@ -14,7 +21,7 @@ typedef struct S_symbol_ *S_symbol;
 /* Make a unique symbol from a given string.
  *  Different calls to S_Symbol("foo") will yield the same S_symbol
  *  value, even if the "foo" strings are at different locations. */
-S_symbol S_Symbol(string);
+S_symbol S_Symbol(const char *);
 
 /* Extract the underlying string from a symbol */
 string S_name(S_symbol);
@@ -38,6 +45,11 @@ void *S_look(S_table t, S_symbol sym);
 void S_beginScope(S_table t);
 
 /* Remove any bindings entered since the current scope began,
-   and end the current scope. */
+ and end the current scope. */
 void S_endScope(S_table t);
-#endif //SPL_COMPILER_SYMBOL_H
+
+static int S_compare(S_symbol a, S_symbol b);
+#endif
+
+
+#endif /* symbol_h */

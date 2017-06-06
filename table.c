@@ -1,3 +1,11 @@
+//
+//  table.c
+//  SPL-compiler
+//
+//  Created by cai on 2017/6/3.
+//  Copyright © 2017年 cai. All rights reserved.
+//
+
 /*
  * table.c - Functions to manipulate generic tables.
  * Copyright (c) 1997 Andrew W. Appel.
@@ -86,3 +94,4 @@ void TAB_dump(TAB_table t, void (*show)(void *key, void *value)) {
     t->top=k;
     t->table[index]=b;
 }
+
