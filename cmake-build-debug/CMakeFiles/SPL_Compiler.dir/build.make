@@ -56,9 +56,33 @@ include CMakeFiles/SPL_Compiler.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/SPL_Compiler.dir/flags.make
 
+CMakeFiles/SPL_Compiler.dir/main.cpp.obj: CMakeFiles/SPL_Compiler.dir/flags.make
+CMakeFiles/SPL_Compiler.dir/main.cpp.obj: ../main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\54179\CLion Projects\SPL Compiler\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/SPL_Compiler.dir/main.cpp.obj"
+	C:\MinGW\bin\g++.exe   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\SPL_Compiler.dir\main.cpp.obj -c "C:\Users\54179\CLion Projects\SPL Compiler\main.cpp"
+
+CMakeFiles/SPL_Compiler.dir/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SPL_Compiler.dir/main.cpp.i"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\54179\CLion Projects\SPL Compiler\main.cpp" > CMakeFiles\SPL_Compiler.dir\main.cpp.i
+
+CMakeFiles/SPL_Compiler.dir/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SPL_Compiler.dir/main.cpp.s"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\54179\CLion Projects\SPL Compiler\main.cpp" -o CMakeFiles\SPL_Compiler.dir\main.cpp.s
+
+CMakeFiles/SPL_Compiler.dir/main.cpp.obj.requires:
+
+.PHONY : CMakeFiles/SPL_Compiler.dir/main.cpp.obj.requires
+
+CMakeFiles/SPL_Compiler.dir/main.cpp.obj.provides: CMakeFiles/SPL_Compiler.dir/main.cpp.obj.requires
+	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/main.cpp.obj.provides.build
+.PHONY : CMakeFiles/SPL_Compiler.dir/main.cpp.obj.provides
+
+CMakeFiles/SPL_Compiler.dir/main.cpp.obj.provides.build: CMakeFiles/SPL_Compiler.dir/main.cpp.obj
+
+
 CMakeFiles/SPL_Compiler.dir/y.tab.c.obj: CMakeFiles/SPL_Compiler.dir/flags.make
 CMakeFiles/SPL_Compiler.dir/y.tab.c.obj: ../y.tab.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\54179\CLion Projects\SPL Compiler\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/SPL_Compiler.dir/y.tab.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\54179\CLion Projects\SPL Compiler\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/SPL_Compiler.dir/y.tab.c.obj"
 	C:\MinGW\bin\gcc.exe  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\SPL_Compiler.dir\y.tab.c.obj   -c "C:\Users\54179\CLion Projects\SPL Compiler\y.tab.c"
 
 CMakeFiles/SPL_Compiler.dir/y.tab.c.i: cmake_force
@@ -82,7 +106,7 @@ CMakeFiles/SPL_Compiler.dir/y.tab.c.obj.provides.build: CMakeFiles/SPL_Compiler.
 
 CMakeFiles/SPL_Compiler.dir/table.c.obj: CMakeFiles/SPL_Compiler.dir/flags.make
 CMakeFiles/SPL_Compiler.dir/table.c.obj: ../table.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\54179\CLion Projects\SPL Compiler\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/SPL_Compiler.dir/table.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\54179\CLion Projects\SPL Compiler\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/SPL_Compiler.dir/table.c.obj"
 	C:\MinGW\bin\gcc.exe  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\SPL_Compiler.dir\table.c.obj   -c "C:\Users\54179\CLion Projects\SPL Compiler\table.c"
 
 CMakeFiles/SPL_Compiler.dir/table.c.i: cmake_force
@@ -106,7 +130,7 @@ CMakeFiles/SPL_Compiler.dir/table.c.obj.provides.build: CMakeFiles/SPL_Compiler.
 
 CMakeFiles/SPL_Compiler.dir/util.c.obj: CMakeFiles/SPL_Compiler.dir/flags.make
 CMakeFiles/SPL_Compiler.dir/util.c.obj: ../util.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\54179\CLion Projects\SPL Compiler\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/SPL_Compiler.dir/util.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\54179\CLion Projects\SPL Compiler\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/SPL_Compiler.dir/util.c.obj"
 	C:\MinGW\bin\gcc.exe  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\SPL_Compiler.dir\util.c.obj   -c "C:\Users\54179\CLion Projects\SPL Compiler\util.c"
 
 CMakeFiles/SPL_Compiler.dir/util.c.i: cmake_force
@@ -130,7 +154,7 @@ CMakeFiles/SPL_Compiler.dir/util.c.obj.provides.build: CMakeFiles/SPL_Compiler.d
 
 CMakeFiles/SPL_Compiler.dir/symbol.c.obj: CMakeFiles/SPL_Compiler.dir/flags.make
 CMakeFiles/SPL_Compiler.dir/symbol.c.obj: ../symbol.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\54179\CLion Projects\SPL Compiler\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/SPL_Compiler.dir/symbol.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\54179\CLion Projects\SPL Compiler\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/SPL_Compiler.dir/symbol.c.obj"
 	C:\MinGW\bin\gcc.exe  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\SPL_Compiler.dir\symbol.c.obj   -c "C:\Users\54179\CLion Projects\SPL Compiler\symbol.c"
 
 CMakeFiles/SPL_Compiler.dir/symbol.c.i: cmake_force
@@ -154,7 +178,7 @@ CMakeFiles/SPL_Compiler.dir/symbol.c.obj.provides.build: CMakeFiles/SPL_Compiler
 
 CMakeFiles/SPL_Compiler.dir/absyn.c.obj: CMakeFiles/SPL_Compiler.dir/flags.make
 CMakeFiles/SPL_Compiler.dir/absyn.c.obj: ../absyn.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\54179\CLion Projects\SPL Compiler\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/SPL_Compiler.dir/absyn.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\54179\CLion Projects\SPL Compiler\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/SPL_Compiler.dir/absyn.c.obj"
 	C:\MinGW\bin\gcc.exe  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\SPL_Compiler.dir\absyn.c.obj   -c "C:\Users\54179\CLion Projects\SPL Compiler\absyn.c"
 
 CMakeFiles/SPL_Compiler.dir/absyn.c.i: cmake_force
@@ -178,7 +202,7 @@ CMakeFiles/SPL_Compiler.dir/absyn.c.obj.provides.build: CMakeFiles/SPL_Compiler.
 
 CMakeFiles/SPL_Compiler.dir/errormsg.c.obj: CMakeFiles/SPL_Compiler.dir/flags.make
 CMakeFiles/SPL_Compiler.dir/errormsg.c.obj: ../errormsg.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\54179\CLion Projects\SPL Compiler\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/SPL_Compiler.dir/errormsg.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\54179\CLion Projects\SPL Compiler\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/SPL_Compiler.dir/errormsg.c.obj"
 	C:\MinGW\bin\gcc.exe  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\SPL_Compiler.dir\errormsg.c.obj   -c "C:\Users\54179\CLion Projects\SPL Compiler\errormsg.c"
 
 CMakeFiles/SPL_Compiler.dir/errormsg.c.i: cmake_force
@@ -202,7 +226,7 @@ CMakeFiles/SPL_Compiler.dir/errormsg.c.obj.provides.build: CMakeFiles/SPL_Compil
 
 CMakeFiles/SPL_Compiler.dir/prabsyn.c.obj: CMakeFiles/SPL_Compiler.dir/flags.make
 CMakeFiles/SPL_Compiler.dir/prabsyn.c.obj: ../prabsyn.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\54179\CLion Projects\SPL Compiler\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/SPL_Compiler.dir/prabsyn.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\54179\CLion Projects\SPL Compiler\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/SPL_Compiler.dir/prabsyn.c.obj"
 	C:\MinGW\bin\gcc.exe  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\SPL_Compiler.dir\prabsyn.c.obj   -c "C:\Users\54179\CLion Projects\SPL Compiler\prabsyn.c"
 
 CMakeFiles/SPL_Compiler.dir/prabsyn.c.i: cmake_force
@@ -226,7 +250,7 @@ CMakeFiles/SPL_Compiler.dir/prabsyn.c.obj.provides.build: CMakeFiles/SPL_Compile
 
 CMakeFiles/SPL_Compiler.dir/lex.yy.c.obj: CMakeFiles/SPL_Compiler.dir/flags.make
 CMakeFiles/SPL_Compiler.dir/lex.yy.c.obj: ../lex.yy.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\54179\CLion Projects\SPL Compiler\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/SPL_Compiler.dir/lex.yy.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\54179\CLion Projects\SPL Compiler\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/SPL_Compiler.dir/lex.yy.c.obj"
 	C:\MinGW\bin\gcc.exe  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\SPL_Compiler.dir\lex.yy.c.obj   -c "C:\Users\54179\CLion Projects\SPL Compiler\lex.yy.c"
 
 CMakeFiles/SPL_Compiler.dir/lex.yy.c.i: cmake_force
@@ -248,32 +272,9 @@ CMakeFiles/SPL_Compiler.dir/lex.yy.c.obj.provides: CMakeFiles/SPL_Compiler.dir/l
 CMakeFiles/SPL_Compiler.dir/lex.yy.c.obj.provides.build: CMakeFiles/SPL_Compiler.dir/lex.yy.c.obj
 
 
-CMakeFiles/SPL_Compiler.dir/main.cpp.obj: CMakeFiles/SPL_Compiler.dir/flags.make
-CMakeFiles/SPL_Compiler.dir/main.cpp.obj: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\54179\CLion Projects\SPL Compiler\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/SPL_Compiler.dir/main.cpp.obj"
-	C:\MinGW\bin\g++.exe   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\SPL_Compiler.dir\main.cpp.obj -c "C:\Users\54179\CLion Projects\SPL Compiler\main.cpp"
-
-CMakeFiles/SPL_Compiler.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SPL_Compiler.dir/main.cpp.i"
-	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\54179\CLion Projects\SPL Compiler\main.cpp" > CMakeFiles\SPL_Compiler.dir\main.cpp.i
-
-CMakeFiles/SPL_Compiler.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SPL_Compiler.dir/main.cpp.s"
-	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\54179\CLion Projects\SPL Compiler\main.cpp" -o CMakeFiles\SPL_Compiler.dir\main.cpp.s
-
-CMakeFiles/SPL_Compiler.dir/main.cpp.obj.requires:
-
-.PHONY : CMakeFiles/SPL_Compiler.dir/main.cpp.obj.requires
-
-CMakeFiles/SPL_Compiler.dir/main.cpp.obj.provides: CMakeFiles/SPL_Compiler.dir/main.cpp.obj.requires
-	$(MAKE) -f CMakeFiles\SPL_Compiler.dir\build.make CMakeFiles/SPL_Compiler.dir/main.cpp.obj.provides.build
-.PHONY : CMakeFiles/SPL_Compiler.dir/main.cpp.obj.provides
-
-CMakeFiles/SPL_Compiler.dir/main.cpp.obj.provides.build: CMakeFiles/SPL_Compiler.dir/main.cpp.obj
-
-
 # Object files for target SPL_Compiler
 SPL_Compiler_OBJECTS = \
+"CMakeFiles/SPL_Compiler.dir/main.cpp.obj" \
 "CMakeFiles/SPL_Compiler.dir/y.tab.c.obj" \
 "CMakeFiles/SPL_Compiler.dir/table.c.obj" \
 "CMakeFiles/SPL_Compiler.dir/util.c.obj" \
@@ -281,12 +282,12 @@ SPL_Compiler_OBJECTS = \
 "CMakeFiles/SPL_Compiler.dir/absyn.c.obj" \
 "CMakeFiles/SPL_Compiler.dir/errormsg.c.obj" \
 "CMakeFiles/SPL_Compiler.dir/prabsyn.c.obj" \
-"CMakeFiles/SPL_Compiler.dir/lex.yy.c.obj" \
-"CMakeFiles/SPL_Compiler.dir/main.cpp.obj"
+"CMakeFiles/SPL_Compiler.dir/lex.yy.c.obj"
 
 # External object files for target SPL_Compiler
 SPL_Compiler_EXTERNAL_OBJECTS =
 
+SPL_Compiler.exe: CMakeFiles/SPL_Compiler.dir/main.cpp.obj
 SPL_Compiler.exe: CMakeFiles/SPL_Compiler.dir/y.tab.c.obj
 SPL_Compiler.exe: CMakeFiles/SPL_Compiler.dir/table.c.obj
 SPL_Compiler.exe: CMakeFiles/SPL_Compiler.dir/util.c.obj
@@ -295,7 +296,6 @@ SPL_Compiler.exe: CMakeFiles/SPL_Compiler.dir/absyn.c.obj
 SPL_Compiler.exe: CMakeFiles/SPL_Compiler.dir/errormsg.c.obj
 SPL_Compiler.exe: CMakeFiles/SPL_Compiler.dir/prabsyn.c.obj
 SPL_Compiler.exe: CMakeFiles/SPL_Compiler.dir/lex.yy.c.obj
-SPL_Compiler.exe: CMakeFiles/SPL_Compiler.dir/main.cpp.obj
 SPL_Compiler.exe: CMakeFiles/SPL_Compiler.dir/build.make
 SPL_Compiler.exe: CMakeFiles/SPL_Compiler.dir/linklibs.rsp
 SPL_Compiler.exe: CMakeFiles/SPL_Compiler.dir/objects1.rsp
@@ -308,6 +308,7 @@ CMakeFiles/SPL_Compiler.dir/build: SPL_Compiler.exe
 
 .PHONY : CMakeFiles/SPL_Compiler.dir/build
 
+CMakeFiles/SPL_Compiler.dir/requires: CMakeFiles/SPL_Compiler.dir/main.cpp.obj.requires
 CMakeFiles/SPL_Compiler.dir/requires: CMakeFiles/SPL_Compiler.dir/y.tab.c.obj.requires
 CMakeFiles/SPL_Compiler.dir/requires: CMakeFiles/SPL_Compiler.dir/table.c.obj.requires
 CMakeFiles/SPL_Compiler.dir/requires: CMakeFiles/SPL_Compiler.dir/util.c.obj.requires
@@ -316,7 +317,6 @@ CMakeFiles/SPL_Compiler.dir/requires: CMakeFiles/SPL_Compiler.dir/absyn.c.obj.re
 CMakeFiles/SPL_Compiler.dir/requires: CMakeFiles/SPL_Compiler.dir/errormsg.c.obj.requires
 CMakeFiles/SPL_Compiler.dir/requires: CMakeFiles/SPL_Compiler.dir/prabsyn.c.obj.requires
 CMakeFiles/SPL_Compiler.dir/requires: CMakeFiles/SPL_Compiler.dir/lex.yy.c.obj.requires
-CMakeFiles/SPL_Compiler.dir/requires: CMakeFiles/SPL_Compiler.dir/main.cpp.obj.requires
 
 .PHONY : CMakeFiles/SPL_Compiler.dir/requires
 

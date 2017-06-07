@@ -6,8 +6,10 @@
 #define SPL_COMPILER_TYPES_H
 
 #include <list>
-#include <bits/shared_ptr.h>
+#include <memory>
+extern "C" {
 #include "symbol.h"
+};
 
 //type class, represent variable types, used for semant analysing
 
@@ -19,32 +21,32 @@ class Type {
 public:
     Type(TypeKind kind = TypeKind::Nil) : kind(kind) {};
 
-    static std::shared_ptr<Type> getNilType() {
-        return std::shared_ptr<Type>(&NilType);
+    static std::shared_ptr<Type> &getNilType() {
+        return NilType;
     }
 
-    static std::shared_ptr<Type> getBooleanType() {
-        return std::shared_ptr<Type>(&BooleanType);
+    static std::shared_ptr<Type> &getBooleanType() {
+        return BooleanType;
     }
 
-    static std::shared_ptr<Type> getCharType() {
-        return std::shared_ptr<Type>(&CharType);
+    static std::shared_ptr<Type> &getCharType() {
+        return CharType;
     }
 
-    static std::shared_ptr<Type> getIntegerType() {
-        return std::shared_ptr<Type>(&IntegerType);
+    static std::shared_ptr<Type> &getIntegerType() {
+        return IntegerType;
     }
 
-    static std::shared_ptr<Type> getRealType() {
-        return std::shared_ptr<Type>(&RealType);
+    static std::shared_ptr<Type> &getRealType() {
+        return RealType;
     }
 
-    static std::shared_ptr<Type> getVoidType() {
-        return std::shared_ptr<Type>(&VoidType);
+    static std::shared_ptr<Type> &getVoidType() {
+        return VoidType;
     }
 
-    static std::shared_ptr<Type> getStringType() {
-        return std::shared_ptr<Type>(&StringType);
+    static std::shared_ptr<Type> &getStringType() {
+        return StringType;
     }
 
     TypeKind getKind() const {
@@ -54,22 +56,23 @@ public:
 private:
     TypeKind kind;
 
-    static Type NilType;
-    static Type BooleanType;
-    static Type CharType;
-    static Type IntegerType;
-    static Type RealType;
-    static Type VoidType;
-    static Type StringType;
+    static std::shared_ptr<Type> NilType;
+    static std::shared_ptr<Type> BooleanType;
+    static std::shared_ptr<Type> CharType;
+    static std::shared_ptr<Type> IntegerType;
+    static std::shared_ptr<Type> RealType;
+    static std::shared_ptr<Type> VoidType;
+    static std::shared_ptr<Type> StringType;
 };
 
-Type Type::NilType{TypeKind::Nil};
-Type Type::BooleanType{TypeKind::Boolean};
-Type Type::CharType{TypeKind::Char};
-Type Type::IntegerType{TypeKind::Integer};
-Type Type::RealType{TypeKind::Real};
-Type Type::VoidType{TypeKind::Void};
-Type Type::StringType{TypeKind::String};
+std::shared_ptr<Type> Type::NilType(new Type(TypeKind::Nil));
+std::shared_ptr<Type> Type::BooleanType(new Type(TypeKind::Boolean));
+std::shared_ptr<Type> Type::CharType(new Type(TypeKind::Char));
+std::shared_ptr<Type> Type::IntegerType(new Type(TypeKind::Integer));
+std::shared_ptr<Type> Type::RealType(new Type(TypeKind::Real));
+std::shared_ptr<Type> Type::VoidType(new Type(TypeKind::Void));
+std::shared_ptr<Type> Type::StringType(new Type(TypeKind::String));
+
 
 class ArrayType : public Type {
 public:

@@ -15,6 +15,7 @@
  * symbol.h - Symbols and symbol-tables
  *
  */
+#include "util.h"
 
 typedef struct S_symbol_ *S_symbol;
 
@@ -48,7 +49,7 @@ void S_beginScope(S_table t);
  and end the current scope. */
 void S_endScope(S_table t);
 
-static int S_compare(S_symbol a, S_symbol b);
+int S_compare(S_symbol a, S_symbol b);
 #endif
 
 

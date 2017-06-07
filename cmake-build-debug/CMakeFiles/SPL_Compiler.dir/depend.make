@@ -50,4 +50,5 @@ CMakeFiles/SPL_Compiler.dir/main.cpp.obj: ../semant.hpp
 CMakeFiles/SPL_Compiler.dir/main.cpp.obj: ../symbol.h
 CMakeFiles/SPL_Compiler.dir/main.cpp.obj: ../types.hpp
 CMakeFiles/SPL_Compiler.dir/main.cpp.obj: ../util.h
+CMakeFiles/SPL_Compiler.dir/main.cpp.obj: ../y.tab.h
 

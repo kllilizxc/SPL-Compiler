@@ -217,4 +217,5 @@ typedef union YYSTYPE
 #endif
 
 extern YYSTYPE yylval;
+extern int yyparse (void);
 

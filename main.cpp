@@ -1,11 +1,16 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include "string.h"
+#include "env.hpp"
+#include "semant.hpp"
+#include <string>
+#include <cstring>
+
+extern "C" {
 #include "util.h"
-#include "symbol.h"
 #include "absyn.h"
 #include "errormsg.h"
 #include "prabsyn.h"
+#include "y.tab.h"
+}
 
 extern int yyparse(void);
 extern A_pro absyn_root;
@@ -22,7 +27,7 @@ A_pro parse(string fname)
 int main(){
     int i;
     FILE *out;
-    string fnamepart[31]=
+    std::string fnamepart[31]=
     {
         "sample1",
         "sample2",
@@ -59,18 +64,22 @@ int main(){
     
     for(i = 0; i < 31; ++i)
     {
-        char fname[30] = "./testcase/", fout[30] = "./refs/";
-        strcat(fname, fnamepart[i]);
+        char fname[30] = "../testcase/", fout[30] = "../refs/";
+        strcat(fname, fnamepart[i].data());
         strcat(fname, ".spl");
         parse(fname);
         
-        strcat(fout, fnamepart[i]);
+        strcat(fout, fnamepart[i].data());
         strcat(fout, ".out");
         out = fopen(fout, "w");
         pr_pro(out,absyn_root,0);
         fprintf(out,"\n");
         fclose(out);
         //semant
+        S_table vEnv = EnvironmentEntry::enterBaseValueEnvironment();
+        S_table tEnv = EnvironmentEntry::enterBaseTypeEnvironment();
+        printf("analysing %s\n", fname);
+        Semant::translateProgram(vEnv, tEnv, absyn_root);
 
         absyn_root = NULL;
     }

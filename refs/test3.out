@@ -337,7 +337,7 @@
 
         ProcStmt : 
           Func : 
-          mpreParams
+          moreParams
           ArgsList : 
            ConstExp : 
             Int : 

@@ -42,7 +42,7 @@ end
 
 begin
 	progo(10);
-	mpreParams(1,2,3,4,5,6);
+	moreParams(1,2,3,4,5,6);
 end
 .
 

@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/SPL_Compiler.dir/main.cpp.obj"
   "CMakeFiles/SPL_Compiler.dir/y.tab.c.obj"
   "CMakeFiles/SPL_Compiler.dir/table.c.obj"
   "CMakeFiles/SPL_Compiler.dir/util.c.obj"
@@ -7,7 +8,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/SPL_Compiler.dir/errormsg.c.obj"
   "CMakeFiles/SPL_Compiler.dir/prabsyn.c.obj"
   "CMakeFiles/SPL_Compiler.dir/lex.yy.c.obj"
-  "CMakeFiles/SPL_Compiler.dir/main.cpp.obj"
   "SPL_Compiler.pdb"
   "SPL_Compiler.exe"
   "SPL_Compiler.exe.manifest"

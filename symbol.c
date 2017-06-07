@@ -37,7 +37,7 @@ static int streq(string a, string b)
     return !strcmp(a,b);
 }
 
-static int S_compare(S_symbol a, S_symbol b) {
+int S_compare(S_symbol a, S_symbol b) {
     return streq(a->name, b->name);
 }
 
