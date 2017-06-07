@@ -1,0 +1,10 @@
+/*超出定义范围*/
+program hello;
+var
+	simplevar : 1 .. 10;
+
+
+begin
+	simplevar := 11;	
+end
+.

@@ -1,0 +1,13 @@
+/*比较类型不一致*/
+program hello;
+var
+	a : boolean;
+
+begin
+	a := 1 > "12";
+
+end
+.
+
+
+

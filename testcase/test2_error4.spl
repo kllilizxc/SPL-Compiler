@@ -1,0 +1,10 @@
+/*变量arrayvar不是数组*/
+program hello;
+var
+	arrayvar : integer;
+
+
+begin
+	arrayvar[1] := 1;
+end
+.

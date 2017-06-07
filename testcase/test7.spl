@@ -1,0 +1,20 @@
+/*
+	1.while语句
+*/
+program hello;
+var
+	i : integer;
+
+begin
+	i := 5;
+	while i>0 do
+	begin
+	i := i - 1;
+	writeln(i);
+	end;
+
+end
+.
+
+
+

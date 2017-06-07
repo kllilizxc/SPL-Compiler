@@ -1,0 +1,8 @@
+/*数组arrayvar越界*/
+program hello;
+var
+	arrayvar : array [1 .. 10] of integer;
+begin
+	arrayvar[11] := 1;
+end
+.

@@ -81,8 +81,8 @@ reserverSYSTYPE boolean|char|integer|real|string
 <INITINAL>")"  {adjust(); return RP;}
 <INITINAL>"["  {adjust(); return LB;}
 <INITINAL>"]"  {adjust(); return RB;}
-<INITINAL>"."  {adjust(); return DOT;}
 <INITINAL>".."  {adjust(); return DOTDOT;}
+<INITINAL>"."  {adjust(); return DOT;}
 <INITINAL>"+"  {adjust(); return PLUS;}
 <INITINAL>"-"  {adjust(); return MINUS;}
 <INITINAL>"*"  {adjust(); return MUL;}
@@ -172,7 +172,7 @@ reserverSYSTYPE boolean|char|integer|real|string
   return CHAR;
   }
 }       
-<INITINAL>{digits} {adjust(); yylval.ival=atoi(yytext); return INTEGER;}
+<INITINAL>{digits} {adjust(); yylval.ival=atoi(yytext);return INTEGER;}
 <INITINAL>[0-9]*\.?[0-9]+ {adjust(); yylval.fval=atof(yytext); return REAL;}
 
 <INITINAL>(" "|"\t")+  {adjust(); continue;} 

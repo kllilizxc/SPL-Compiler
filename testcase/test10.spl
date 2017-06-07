@@ -1,0 +1,23 @@
+/*
+	1.逻辑与或运算 c = false; d = true;
+	2.乘除加减取余运算 a = 3; b = -9.28 ; e = 2;
+*/
+program hello;
+var
+	a : integer;
+	b : real;
+	c : boolean;
+	d : boolean;
+	e : integer;
+
+begin
+	a := (-1 + 2) * 4 + 4 / 2 - 3;
+	b := -3.5 - 5.78;
+	c := 1 = 1 and 0;
+	d := 1 or 0;
+	e := 4 mod 2;
+end
+.
+
+
+

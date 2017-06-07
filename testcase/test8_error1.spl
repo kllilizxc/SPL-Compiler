@@ -1,0 +1,13 @@
+/*3 to 1 报错*/
+program hello;
+var
+	index : integer;
+
+begin
+	for index := 3 to 1 do
+		writeln(index);
+end
+.
+
+
+

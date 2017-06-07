@@ -127,6 +127,7 @@ static void pr_dec(FILE *out, A_dec v, int d)
             indent(out, d+1);
             fprintf(out, "%s\n", S_name(v->u.type.name));
             pr_ty(out, v->u.type.ty, d+1);
+            break;
         case A_routineDec:
             fprintf(out, "routineDec : \n");
             indent(out, d+1);
@@ -136,6 +137,7 @@ static void pr_dec(FILE *out, A_dec v, int d)
             pr_fieldList(out, v->u.routine.params, d+3); fprintf(out, "\n");
             pr_simpleTy(out, v->u.routine.simplety, d+2); fprintf(out, "\n");
             pr_routine(out, v->u.routine.subroutine, d+2);
+            break;
         default:
             break;
     }
@@ -240,37 +242,44 @@ static void pr_ty(FILE *out, A_ty v, int d)
 }
 static void pr_simpleTy(FILE *out, A_simpleTy v, int d)
 {
-    indent(out, d);
-    switch (v->kind) {
-        case A_sysTy:
+    if(v)
+    {
+        indent(out, d);
+        switch (v->kind) {
+            case A_sysTy:
             fprintf(out, "SysTy : \n");
             indent(out, d+1);
             fprintf(out, "%s\n", S_name(v->u.systy));
             break;
-        case A_singleTy:
+            case A_singleTy:
             fprintf(out, "SingleTy : \n");
             indent(out, d+1);
             fprintf(out, "%s\n", S_name(v->u.single));
             break;
-        case A_doubleCTy:
+            case A_doubleCTy:
             fprintf(out, "doubleCTy : \n");
             pr_exp(out, v->u.doubleC.left, d+1); fprintf(out, "\n");
             pr_exp(out, v->u.doubleC.right, d+1);
             break;
-        case A_doubleNTy:
+            case A_doubleNTy:
             fprintf(out, "doubleNTy : \n");
             indent(out, d+1);
-            fprintf(out, "%s\n", S_name(v->u.doubleN.left));
+            fprintf(out, "%s\n", S_name(v->u.doubleN.left));fprintf(out, "\n");
+            indent(out, d+1);
             fprintf(out, "%s\n", S_name(v->u.doubleN.right));
             break;
-        case A_listTy:
+            case A_listTy:
             fprintf(out, "ListTy : \n");
             indent(out, d+1);
             fprintf(out, "NameList : \n");
             pr_nameList(out, v->u.nameList, d+1);
-        default:
             break;
+            default:
+            break;
+        }
     }
+    else
+        fprintf(out, "\n");
 }
 static void pr_routineBody(FILE *out, A_routineBody v, int d)
 {
@@ -305,12 +314,17 @@ static void pr_var(FILE *out, A_var v, int d)
             fprintf(out, "FieldVar : \n");
             indent(out, d+1);
             fprintf(out, "%s\n", S_name(v->u.field.var));
+            indent(out, d+1);
             fprintf(out, "%s\n", S_name(v->u.field.sym));
             break;
         case A_subscriptVar:
             fprintf(out, "Subscriptvar : \n");
-            indent(out, d+1);
-            fprintf(out, "%s\n", S_name(v->u.subscript.var));
+            if(v->u.subscript.var)
+            {
+                indent(out, d+1);
+                fprintf(out, "%s\n", S_name(v->u.subscript.var));
+            }
+            else
             pr_exp(out, v->u.subscript.exp, d+1);
             break;
         default:
@@ -320,40 +334,42 @@ static void pr_var(FILE *out, A_var v, int d)
 }
 static void pr_stmt(FILE *out, A_stmt v, int d)
 {
-    indent(out, d);
-    switch (v->kind) {
-        case A_labelStmt:
+    if(v)
+    {
+        indent(out, d);
+        switch (v->kind) {
+            case A_labelStmt:
             fprintf(out, "LabelStmt : \n");
             pr_const(out, v->u.label.label, d+1); fprintf(out, "\n");
             pr_stmt(out, v->u.label.stmt, d+1);
             break;
-        case A_assignStmt:
+            case A_assignStmt:
             fprintf(out, "AssignStmt : \n");
             pr_var(out, v->u.assign.var, d+1); fprintf(out, "\n");
             pr_exp(out, v->u.assign.exp, d+1);
             break;
-        case A_procStmt:
+            case A_procStmt:
             fprintf(out, "ProcStmt : \n");
             pr_proc(out, v->u.proc, d+1);
             break;
-        case A_ifStmt:
+            case A_ifStmt:
             fprintf(out, "IfStmt : \n");
             pr_exp(out, v->u.iff.test, d+1); fprintf(out, "\n");
             pr_stmt(out, v->u.iff.then, d+1); fprintf(out, "\n");
             pr_stmt(out, v->u.iff.elsee, d+1);
             break;
-        case A_whileStmt:
+            case A_whileStmt:
             fprintf(out, "WhileStmt : \n");
             pr_exp(out, v->u.whilee.test, d+1); fprintf(out, "\n");
             pr_stmt(out, v->u.whilee.whilee, d+1);
             break;
-        case A_repeatStmt:
+            case A_repeatStmt:
             fprintf(out, "RepeatStmt : \n");
             pr_exp(out, v->u.repeat.test, d+1); fprintf(out, "\n");
             fprintf(out, "StmtList : \n");
             pr_stmtList(out, v->u.repeat.repeat, d+1);
             break;
-        case A_forStmt:
+            case A_forStmt:
             fprintf(out, "forStmt : \n");
             indent(out, d+1);
             fprintf(out, "%s\n", S_name(v->u.forr.var));
@@ -361,25 +377,29 @@ static void pr_stmt(FILE *out, A_stmt v, int d)
             pr_exp(out, v->u.forr.change, d+1); fprintf(out, "\n");
             pr_stmt(out, v->u.forr.fordo, d+1);
             break;
-        case A_caseStmt:
-            fprintf(out, "forStmt : \n");
+            case A_caseStmt:
+            fprintf(out, "caseStmt : \n");
             pr_exp(out, v->u.casee.test, d+1); fprintf(out, "\n");
+            indent(out, d);
             fprintf(out, "CaseList : \n");
             pr_caseList(out, v->u.casee.caselist, d+1);
             break;
-        case A_gotoStmt:
+            case A_gotoStmt:
             fprintf(out, "GotoStmt : \n");
             pr_const(out, v->u.gotoo.des, d+1);
             break;
-        case A_compoundStmt:
+            case A_compoundStmt:
             fprintf(out, "CompoundStmt : \n");
             indent(out, d+1);
             fprintf(out, "StmtList : \n");
             pr_stmtList(out, v->u.compound.substmtList, d+1);
             break;
-        default:
+            default:
             break;
+        }
     }
+    else
+        fprintf(out, "\n");
     
 }
 static void pr_proc(FILE *out, A_proc v, int d)
@@ -411,7 +431,7 @@ static void pr_caseList(FILE *out, A_caseList v, int d)
 {
     if(v)
     {
-        pr_case(out, v->head, d+1);
+        pr_case(out, v->head, d+1);fprintf(out, "\n");
         pr_caseList(out, v->tail, d+1);
     }
     else
@@ -421,8 +441,13 @@ static void pr_case(FILE *out, A_case v, int d)
 {
     indent(out, d);
     fprintf(out, "Case : \n");
-    pr_const(out, v->constValue, d+1); fprintf(out, "\n");
-    fprintf(out, "%s\n", S_name(v->name));
+    if(v->name)
+    {
+        indent(out, d);
+        fprintf(out, "%s\n", S_name(v->name));
+    }
+    else
+        pr_const(out, v->constValue, d+1); fprintf(out, "\n");
     pr_stmt(out, v->casee, d+1);
 }
 

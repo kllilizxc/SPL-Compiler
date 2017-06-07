@@ -1,0 +1,14 @@
+/*for to 两者类型不统一*/
+program hello;
+var
+	index : integer;
+
+begin
+	for index := 3 downto "10" do
+		writeln(index);
+
+end
+.
+
+
+

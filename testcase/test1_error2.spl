@@ -1,0 +1,6 @@
+/* 变量h未定义 */ 
+program hello;
+begin
+	h := 3;
+end
+.

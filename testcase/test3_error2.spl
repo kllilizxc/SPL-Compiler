@@ -1,0 +1,18 @@
+/*函数参数类型不一致*/
+program hello;
+var
+	i : integer;
+
+function go(a : integer): integer;
+begin
+	go := 1;
+end
+;
+
+begin
+	i := go("123");
+end
+.
+
+
+

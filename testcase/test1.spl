@@ -1,0 +1,18 @@
+/*
+	1. 常量定义
+	2. 赋值语句
+*/ 
+program hello;
+const
+	a = 1;
+	b = 1.01;
+	c = "abcd";
+	d = 'c';
+	e = true;
+	f = false;
+	g = maxint;
+
+begin
+	wirteln(a,b,c,d,e);
+end
+.

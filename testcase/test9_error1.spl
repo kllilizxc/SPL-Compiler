@@ -1,0 +1,18 @@
+/*case类型不匹配*/
+program hello;
+const
+	s2 = "s2";
+var
+	i : string;
+
+begin
+	case i of
+	1: writeln(i);
+	2: writeln(i);
+	end;
+
+end
+.
+
+
+

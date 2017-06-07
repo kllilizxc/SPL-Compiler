@@ -139,8 +139,8 @@ simple_type_decl : SYS_TYPE  {$$ = A_SysTy(EM_tokPos, S_Symbol($1));}
                  | ID {$$ = A_SingleTy(EM_tokPos, S_Symbol($1));}
                  | LP name_list RP  {$$ = A_ListTy(EM_tokPos, $2);}
                  | literalExp DOTDOT literalExp  {$$ = A_DoubleCTy(EM_tokPos, $1, $3);}
-                 | MINUS literalExp DOTDOT literalExp  {$$ = A_DoubleCTy(EM_tokPos, A_OpExp(EM_tokPos, A_minusOp, A_ConstExp(EM_tokPos, 0), $2), $4);}
-                 | MINUS literalExp DOTDOT MINUS literalExp  {$$ = A_DoubleCTy(EM_tokPos, A_OpExp(EM_tokPos, A_minusOp, A_ConstExp(EM_tokPos, 0), $2), A_OpExp(EM_tokPos, A_minusOp, A_ConstExp(EM_tokPos, 0), $5));}
+                 | MINUS literalExp DOTDOT literalExp  {$$ = A_DoubleCTy(EM_tokPos, A_OpExp(EM_tokPos, A_minusOp, A_ConstExp(EM_tokPos, A_Int(EM_tokPos,0)), $2), $4);}
+                 | MINUS literalExp DOTDOT MINUS literalExp  {$$ = A_DoubleCTy(EM_tokPos, A_OpExp(EM_tokPos, A_minusOp, A_ConstExp(EM_tokPos, A_Int(EM_tokPos,0)), $2), A_OpExp(EM_tokPos, A_minusOp, A_ConstExp(EM_tokPos, A_Int(EM_tokPos,0)), $5));}
                  | ID DOTDOT ID {$$ = A_DoubleNTy(EM_tokPos, S_Symbol($1), S_Symbol($3));}
 
 array_type_decl : ARRAY  LB  simple_type_decl  RB  OF  type_decl {$$ = A_ArrayTy(EM_tokPos, $3, $6);}
@@ -225,8 +225,8 @@ proc_stmt : ID {$$ = A_Func(EM_tokPos, S_Symbol($1), NULL);}
           | SYS_PROC {$$ = A_SysProc(EM_tokPos, S_Symbol($1), NULL);}
           | SYS_PROC LP exp_list RP {$$ = A_SysProc(EM_tokPos, S_Symbol($1), $3);}
 
-if_stmt : IF exp THEN stmt {$$ = A_IfStmt(EM_tokPos, $2, $4, NULL);}
-        | IF exp THEN stmt ELSE stmt {$$ = A_IfStmt(EM_tokPos, $2, $4, $6);}
+if_stmt : IF exp THEN stmt ELSE stmt {$$ = A_IfStmt(EM_tokPos, $2, $4, $6);}
+        | IF exp THEN stmt {$$ = A_IfStmt(EM_tokPos, $2, $4, NULL);}
 
 repeat_stmt : REPEAT stmt_list UNTIL exp {$$ = A_RepeatStmt(EM_tokPos, $4, $2);}
 
@@ -272,7 +272,7 @@ arithmeticExp : exp PLUS exp {$$ = A_OpExp(EM_tokPos, A_plusOp, $1, $3);}
               | exp MOD exp {$$ = A_OpExp(EM_tokPos, A_modOp, $1, $3);}
               | exp MUL exp {$$ = A_OpExp(EM_tokPos, A_timesOp, $1, $3);}
               | exp DIV exp {$$ = A_OpExp(EM_tokPos, A_divideOp, $1, $3);}
-              | MINUS exp %prec UMINUS {$$ = A_OpExp(EM_tokPos, A_minusOp, A_ConstExp(EM_tokPos, 0), $2);}
+              | MINUS exp %prec UMINUS {$$ = A_OpExp(EM_tokPos, A_minusOp, A_ConstExp(EM_tokPos, A_Int(EM_tokPos,0)), $2);}
 
 
 comparisonExp : exp EQUAL exp {$$ = A_OpExp(EM_tokPos, A_eqOp, $1, $3);}

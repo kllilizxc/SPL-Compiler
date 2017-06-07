@@ -371,10 +371,10 @@ static yyconst flex_int16_t yy_accept[215] =
     {   0,
         0,    0,    0,    0,    0,    0,   72,   70,   71,   69,
        67,   68,   69,   69,   41,   42,   49,   47,   38,   48,
-       45,   50,   65,   39,   40,   53,   51,   55,   62,   43,
+       46,   50,   65,   39,   40,   53,   51,   55,   62,   43,
        44,   62,   62,   62,   62,   62,   62,   62,   62,   62,
        62,   62,   62,   62,   62,   62,   62,   62,   62,   62,
-        3,    4,    3,   67,    0,   63,    0,    0,    0,   46,
+        3,    4,    3,   67,    0,   63,    0,    0,    0,   45,
        66,    1,    0,   65,   57,   54,   52,   56,   62,   62,
        62,   62,   62,   62,   62,   62,   62,   62,   19,   62,
        62,   62,   62,   62,   62,   16,   10,   62,   62,   62,
@@ -1108,12 +1108,12 @@ YY_RULE_SETUP
 case 45:
 YY_RULE_SETUP
 #line 84 "spl.lex"
-{adjust(); return DOT;}
+{adjust(); return DOTDOT;}
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
 #line 85 "spl.lex"
-{adjust(); return DOTDOT;}
+{adjust(); return DOT;}
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
@@ -1273,7 +1273,7 @@ YY_RULE_SETUP
 case 65:
 YY_RULE_SETUP
 #line 175 "spl.lex"
-{adjust(); yylval.ival=atoi(yytext); return INTEGER;}
+{adjust(); yylval.ival=atoi(yytext);return INTEGER;}
 	YY_BREAK
 case 66:
 YY_RULE_SETUP

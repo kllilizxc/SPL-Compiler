@@ -1,0 +1,9 @@
+/* 常量a不能修改 */ 
+program hello;
+const
+	a = 1;
+
+begin
+	a := 2;
+end
+.

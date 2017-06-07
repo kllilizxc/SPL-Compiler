@@ -1,0 +1,46 @@
+/*
+	1. 类型定义
+	2. 变量定义 
+  	3. for语句
+  	4. writeln函数和write函数
+*/
+program hello;
+const
+	  left = 1;
+	  right = 5;
+type
+	simplety1 = integer;
+	simplety2 = (January, February, March, April, May, June, July, August, September, October, November, December);
+	simplety3 = 1 .. 10;
+	simplety4 = -1 .. -10;
+	simplety5 = left .. right;
+	arrayty = array [1 .. 10] of integer;
+	recordty = record a,b,c : integer; d,e : char; end;
+var
+	simplevar1 : simplety1;
+	simplevar2 : simplety2;
+	simplevar3 : simplety3;
+	simplevar4 : simplety4;
+	simplevar5 : simplety5;
+	arrayvar: arrayty;
+	recordvar: recordty;
+
+begin
+	simplevar1 := 1;
+	simplevar2 := January;
+	simplevar3 := 3;
+	simplevar4 := -11;
+	simplevar5 := 3;
+
+	for i:= 1 to 10 do
+	begin
+		arrayvar[i] := i;
+		writeln(arrayvar[i]);
+	end
+	;
+
+	recordvar.a := 2;
+	write(recordvar.a);
+	
+end
+.

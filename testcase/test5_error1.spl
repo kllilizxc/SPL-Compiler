@@ -1,0 +1,12 @@
+/*输入类型与实际类型不符合*/
+program hello;
+var
+	i : integer;
+
+begin
+	read(i);
+end
+.
+
+
+

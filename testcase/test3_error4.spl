@@ -1,0 +1,24 @@
+/*函数相互调用*/
+program hello;
+var
+	i : integer;
+
+function goleft(a : integer): integer;
+begin
+	goleft := goright(a);
+end
+;
+
+function goright(a : integer): integer;
+begin
+	goright := left(a);
+end
+;
+
+begin
+	i := goleft(1);
+end
+.
+
+
+

@@ -1,0 +1,50 @@
+/*
+	1. function定义，有返回值
+	2. procedure定义，无返回值 多参数情况
+	3. if语句 缺少else匹配
+	4. compound语句
+	5. proc语句
+*/
+program hello;
+var
+	i : integer;
+
+function go(a : integer): integer;
+begin
+	if a = 1 then
+	begin
+		if a = 2 then
+		begin
+			go := 1;
+		end
+		else
+		begin
+			go := go(a - 1) + go(a - 2);
+		end
+		;
+	end
+	;
+end
+;
+
+procedure progo(a : integer);
+begin
+	i := go(a);
+	writeln(i);
+end
+;
+
+procedure moreParams(a,b,c : integer ; var d,e,f : integer);
+begin
+	writeln(a,b,c,d,e,f);
+end
+;
+
+begin
+	progo(10);
+	mpreParams(1,2,3,4,5,6);
+end
+.
+
+
+

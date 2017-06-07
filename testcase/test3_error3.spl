@@ -1,0 +1,18 @@
+/*procedure无返回值*/
+program hello;
+var
+	i : integer;
+
+procedure go(a : integer);
+begin
+	i := 1;
+end
+;
+
+begin
+	i := go(1);
+end
+.
+
+
+

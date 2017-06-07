@@ -1,0 +1,9 @@
+/*recordvar中b的值未初始化*/
+program hello;
+var
+	recordvar : record a,b,c : integer; end; 
+
+begin
+	recordvar.a := recordvar.b;
+end
+.

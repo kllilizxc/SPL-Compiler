@@ -1,0 +1,13 @@
+/*除数不能为0*/
+program hello;
+var
+	a : integer;
+
+begin
+	a := 1/0;
+
+end
+.
+
+
+

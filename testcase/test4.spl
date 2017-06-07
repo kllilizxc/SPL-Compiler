@@ -1,0 +1,21 @@
+/*
+	1.label语句
+	2.goto语句 输出i为1
+*/
+program hello;
+var
+	i : integer;
+
+begin
+1:
+	i := 1;
+	goto 3;
+2:
+	i := 2; 
+3:   
+	writeln(i);
+end
+.
+
+
+

@@ -1,0 +1,14 @@
+/*无法定位goto的label*/
+program hello;
+var
+	i : integer;
+
+begin
+1:
+	i := 1;
+	goto 3;
+end
+.
+
+
+

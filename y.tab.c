@@ -572,7 +572,7 @@ static const yytype_uint16 yyprhs[] =
      146,   155,   162,   163,   167,   169,   173,   177,   181,   184,
      186,   188,   192,   193,   197,   199,   203,   205,   207,   209,
      211,   213,   215,   217,   219,   221,   225,   232,   238,   240,
-     245,   247,   252,   257,   264,   269,   274,   283,   292,   298,
+     245,   247,   252,   259,   264,   269,   274,   283,   292,   298,
      300,   303,   308,   313,   316,   318,   320,   324,   326,   328,
      330,   332,   334,   336,   338,   340,   344,   349,   353,   355,
      359,   363,   367,   371,   375,   378,   382,   386,   390,   394,
@@ -607,8 +607,8 @@ static const yytype_int8 yyrhs[] =
       -1,     3,    35,   117,    -1,     3,    17,   117,    18,    35,
      117,    -1,     3,    19,     3,    35,   117,    -1,     3,    -1,
        3,    15,   115,    16,    -1,     6,    -1,     6,    15,   116,
-      16,    -1,    39,   117,    40,   103,    -1,    39,   117,    40,
-     103,    41,   103,    -1,    57,   102,    59,   117,    -1,    42,
+      16,    -1,    39,   117,    40,   103,    41,   103,    -1,    39,
+     117,    40,   103,    -1,    57,   102,    59,   117,    -1,    42,
      117,    47,   103,    -1,    43,     3,    35,   117,    44,   117,
       47,   103,    -1,    43,     3,    35,   117,    45,   117,    47,
      103,    -1,    38,   117,    51,   112,    50,    -1,   113,    -1,
@@ -719,7 +719,7 @@ static const yytype_uint8 yyr2[] =
        8,     6,     0,     3,     1,     3,     3,     3,     2,     1,
        1,     3,     0,     3,     1,     3,     1,     1,     1,     1,
        1,     1,     1,     1,     1,     3,     6,     5,     1,     4,
-       1,     4,     4,     6,     4,     4,     8,     8,     5,     1,
+       1,     4,     6,     4,     4,     4,     8,     8,     5,     1,
        2,     4,     4,     2,     1,     1,     3,     1,     1,     1,
        1,     1,     1,     1,     1,     3,     4,     3,     1,     3,
        3,     3,     3,     3,     2,     3,     3,     3,     3,     3,
@@ -746,12 +746,12 @@ static const yytype_uint8 yydefact[] =
       40,    41,     0,     0,     4,    45,    46,    47,    79,     0,
        0,     0,    81,     0,     0,   107,     0,   105,   109,   110,
      112,   113,   111,   116,   120,   119,   117,   118,   122,   123,
-       0,     0,     0,    89,   115,    82,    85,     0,    84,    10,
+       0,     0,     0,    89,   115,    83,    85,     0,    84,    10,
       25,    24,     0,     0,     0,     0,     0,    21,    22,    23,
        0,     0,     0,    42,    52,    52,    48,    49,    96,     0,
       77,   125,   106,   124,     0,     0,    88,    90,     0,     0,
        0,     0,     0,     0,     0,     0,    33,     0,    20,     0,
-       0,    37,     0,     0,     0,    76,     0,     0,    83,     0,
+       0,    37,     0,     0,     0,    76,     0,     0,    82,     0,
        0,    30,    26,     0,     0,    32,    34,     0,    27,    43,
        0,    59,     0,    54,     0,     0,     5,     0,    92,    91,
        0,     0,     0,    28,     0,     0,    58,    53,     0,     0,
@@ -1894,12 +1894,12 @@ yyreduce:
 
   case 28:
 #line 142 "spl.y"
-    {(yyval.simpleTy) = A_DoubleCTy(EM_tokPos, A_OpExp(EM_tokPos, A_minusOp, A_ConstExp(EM_tokPos, 0), (yyvsp[(2) - (4)].exp)), (yyvsp[(4) - (4)].exp));}
+    {(yyval.simpleTy) = A_DoubleCTy(EM_tokPos, A_OpExp(EM_tokPos, A_minusOp, A_ConstExp(EM_tokPos, A_Int(EM_tokPos,0)), (yyvsp[(2) - (4)].exp)), (yyvsp[(4) - (4)].exp));}
     break;
 
   case 29:
 #line 143 "spl.y"
-    {(yyval.simpleTy) = A_DoubleCTy(EM_tokPos, A_OpExp(EM_tokPos, A_minusOp, A_ConstExp(EM_tokPos, 0), (yyvsp[(2) - (5)].exp)), A_OpExp(EM_tokPos, A_minusOp, A_ConstExp(EM_tokPos, 0), (yyvsp[(5) - (5)].exp)));}
+    {(yyval.simpleTy) = A_DoubleCTy(EM_tokPos, A_OpExp(EM_tokPos, A_minusOp, A_ConstExp(EM_tokPos, A_Int(EM_tokPos,0)), (yyvsp[(2) - (5)].exp)), A_OpExp(EM_tokPos, A_minusOp, A_ConstExp(EM_tokPos, A_Int(EM_tokPos,0)), (yyvsp[(5) - (5)].exp)));}
     break;
 
   case 30:
@@ -2164,12 +2164,12 @@ yyreduce:
 
   case 82:
 #line 228 "spl.y"
-    {(yyval.stmt) = A_IfStmt(EM_tokPos, (yyvsp[(2) - (4)].exp), (yyvsp[(4) - (4)].stmt), NULL);}
+    {(yyval.stmt) = A_IfStmt(EM_tokPos, (yyvsp[(2) - (6)].exp), (yyvsp[(4) - (6)].stmt), (yyvsp[(6) - (6)].stmt));}
     break;
 
   case 83:
 #line 229 "spl.y"
-    {(yyval.stmt) = A_IfStmt(EM_tokPos, (yyvsp[(2) - (6)].exp), (yyvsp[(4) - (6)].stmt), (yyvsp[(6) - (6)].stmt));}
+    {(yyval.stmt) = A_IfStmt(EM_tokPos, (yyvsp[(2) - (4)].exp), (yyvsp[(4) - (4)].stmt), NULL);}
     break;
 
   case 84:
@@ -2324,7 +2324,7 @@ yyreduce:
 
   case 114:
 #line 275 "spl.y"
-    {(yyval.exp) = A_OpExp(EM_tokPos, A_minusOp, A_ConstExp(EM_tokPos, 0), (yyvsp[(2) - (2)].exp));}
+    {(yyval.exp) = A_OpExp(EM_tokPos, A_minusOp, A_ConstExp(EM_tokPos, A_Int(EM_tokPos,0)), (yyvsp[(2) - (2)].exp));}
     break;
 
   case 115:

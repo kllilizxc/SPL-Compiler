@@ -1,0 +1,20 @@
+/*
+	1.case语句
+*/
+program hello;
+const
+	s2 = "s2";
+var
+	i : string;
+
+begin
+	case i of
+	"s1": writeln(i);
+	s2: writeln(i);
+	end;
+
+end
+.
+
+
+

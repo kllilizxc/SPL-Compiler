@@ -1,0 +1,15 @@
+/*
+	1. read函数
+*/
+program hello;
+var
+	i : integer;
+
+begin
+	read(i);
+	writeln(i);
+end
+.
+
+
+

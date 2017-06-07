@@ -1,0 +1,16 @@
+/*
+	1.for语句
+*/
+program hello;
+var
+	index : integer;
+
+begin
+	for index := 3 downto 1 do
+		writeln(index);
+
+end
+.
+
+
+
