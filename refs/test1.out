@@ -1,0 +1,80 @@
+ pro(hello)
+  routine : 
+   routineHead : 
+    labelPart : 
+     
+    constPart : 
+     decList : 
+       constDec : 
+        a
+        Int : 
+         1
+
+        constDec : 
+         b
+         Real : 
+          1.010000
+
+         constDec : 
+          c
+          String : 
+           abcd
+
+          constDec : 
+           d
+           Char : 
+            c
+
+           constDec : 
+            e
+            Syscon : 
+             true
+
+            constDec : 
+             f
+             Syscon : 
+              false
+
+             constDec : 
+              g
+              Syscon : 
+               maxint
+
+
+    typePart : 
+     
+    varPart : 
+     
+    routinePart : 
+     
+
+   routineBody : 
+    CompoundStmt : 
+     StmtList : 
+      LabelStmt : 
+       Int : 
+        -1
+
+       ProcStmt : 
+         Func : 
+         wirteln
+         ArgsList : 
+          VarExp : 
+           simpleVar : 
+            a
+           VarExp : 
+            simpleVar : 
+             b
+            VarExp : 
+             simpleVar : 
+              c
+             VarExp : 
+              simpleVar : 
+               d
+              VarExp : 
+               simpleVar : 
+                e
+
+
+
+

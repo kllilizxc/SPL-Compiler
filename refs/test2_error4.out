@@ -1,0 +1,43 @@
+ pro(hello)
+  routine : 
+   routineHead : 
+    labelPart : 
+     
+    constPart : 
+     
+    typePart : 
+     
+    varPart : 
+     decList : 
+       varDec : 
+        Field : 
+         NameList : 
+          Name : arrayvar
+
+
+         Type : 
+          SimpleTy : 
+           SysTy : 
+            integer
+
+
+    routinePart : 
+     
+
+   routineBody : 
+    CompoundStmt : 
+     StmtList : 
+      LabelStmt : 
+       Int : 
+        -1
+
+       AssignStmt : 
+        Subscriptvar : 
+         arrayvar
+
+        ConstExp : 
+         Int : 
+          1
+
+
+

@@ -1,0 +1,76 @@
+ pro(hello)
+  routine : 
+   routineHead : 
+    labelPart : 
+     
+    constPart : 
+     
+    typePart : 
+     
+    varPart : 
+     decList : 
+       varDec : 
+        Field : 
+         NameList : 
+          Name : i
+
+
+         Type : 
+          SimpleTy : 
+           SysTy : 
+            integer
+
+
+    routinePart : 
+     
+
+   routineBody : 
+    CompoundStmt : 
+     StmtList : 
+      LabelStmt : 
+       Int : 
+        1
+
+       AssignStmt : 
+        simpleVar : 
+         i
+
+        ConstExp : 
+         Int : 
+          1
+
+       LabelStmt : 
+        Int : 
+         -1
+
+        GotoStmt : 
+         Int : 
+          3
+
+        LabelStmt : 
+         Int : 
+          2
+
+         AssignStmt : 
+          simpleVar : 
+           i
+
+          ConstExp : 
+           Int : 
+            2
+
+         LabelStmt : 
+          Int : 
+           3
+
+          ProcStmt : 
+            SysProc : 
+            writeln
+            ArgsList : 
+             VarExp : 
+              simpleVar : 
+               i
+
+
+
+

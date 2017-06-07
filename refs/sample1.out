@@ -1,0 +1,224 @@
+ pro(hello)
+  routine : 
+   routineHead : 
+    labelPart : 
+     
+    constPart : 
+     
+    typePart : 
+     
+    varPart : 
+     decList : 
+       varDec : 
+        Field : 
+         NameList : 
+          Name : i
+
+
+         Type : 
+          SimpleTy : 
+           SysTy : 
+            integer
+
+
+    routinePart : 
+     decList : 
+       routineDec : 
+        go : 
+         FieldList : 
+           Field : 
+            NameList : 
+             Name : a
+
+
+            Type : 
+             SimpleTy : 
+              SysTy : 
+               integer
+
+
+
+         SysTy : 
+          integer
+
+         routine : 
+          routineHead : 
+           labelPart : 
+            
+           constPart : 
+            
+           typePart : 
+            
+           varPart : 
+            
+           routinePart : 
+            
+
+          routineBody : 
+           CompoundStmt : 
+            StmtList : 
+             LabelStmt : 
+              Int : 
+               -1
+
+              IfStmt : 
+               OpExp : 
+                EQUAL
+                VarExp : 
+                 simpleVar : 
+                  a
+
+                ConstExp : 
+                 Int : 
+                  1
+
+               LabelStmt : 
+                Int : 
+                 -1
+
+                CompoundStmt : 
+                 StmtList : 
+                  LabelStmt : 
+                   Int : 
+                    -1
+
+                   AssignStmt : 
+                    simpleVar : 
+                     go
+
+                    ConstExp : 
+                     Int : 
+                      1
+
+
+
+               LabelStmt : 
+                Int : 
+                 -1
+
+                CompoundStmt : 
+                 StmtList : 
+                  LabelStmt : 
+                   Int : 
+                    -1
+
+                   IfStmt : 
+                    OpExp : 
+                     EQUAL
+                     VarExp : 
+                      simpleVar : 
+                       a
+
+                     ConstExp : 
+                      Int : 
+                       2
+
+                    LabelStmt : 
+                     Int : 
+                      -1
+
+                     CompoundStmt : 
+                      StmtList : 
+                       LabelStmt : 
+                        Int : 
+                         -1
+
+                        AssignStmt : 
+                         simpleVar : 
+                          go
+
+                         ConstExp : 
+                          Int : 
+                           1
+
+
+
+                    LabelStmt : 
+                     Int : 
+                      -1
+
+                     CompoundStmt : 
+                      StmtList : 
+                       LabelStmt : 
+                        Int : 
+                         -1
+
+                        AssignStmt : 
+                         simpleVar : 
+                          go
+
+                         OpExp : 
+                          PLUS
+                          FuncExp : 
+                            Func : 
+                            go
+                            ArgsList : 
+                             OpExp : 
+                              MINUS
+                              VarExp : 
+                               simpleVar : 
+                                a
+
+                              ConstExp : 
+                               Int : 
+                                1
+
+
+                          FuncExp : 
+                            Func : 
+                            go
+                            ArgsList : 
+                             OpExp : 
+                              MINUS
+                              VarExp : 
+                               simpleVar : 
+                                a
+
+                              ConstExp : 
+                               Int : 
+                                2
+
+
+
+
+
+
+
+
+
+
+   routineBody : 
+    CompoundStmt : 
+     StmtList : 
+      LabelStmt : 
+       Int : 
+        -1
+
+       AssignStmt : 
+        simpleVar : 
+         i
+
+        FuncExp : 
+          Func : 
+          go
+          ArgsList : 
+           ConstExp : 
+            Int : 
+             10
+
+
+       LabelStmt : 
+        Int : 
+         -1
+
+        ProcStmt : 
+          SysProc : 
+          writeln
+          ArgsList : 
+           VarExp : 
+            simpleVar : 
+             i
+
+
+
+

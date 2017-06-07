@@ -1,0 +1,215 @@
+ pro(hello)
+  routine : 
+   routineHead : 
+    labelPart : 
+     
+    constPart : 
+     
+    typePart : 
+     
+    varPart : 
+     decList : 
+       varDec : 
+        Field : 
+         NameList : 
+          Name : a
+
+
+         Type : 
+          SimpleTy : 
+           SysTy : 
+            integer
+
+        varDec : 
+         Field : 
+          NameList : 
+           Name : b
+
+
+          Type : 
+           SimpleTy : 
+            SysTy : 
+             real
+
+         varDec : 
+          Field : 
+           NameList : 
+            Name : c
+
+
+           Type : 
+            SimpleTy : 
+             SysTy : 
+              boolean
+
+          varDec : 
+           Field : 
+            NameList : 
+             Name : d
+
+
+            Type : 
+             SimpleTy : 
+              SysTy : 
+               boolean
+
+           varDec : 
+            Field : 
+             NameList : 
+              Name : e
+
+
+             Type : 
+              SimpleTy : 
+               SysTy : 
+                integer
+
+
+    routinePart : 
+     
+
+   routineBody : 
+    CompoundStmt : 
+     StmtList : 
+      LabelStmt : 
+       Int : 
+        -1
+
+       AssignStmt : 
+        simpleVar : 
+         a
+
+        OpExp : 
+         MINUS
+         OpExp : 
+          PLUS
+          OpExp : 
+           TIMES
+           VarExp : 
+            Subscriptvar : 
+             OpExp : 
+              PLUS
+              OpExp : 
+               MINUS
+               ConstExp : 
+                Int : 
+                 0
+
+               ConstExp : 
+                Int : 
+                 1
+
+              ConstExp : 
+               Int : 
+                2
+
+           ConstExp : 
+            Int : 
+             4
+
+          OpExp : 
+           DIVIDE
+           ConstExp : 
+            Int : 
+             4
+
+           ConstExp : 
+            Int : 
+             2
+
+         ConstExp : 
+          Int : 
+           3
+
+       LabelStmt : 
+        Int : 
+         -1
+
+        AssignStmt : 
+         simpleVar : 
+          b
+
+         OpExp : 
+          MINUS
+          OpExp : 
+           MINUS
+           ConstExp : 
+            Int : 
+             0
+
+           ConstExp : 
+            Real : 
+             3.500000
+
+          ConstExp : 
+           Real : 
+            5.780000
+
+        LabelStmt : 
+         Int : 
+          -1
+
+         AssignStmt : 
+          simpleVar : 
+           c
+
+          OpExp : 
+           EQUAL
+           ConstExp : 
+            Int : 
+             1
+
+           IfExp : 
+            ConstExp : 
+             Int : 
+              1
+
+            ConstExp : 
+             Int : 
+              0
+
+            ConstExp : 
+             Int : 
+              0
+
+         LabelStmt : 
+          Int : 
+           -1
+
+          AssignStmt : 
+           simpleVar : 
+            d
+
+           IfExp : 
+            ConstExp : 
+             Int : 
+              1
+
+            ConstExp : 
+             Int : 
+              1
+
+            ConstExp : 
+             Int : 
+              0
+
+          LabelStmt : 
+           Int : 
+            -1
+
+           AssignStmt : 
+            simpleVar : 
+             e
+
+            OpExp : 
+             MOD
+             ConstExp : 
+              Int : 
+               4
+
+             ConstExp : 
+              Int : 
+               2
+
+
+

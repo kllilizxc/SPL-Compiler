@@ -1,0 +1,96 @@
+ pro(hello)
+  routine : 
+   routineHead : 
+    labelPart : 
+     
+    constPart : 
+     
+    typePart : 
+     
+    varPart : 
+     decList : 
+       varDec : 
+        Field : 
+         NameList : 
+          Name : i
+
+
+         Type : 
+          SimpleTy : 
+           SysTy : 
+            integer
+
+
+    routinePart : 
+     decList : 
+       routineDec : 
+        go : 
+         FieldList : 
+           Field : 
+            NameList : 
+             Name : a
+
+
+            Type : 
+             SimpleTy : 
+              SysTy : 
+               integer
+
+
+
+
+
+         routine : 
+          routineHead : 
+           labelPart : 
+            
+           constPart : 
+            
+           typePart : 
+            
+           varPart : 
+            
+           routinePart : 
+            
+
+          routineBody : 
+           CompoundStmt : 
+            StmtList : 
+             LabelStmt : 
+              Int : 
+               -1
+
+              AssignStmt : 
+               simpleVar : 
+                i
+
+               ConstExp : 
+                Int : 
+                 1
+
+
+
+
+
+   routineBody : 
+    CompoundStmt : 
+     StmtList : 
+      LabelStmt : 
+       Int : 
+        -1
+
+       AssignStmt : 
+        simpleVar : 
+         i
+
+        FuncExp : 
+          Func : 
+          go
+          ArgsList : 
+           ConstExp : 
+            Int : 
+             1
+
+
+
+

@@ -1,0 +1,378 @@
+ pro(hello)
+  routine : 
+   routineHead : 
+    labelPart : 
+     
+    constPart : 
+     decList : 
+       constDec : 
+        left
+        Int : 
+         1
+
+        constDec : 
+         right
+         Int : 
+          5
+
+
+    typePart : 
+     decList : 
+       typeDec : 
+        simplety1
+        SimpleTy : 
+         SysTy : 
+          integer
+
+        typeDec : 
+         simplety2
+         SimpleTy : 
+          ListTy : 
+           NameList : 
+            Name : January
+
+             Name : February
+
+              Name : March
+
+               Name : April
+
+                Name : May
+
+                 Name : June
+
+                  Name : July
+
+                   Name : August
+
+                    Name : September
+
+                     Name : October
+
+                      Name : November
+
+                       Name : December
+
+
+
+         typeDec : 
+          simplety3
+          SimpleTy : 
+           doubleCTy : 
+            ConstExp : 
+             Int : 
+              1
+
+            ConstExp : 
+             Int : 
+              10
+
+          typeDec : 
+           simplety4
+           SimpleTy : 
+            doubleCTy : 
+             OpExp : 
+              MINUS
+              ConstExp : 
+               Int : 
+                0
+
+              ConstExp : 
+               Int : 
+                1
+
+             OpExp : 
+              MINUS
+              ConstExp : 
+               Int : 
+                0
+
+              ConstExp : 
+               Int : 
+                10
+
+           typeDec : 
+            simplety5
+            SimpleTy : 
+             doubleNTy : 
+              left
+
+              right
+
+            typeDec : 
+             arrayty
+             ArrayTy : 
+              doubleCTy : 
+               ConstExp : 
+                Int : 
+                 1
+
+               ConstExp : 
+                Int : 
+                 10
+
+              SimpleTy : 
+               SysTy : 
+                integer
+
+             typeDec : 
+              recordty
+              RecordTy : 
+               Fieldlist : 
+                Field : 
+                 NameList : 
+                  Name : a
+
+                   Name : b
+
+                    Name : c
+
+
+                 Type : 
+                  SimpleTy : 
+                   SysTy : 
+                    integer
+
+                 Field : 
+                  NameList : 
+                   Name : d
+
+                    Name : e
+
+
+                  Type : 
+                   SimpleTy : 
+                    SysTy : 
+                     char
+
+
+
+
+    varPart : 
+     decList : 
+       varDec : 
+        Field : 
+         NameList : 
+          Name : simplevar1
+
+
+         Type : 
+          SimpleTy : 
+           SingleTy : 
+            simplety1
+
+        varDec : 
+         Field : 
+          NameList : 
+           Name : simplevar2
+
+
+          Type : 
+           SimpleTy : 
+            SingleTy : 
+             simplety2
+
+         varDec : 
+          Field : 
+           NameList : 
+            Name : simplevar3
+
+
+           Type : 
+            SimpleTy : 
+             SingleTy : 
+              simplety3
+
+          varDec : 
+           Field : 
+            NameList : 
+             Name : simplevar4
+
+
+            Type : 
+             SimpleTy : 
+              SingleTy : 
+               simplety4
+
+           varDec : 
+            Field : 
+             NameList : 
+              Name : simplevar5
+
+
+             Type : 
+              SimpleTy : 
+               SingleTy : 
+                simplety5
+
+            varDec : 
+             Field : 
+              NameList : 
+               Name : arrayvar
+
+
+              Type : 
+               SimpleTy : 
+                SingleTy : 
+                 arrayty
+
+             varDec : 
+              Field : 
+               NameList : 
+                Name : recordvar
+
+
+               Type : 
+                SimpleTy : 
+                 SingleTy : 
+                  recordty
+
+
+    routinePart : 
+     
+
+   routineBody : 
+    CompoundStmt : 
+     StmtList : 
+      LabelStmt : 
+       Int : 
+        -1
+
+       AssignStmt : 
+        simpleVar : 
+         simplevar1
+
+        ConstExp : 
+         Int : 
+          1
+
+       LabelStmt : 
+        Int : 
+         -1
+
+        AssignStmt : 
+         simpleVar : 
+          simplevar2
+
+         VarExp : 
+          simpleVar : 
+           January
+
+        LabelStmt : 
+         Int : 
+          -1
+
+         AssignStmt : 
+          simpleVar : 
+           simplevar3
+
+          ConstExp : 
+           Int : 
+            3
+
+         LabelStmt : 
+          Int : 
+           -1
+
+          AssignStmt : 
+           simpleVar : 
+            simplevar4
+
+           OpExp : 
+            MINUS
+            ConstExp : 
+             Int : 
+              0
+
+            ConstExp : 
+             Int : 
+              11
+
+          LabelStmt : 
+           Int : 
+            -1
+
+           AssignStmt : 
+            simpleVar : 
+             simplevar5
+
+            ConstExp : 
+             Int : 
+              3
+
+           LabelStmt : 
+            Int : 
+             -1
+
+            forStmt : 
+             i
+             ConstExp : 
+              Int : 
+               1
+
+             ConstExp : 
+              Int : 
+               10
+
+             LabelStmt : 
+              Int : 
+               -1
+
+              CompoundStmt : 
+               StmtList : 
+                LabelStmt : 
+                 Int : 
+                  -1
+
+                 AssignStmt : 
+                  Subscriptvar : 
+                   arrayvar
+
+                  VarExp : 
+                   simpleVar : 
+                    i
+
+                 LabelStmt : 
+                  Int : 
+                   -1
+
+                  ProcStmt : 
+                    SysProc : 
+                    writeln
+                    ArgsList : 
+                     VarExp : 
+                      Subscriptvar : 
+                       arrayvar
+
+
+
+
+            LabelStmt : 
+             Int : 
+              -1
+
+             AssignStmt : 
+              FieldVar : 
+               recordvar
+               a
+
+              ConstExp : 
+               Int : 
+                2
+
+             LabelStmt : 
+              Int : 
+               -1
+
+              ProcStmt : 
+                SysProc : 
+                write
+                ArgsList : 
+                 VarExp : 
+                  FieldVar : 
+                   recordvar
+                   a
+
+
+
+

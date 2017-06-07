@@ -1,0 +1,37 @@
+ pro(hello)
+  routine : 
+   routineHead : 
+    labelPart : 
+     
+    constPart : 
+     decList : 
+       constDec : 
+        a
+        Int : 
+         1
+
+
+    typePart : 
+     
+    varPart : 
+     
+    routinePart : 
+     
+
+   routineBody : 
+    CompoundStmt : 
+     StmtList : 
+      LabelStmt : 
+       Int : 
+        -1
+
+       AssignStmt : 
+        simpleVar : 
+         a
+
+        ConstExp : 
+         Int : 
+          2
+
+
+
