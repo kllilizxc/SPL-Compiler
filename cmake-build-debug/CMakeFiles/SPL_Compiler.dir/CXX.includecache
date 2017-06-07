@@ -1,0 +1,70 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/54179/CLion Projects/SPL Compiler/absyn.h
+symbol.h
+C:/Users/54179/CLion Projects/SPL Compiler/symbol.h
+
+C:/Users/54179/CLion Projects/SPL Compiler/env.hpp
+types.hpp
+C:/Users/54179/CLion Projects/SPL Compiler/types.hpp
+symbol.h
+C:/Users/54179/CLion Projects/SPL Compiler/symbol.h
+
+C:/Users/54179/CLion Projects/SPL Compiler/errormsg.h
+
+C:/Users/54179/CLion Projects/SPL Compiler/main.cpp
+stdio.h
+-
+util.h
+C:/Users/54179/CLion Projects/SPL Compiler/util.h
+absyn.h
+C:/Users/54179/CLion Projects/SPL Compiler/absyn.h
+errormsg.h
+C:/Users/54179/CLion Projects/SPL Compiler/errormsg.h
+prabsyn.h
+C:/Users/54179/CLion Projects/SPL Compiler/prabsyn.h
+semant.hpp
+C:/Users/54179/CLion Projects/SPL Compiler/semant.hpp
+
+C:/Users/54179/CLion Projects/SPL Compiler/prabsyn.h
+
+C:/Users/54179/CLion Projects/SPL Compiler/semant.hpp
+memory
+-
+iostream
+-
+cstring
+-
+types.hpp
+C:/Users/54179/CLion Projects/SPL Compiler/types.hpp
+symbol.h
+C:/Users/54179/CLion Projects/SPL Compiler/symbol.h
+absyn.h
+C:/Users/54179/CLion Projects/SPL Compiler/absyn.h
+errormsg.h
+C:/Users/54179/CLion Projects/SPL Compiler/errormsg.h
+env.hpp
+C:/Users/54179/CLion Projects/SPL Compiler/env.hpp
+util.h
+C:/Users/54179/CLion Projects/SPL Compiler/util.h
+
+C:/Users/54179/CLion Projects/SPL Compiler/symbol.h
+
+C:/Users/54179/CLion Projects/SPL Compiler/types.hpp
+list
+-
+bits/shared_ptr.h
+-
+symbol.h
+C:/Users/54179/CLion Projects/SPL Compiler/symbol.h
+
+C:/Users/54179/CLion Projects/SPL Compiler/util.h
+assert.h
+-
+

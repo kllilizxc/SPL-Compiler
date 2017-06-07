@@ -41,7 +41,7 @@ static int S_compare(S_symbol a, S_symbol b) {
     return streq(a->name, b->name);
 }
 
-S_symbol S_Symbol(const char *name)
+S_symbol S_Symbol(char *name)
 {int index= hash(name) % SIZE;
     S_symbol syms = hashtable[index], sym;
     for(sym=syms; sym; sym=sym->next)

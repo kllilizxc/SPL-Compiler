@@ -21,7 +21,7 @@ typedef struct S_symbol_ *S_symbol;
 /* Make a unique symbol from a given string.
  *  Different calls to S_Symbol("foo") will yield the same S_symbol
  *  value, even if the "foo" strings are at different locations. */
-S_symbol S_Symbol(const char *);
+S_symbol S_Symbol(char *);
 
 /* Extract the underlying string from a symbol */
 string S_name(S_symbol);
