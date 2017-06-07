@@ -19,7 +19,7 @@ enum class TypeKind {
 
 class Type {
 public:
-    Type(TypeKind kind = TypeKind::Nil) : kind(kind) {};
+    Type(TypeKind kind = TypeKind::Nil, bool isConst = false) : kind(kind) {};
 
     static std::shared_ptr<Type> &getNilType() {
         return NilType;
@@ -49,12 +49,15 @@ public:
         return StringType;
     }
 
+
     TypeKind getKind() const {
         return kind;
     }
 
+
 private:
     TypeKind kind;
+
 
     static std::shared_ptr<Type> NilType;
     static std::shared_ptr<Type> BooleanType;
