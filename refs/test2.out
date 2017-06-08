@@ -327,6 +327,9 @@
                  AssignStmt : 
                   Subscriptvar : 
                    arrayvar
+                   VarExp : 
+                    simpleVar : 
+                     i
 
                   VarExp : 
                    simpleVar : 
@@ -343,6 +346,9 @@
                      VarExp : 
                       Subscriptvar : 
                        arrayvar
+                       VarExp : 
+                        simpleVar : 
+                         i
 
 
 

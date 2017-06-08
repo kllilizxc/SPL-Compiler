@@ -44,6 +44,9 @@
        AssignStmt : 
         Subscriptvar : 
          arrayvar
+         ConstExp : 
+          Int : 
+           11
 
         ConstExp : 
          Int : 

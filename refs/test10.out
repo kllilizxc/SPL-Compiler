@@ -85,23 +85,22 @@
           PLUS
           OpExp : 
            TIMES
-           VarExp : 
-            Subscriptvar : 
+           parenExp : 
+            OpExp : 
+             PLUS
              OpExp : 
-              PLUS
-              OpExp : 
-               MINUS
-               ConstExp : 
-                Int : 
-                 0
-
-               ConstExp : 
-                Int : 
-                 1
+              MINUS
+              ConstExp : 
+               Int : 
+                0
 
               ConstExp : 
                Int : 
-                2
+                1
+
+             ConstExp : 
+              Int : 
+               2
 
            ConstExp : 
             Int : 

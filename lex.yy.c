@@ -374,7 +374,7 @@ static yyconst flex_int16_t yy_accept[215] =
        46,   50,   65,   39,   40,   53,   51,   55,   62,   43,
        44,   62,   62,   62,   62,   62,   62,   62,   62,   62,
        62,   62,   62,   62,   62,   62,   62,   62,   62,   62,
-        3,    4,    3,   67,    0,   63,    0,    0,    0,   45,
+        4,    3,    4,   67,    0,   63,    0,    0,    0,   45,
        66,    1,    0,   65,   57,   54,   52,   56,   62,   62,
        62,   62,   62,   62,   62,   62,   62,   62,   19,   62,
        62,   62,   62,   62,   62,   16,   10,   62,   62,   62,
@@ -895,12 +895,12 @@ YY_RULE_SETUP
 {adjust();BEGIN INITINAL;}  // comment
 	YY_BREAK
 case 3:
+/* rule 3 can match eol */
 YY_RULE_SETUP
 #line 42 "spl.lex"
-{adjust();}
+{adjust();EM_newline(); continue;}
 	YY_BREAK
 case 4:
-/* rule 4 can match eol */
 YY_RULE_SETUP
 #line 43 "spl.lex"
 {adjust();}

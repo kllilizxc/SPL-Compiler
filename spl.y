@@ -64,12 +64,12 @@ void yyerror(char *s)
 %left LOWEST
 %nonassoc OF IF THEN DO WHILE FOR TO DOWNTO GOTO WITH ASSIGN REPEAT UNTIL
 %left ELSE
-%nonassoc EQUAL UNEQUAL GT LT GE LE
+%left EQUAL UNEQUAL GT LT GE LE
 %left PLUS MINUS OR
 %left MUL DIV MOD AND
 %left UMINUS
 %left NOT
-%right LB
+%right LB LP
 %nonassoc TYPE FUNCTION VAR CONST
 
 
@@ -94,7 +94,7 @@ void yyerror(char *s)
 %type <caseList> case_exp_list
 %type <casee> case_exp
 %type <expList> exp_list args_list
-%type <exp> exp lvalueExp literalExp arithmeticExp comparisonExp booleanExp
+%type <exp> exp lvalueExp literalExp arithmeticExp comparisonExp booleanExp parenExp
 %type <var> lvalue
 
 %start program
@@ -256,12 +256,12 @@ exp : lvalueExp {$$ = $1;}
     | comparisonExp {$$ = $1;}
     | booleanExp {$$ = $1;}
     | funcExp {$$ = A_FuncExp(EM_tokPos, $1);}
+    | parenExp {$$ = $1;}
 
 
 lvalueExp : lvalue {$$ = A_VarExp(EM_tokPos, $1);}
 
 lvalue : ID {$$ = A_SimpleVar(EM_tokPos, S_Symbol($1));}
-       | LP exp RP {$$ = A_SubscriptVar(EM_tokPos, NULL, $2);}
        | ID LB exp RB {$$ = A_SubscriptVar(EM_tokPos, S_Symbol($1), $3);}
        | ID DOT ID {$$ = A_FieldVar(EM_tokPos, S_Symbol($1), S_Symbol($3));}
 
@@ -289,6 +289,8 @@ booleanExp : NOT exp {$$ = A_IfExp(EM_tokPos, $2, A_ConstExp(EM_tokPos,A_Int(EM_
 
 funcExp : SYS_FUNCT LP args_list RP {$$ = A_Func(EM_tokPos, S_Symbol($1), $3);}
         | ID LP args_list RP {$$ = A_Func(EM_tokPos, S_Symbol($1), $3);}
+
+parenExp : LP exp RP  {$$ = A_ParenExp(EM_tokPos, $2);}
 
 
 

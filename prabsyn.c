@@ -319,12 +319,8 @@ static void pr_var(FILE *out, A_var v, int d)
             break;
         case A_subscriptVar:
             fprintf(out, "Subscriptvar : \n");
-            if(v->u.subscript.var)
-            {
-                indent(out, d+1);
-                fprintf(out, "%s\n", S_name(v->u.subscript.var));
-            }
-            else
+            indent(out, d+1);
+            fprintf(out, "%s\n", S_name(v->u.subscript.var));
             pr_exp(out, v->u.subscript.exp, d+1);
             break;
         default:
@@ -485,6 +481,10 @@ static void pr_exp(FILE *out, A_exp v, int d)
             pr_exp(out, v->u.iff.test, d+1);fprintf(out, "\n");
             pr_exp(out, v->u.iff.then, d+1);fprintf(out, "\n");
             pr_exp(out, v->u.iff.elsee, d+1);
+            break;
+        case A_parenExp:
+            fprintf(out, "parenExp : \n");
+            pr_exp(out, v->u.paren, d+1);
             break;
         default:
             break;

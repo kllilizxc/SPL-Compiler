@@ -177,7 +177,7 @@ struct A_proc_{ enum A_proc_Kind kind;
 struct A_caseList_ {A_case head; A_caseList tail;};
 struct A_case_ {A_pos pos; A_const constValue; S_symbol name; A_stmt casee;};
 
-enum A_exp_Kind {A_funcExp, A_varExp, A_constExp, A_opExp, A_ifExp};
+enum A_exp_Kind {A_funcExp, A_varExp, A_constExp, A_opExp, A_ifExp, A_parenExp};
 typedef struct {A_exp test; A_exp then; A_exp elsee;} _A_if_exp_;
 typedef struct {A_oper oper; A_exp left; A_exp right;} _A_op_;
 struct A_exp_ { enum A_exp_Kind kind;
@@ -188,6 +188,7 @@ struct A_exp_ { enum A_exp_Kind kind;
         A_const constValue;
         _A_op_ op;
         _A_if_exp_ iff;
+        A_exp paren;
     }u;
 };
 struct A_expList_ {A_exp head; A_expList tail;};
@@ -258,6 +259,7 @@ A_exp A_VarExp(A_pos pos, A_var var);
 A_exp A_ConstExp(A_pos pos, A_const constValue);
 A_exp A_OpExp(A_pos pos, A_oper oper, A_exp left, A_exp right);
 A_exp A_IfExp(A_pos pos, A_exp test, A_exp then, A_exp elsee);
+A_exp A_ParenExp(A_pos pos, A_exp exp);
 
 A_expList A_ExpList(A_exp head, A_expList tail);
 

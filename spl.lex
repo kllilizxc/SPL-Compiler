@@ -39,8 +39,8 @@ reserverSYSTYPE boolean|char|integer|real|string
   */  
 <INITINAL>"/*" {adjust();BEGIN COMMENT;}  // comment
 <COMMENT>"*/" {adjust();BEGIN INITINAL;}  // comment
+<COMMENT>"\n"    {adjust();EM_newline(); continue;}
 <COMMENT>.    {adjust();}
-<COMMENT>"\n"    {adjust();}
 <INITINAL>for  { adjust(); return FOR;}     /* key word*/
 <INITINAL>while  { adjust(); return WHILE;}
 <INITINAL>to  { adjust(); return TO;}

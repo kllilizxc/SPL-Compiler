@@ -310,6 +310,7 @@ A_var A_SubscriptVar(A_pos pos, S_symbol var, A_exp exp)
     return p;
 }
 
+
 A_stmt A_Stmt(A_pos pos, A_const label, A_stmt stmt)
 {
     A_stmt p = checked_malloc(sizeof(*p));
@@ -491,6 +492,15 @@ A_exp A_IfExp(A_pos pos, A_exp test, A_exp then, A_exp elsee)
     p->u.iff.test = test;
     p->u.iff.then = then;
     p->u.iff.elsee = elsee;
+    return p;
+}
+
+A_exp A_ParenExp(A_pos pos, A_exp paren)
+{
+    A_exp p = checked_malloc(sizeof(*p));
+    p->kind = A_parenExp;
+    p->pos = pos;
+    p->u.paren = paren;
     return p;
 }
 
