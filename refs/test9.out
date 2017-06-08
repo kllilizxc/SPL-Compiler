@@ -45,7 +45,8 @@
        CaseList : 
          Case : 
           String : 
-           s1
+           s1e : 
+ @іаф 
 
           LabelStmt : 
            Int : 

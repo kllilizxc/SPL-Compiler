@@ -340,14 +340,14 @@ private:
         while (iter != formals.end()) {
             auto argEnv = translateExpression(valueEnvironment, typeEnvironment, args->head);
             if (argEnv.getType() != *iter) {
-                EM_error(proc->pos, "arguments type mismatch!");
+                EM_error(proc->args->head->pos, "arguments type mismatch!");
                 break;
             }
             iter++;
             args = args->tail;
         }
         if (args != nullptr) {
-            EM_error(proc->pos, "arguments number mismatch!");
+            EM_error(proc->args->head->pos, "arguments number mismatch!");
         }
 
         auto result = (*env)->getResult();
