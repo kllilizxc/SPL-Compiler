@@ -39,7 +39,7 @@ reserverSYSTYPE boolean|char|integer|real|string
   */  
 <INITINAL>"/*" {adjust();BEGIN COMMENT;}  // comment
 <COMMENT>"*/" {adjust();BEGIN INITINAL;}  // comment
-<COMMENT>"\n"    {adjust();EM_newline(); continue;}
+<COMMENT>"\n"    {adjust();EM_newline();}
 <COMMENT>.    {adjust();}
 <INITINAL>for  { adjust(); return FOR;}     /* key word*/
 <INITINAL>while  { adjust(); return WHILE;}
@@ -175,8 +175,8 @@ reserverSYSTYPE boolean|char|integer|real|string
 <INITINAL>{digits} {adjust(); yylval.ival=atoi(yytext);return INTEGER;}
 <INITINAL>[0-9]*\.?[0-9]+ {adjust(); yylval.fval=atof(yytext); return REAL;}
 
-<INITINAL>(" "|"\t")+  {adjust(); continue;} 
-<INITINAL>"\n"  {adjust(); EM_newline(); continue;}
+<INITINAL>(" "|"\t")+  {adjust();}
+<INITINAL>"\n"  {adjust(); EM_newline();}
 <INITINAL>.	 {adjust(); EM_error(EM_tokPos,"illegal token");}
 .           {yyless(0);BEGIN INITINAL;}
 

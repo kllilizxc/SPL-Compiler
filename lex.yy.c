@@ -898,7 +898,7 @@ case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
 #line 42 "spl.lex"
-{adjust();EM_newline(); continue;}
+{adjust();EM_newline();}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
@@ -1283,13 +1283,13 @@ YY_RULE_SETUP
 case 67:
 YY_RULE_SETUP
 #line 178 "spl.lex"
-{adjust(); continue;} 
+{adjust();}
 	YY_BREAK
 case 68:
 /* rule 68 can match eol */
 YY_RULE_SETUP
 #line 179 "spl.lex"
-{adjust(); EM_newline(); continue;}
+{adjust(); EM_newline();}
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
