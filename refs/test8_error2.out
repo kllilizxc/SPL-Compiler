@@ -39,7 +39,7 @@
 
         ConstExp : 
          String : 
-          10     N})!!:	
+          10
 
         LabelStmt : 
          Int : 
