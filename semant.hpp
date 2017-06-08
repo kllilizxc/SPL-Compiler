@@ -269,14 +269,15 @@ private:
             routineEnv->getResult() = nullptr;
         }
 
-        S_enter(valueEnvironment, routinee.name, pack<FunctionEnvironmentEntry>(routineEnv));
+        S_enter(typeEnvironment, routinee.name, pack<FunctionEnvironmentEntry>(routineEnv));
+        S_enter(valueEnvironment, routinee.name, pack<VariableEnvironmentEntry>(new VariableEnvironmentEntry(routineEnv->getResult())));
 
         translateRoutine(valueEnvironment, typeEnvironment, routinee.subroutine);
 
         S_endScope(typeEnvironment);
         S_endScope(valueEnvironment);
 
-        S_enter(valueEnvironment, routinee.name, pack<FunctionEnvironmentEntry>(routineEnv));
+        S_enter(typeEnvironment, routinee.name, pack<FunctionEnvironmentEntry>(routineEnv));
 
         return ExpressionAndType(Type::getVoidType(), nullptr);
     }
@@ -326,7 +327,7 @@ private:
 
         if (procName == NULL) return ExpressionAndType(Type::getVoidType());
 
-        auto env = unpack<FunctionEnvironmentEntry>(S_look(valueEnvironment, procName));
+        auto env = unpack<FunctionEnvironmentEntry>(S_look(typeEnvironment, procName));
         if (env == nullptr) {
             EM_error(proc->pos, "can not find a function or procedure named %s!", S_name(procName));
             return ExpressionAndType(Type::getNilType(), nullptr);
@@ -725,6 +726,8 @@ public:
                 return translateOp(valueEnvironment, typeEnvironment, expression->u.op);
             case A_ifExp:
                 return translateIf(valueEnvironment, typeEnvironment, expression->u.iff);
+            case A_parenExp:
+                return translateExpression(valueEnvironment, typeEnvironment, expression->u.paren);
             default:
                 EM_error(expression->pos, "Not recognized expression type! Type id: %d", expression->kind);
                 return ExpressionAndType(Type::getNilType(), nullptr);

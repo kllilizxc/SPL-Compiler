@@ -90,14 +90,16 @@ S_table EnvironmentEntry::enterBaseTypeEnvironment() {
     S_enter(environment, S_Symbol(toCharString("integer")),  pack(new VariableEnvironmentEntry(Type::getIntegerType())));
     S_enter(environment, S_Symbol(toCharString("real")), pack(new VariableEnvironmentEntry(Type::getRealType())));
     S_enter(environment, S_Symbol(toCharString("string")), pack(new VariableEnvironmentEntry(Type::getStringType())));
+
+    //system functions
+    S_enter(environment, S_Symbol(toCharString("writeln")), pack(new FunctionEnvironmentEntry({Type::getIntegerType()}, Type::getVoidType())));
+    S_enter(environment, S_Symbol(toCharString("write")), pack(new FunctionEnvironmentEntry({Type::getIntegerType()}, Type::getVoidType())));
+    S_enter(environment, S_Symbol(toCharString("read")), pack(new FunctionEnvironmentEntry({Type::getIntegerType()}, Type::getVoidType())));
     return environment;
 }
 
 S_table EnvironmentEntry::enterBaseValueEnvironment() {
     S_table environment = S_empty();
-    S_enter(environment, S_Symbol(toCharString("writeln")), pack(new FunctionEnvironmentEntry({Type::getIntegerType()}, Type::getVoidType())));
-    S_enter(environment, S_Symbol(toCharString("write")), pack(new FunctionEnvironmentEntry({Type::getIntegerType()}, Type::getVoidType())));
-    S_enter(environment, S_Symbol(toCharString("read")), pack(new FunctionEnvironmentEntry({Type::getIntegerType()}, Type::getVoidType())));
     S_enter(environment, S_Symbol(toCharString("true")), pack(new VariableEnvironmentEntry(Type::getBooleanType(), true)));
     S_enter(environment, S_Symbol(toCharString("false")), pack(new VariableEnvironmentEntry(Type::getBooleanType(), true)));
     S_enter(environment, S_Symbol(toCharString("maxint")), pack(new VariableEnvironmentEntry(Type::getIntegerType(), true)));

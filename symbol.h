@@ -50,6 +50,8 @@ void S_beginScope(S_table t);
 void S_endScope(S_table t);
 
 int S_compare(S_symbol a, S_symbol b);
+
+S_symbol S_copy(S_symbol other);
 #endif
 
 
