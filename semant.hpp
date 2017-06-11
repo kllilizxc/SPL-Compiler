@@ -94,20 +94,6 @@ private:
 
         auto left = translateExpression(valueEnvironment, typeEnvironment, op.left);
         auto right = translateExpression(valueEnvironment, typeEnvironment, op.right);
-        switch (oper) {
-            case A_plusOp:
-            case A_minusOp:
-            case A_timesOp:
-            case A_divideOp:
-            case A_eqOp:
-            case A_neqOp:
-            case A_ltOp:
-            case A_leOp:
-            case A_gtOp:
-            case A_geOp: {
-                //TODO translate to IR
-            }
-        }
 
         //the two operands' type should match TODO
         if(oper == A_divideOp && right.getType() != Type::getIntegerType()) {
