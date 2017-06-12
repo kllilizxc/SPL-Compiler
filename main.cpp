@@ -80,7 +80,10 @@ int main(){
         S_table vEnv = EnvironmentEntry::enterBaseValueEnvironment();
         S_table tEnv = EnvironmentEntry::enterBaseTypeEnvironment();
         printf("analysing %s\n", fname);
-        Semant::translateProgram(vEnv, tEnv, absyn_root);
+        auto exp = Semant::translateProgram(vEnv, tEnv, absyn_root)
+                    .getExpression();
+
+        IR::TheModule->dump();
 
         absyn_root = NULL;
     }

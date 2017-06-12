@@ -66,7 +66,7 @@ public:
 
   static Value *genFOp(_A_op_ op, Value *L, Value *R) {
     switch (op.oper) {
-      case A_plusOp:
+      case A_pTTlusOp:
       return Builder.CreateFAdd(L, R);
       case A_minusOp:
       return Builder.CreateFSub(L, R);
@@ -241,22 +241,22 @@ public:
     return nullptr;
   }
 
-  Function *genRoutineDec(_A_routine_ routinee, Value *subroutine) {
+  Function *genRoutineDec(S_symbol name, A_fieldList params, A_simpleTy simplety, Value *subroutine) {
     std::vector<Type *> argTypes;
-    for(auto i = routinee.params; i != nullptr; i = i->tail) {
+    for(auto i = params; i != nullptr; i = i->tail) {
       for(auto j = i->head->head; j != nullptr; j = j->tail) {
         argTypes.push_back(genType(i->head->ty));
       }
     }
     FunctionType *FT =
-    FunctionType::get(genSimpleType(routinee.simplety), argTypes, false);
+    FunctionType::get(genSimpleType(simplety), argTypes, false);
 
     Function *TheFunction =
-    Function::Create(FT, Function::ExternalLinkage, S_name(routinee.name), TheModule.get());
+    Function::Create(FT, Function::ExternalLinkage, S_name(name), TheModule.get());
 
     // Set names for all arguments.
     auto arg = F->arg_begin();
-    for(auto i = routinee.params; i != nullptr; i = i->tail) {
+    for(auto i = params; i != nullptr; i = i->tail) {
       for(auto j = i->head->head; j != nullptr; j = j->tail) {
         arg->setName(S_name(j->head->name));
       }
@@ -301,6 +301,8 @@ public:
       return Type::getDoubleTy(TheContext);
       case A_listTy:
       return Type::getInt32Ty(TheContext);
+      default:
+      return nullptr;
     }
   }
 
@@ -311,6 +313,8 @@ public:
       case A_recordTy:
       case A_arraryTy:
       return Type::getInt32PtrTy(TheContext);
+      default:
+      return nullptr;
     }
   }
 
@@ -318,7 +322,6 @@ public:
     //TODO
   }
 
-private:
   Function *getFunction(std::string Name) {
         // First, see if the function has already been added to the current module.
     if (auto *F = TheModule->getFunction(Name))
@@ -343,3 +346,4 @@ private:
 }
 
 IRBuilder<> IR::Builder (TheContext);
+Module *IR::TheModule = new Module("Mine", IR::TheContext);

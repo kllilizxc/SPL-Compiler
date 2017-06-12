@@ -269,14 +269,14 @@ private:
             S_enter(typeEnvironment, routinee.name, pack<FunctionEnvironmentEntry>(routineEnv));
             S_enter(valueEnvironment, routinee.name, pack<VariableEnvironmentEntry>(new VariableEnvironmentEntry(routineEnv->getResult())));
 
-            translateRoutine(valueEnvironment, typeEnvironment, routinee.subroutine);
+            auto subroutineExp = translateRoutine(valueEnvironment, typeEnvironment, routinee.subroutine);
 
             S_endScope(typeEnvironment);
             S_endScope(valueEnvironment);
 
             S_enter(typeEnvironment, routinee.name, pack<FunctionEnvironmentEntry>(routineEnv));
 
-            return ExpressionAndType(VarType::getVoidType(), IR::genRoutineDec(routinee));
+            return ExpressionAndType(VarType::getVoidType(), IR::genRoutineDec(routinee.name, routinee.params, routinee.simplety, subroutineExp.getExpression()));
         }
 
         static ExpressionAndType
@@ -755,7 +755,8 @@ public:
 
     static ExpressionAndType translateProgram(S_table valueEnvironment, S_table typeEnvironment, A_pro program) {
         auto routine = program->routine;
-        return translateRoutine(valueEnvironment, typeEnvironment, routine);
+        auto mainFunc = translateRoutine(valueEnvironment, typeEnvironment, routine);
+        IR::genRoutineDec(S_Symbol("main"), null, null, mainFunc);
     }
 };
 
