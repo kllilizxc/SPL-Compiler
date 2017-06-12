@@ -24,11 +24,11 @@ typedef std::shared_ptr<void> Expression;
 
 class ExpressionAndType {
 public:
-    ExpressionAndType(std::shared_ptr<Type> type = Type::getNilType(), Expression
+    ExpressionAndType(std::shared_ptr<VarType> type = VarType::getNilType(), Expression
         expression = nullptr, bool isConst = false) : type(type),
     expression(expression), isConst(isConst) {};
 
-    std::shared_ptr<Type> getType() {
+    std::shared_ptr<VarType> getType() {
         return type;
     }
 
@@ -43,7 +43,7 @@ public:
     bool isConst;
 
 private:
-    std::shared_ptr<Type> type;
+    std::shared_ptr<VarType> type;
 
     Expression expression;
 };
@@ -67,7 +67,7 @@ private:
         S_beginScope(valueEnvironment);
         S_beginScope(typeEnvironment);
         auto testExp = translateExpression(valueEnvironment, typeEnvironment, iff.test);
-        if (testExp.getType() != Type::getIntegerType()) {
+        if (testExp.getType() != VarType::getIntegerType()) {
             EM_error(iff.test->pos, "if expression test should return int type!");
         } else {
             translateExpression(valueEnvironment, typeEnvironment, iff.then);
@@ -77,20 +77,20 @@ private:
         }
         S_endScope(valueEnvironment);
         S_endScope(typeEnvironment);
-        return ExpressionAndType(Type::getVoidType(), IR::genIf(iff));
+        return ExpressionAndType(VarType::getVoidType(), IR::genIf(iff));
     }
 
-    static bool isIntorBoolorRealorChar(std::shared_ptr<Type> type) {
-        return type == Type::getIntegerType() || type == Type::getBooleanType() || type == Type::getRealType() || type == Type::getCharType();
+    static bool isIntorBoolorRealorChar(std::shared_ptr<VarType> type) {
+        return type == VarType::getIntegerType() || type == VarType::getBooleanType() || type == VarType::getRealType() || type == VarType::getCharType();
     }
 
-    static std::shared_ptr<Type> &getBiggestType(std::shared_ptr<Type> type1, std::shared_ptr<Type> type2) {
+    static std::shared_ptr<VarType> &getBiggestType(std::shared_ptr<VarType> type1, std::shared_ptr<VarType> type2) {
         assert(isIntorBoolorRealorChar(type1) && isIntorBoolorRealorChar(type2));
 
-        if(type1 == Type::getRealType() || type2 == Type::getRealType())
-            return Type::getRealType();
+        if(type1 == VarType::getRealType() || type2 == VarType::getRealType())
+            return VarType::getRealType();
         else
-            return Type::getIntegerType();
+            return VarType::getIntegerType();
     }
 
     static ExpressionAndType translateOp(S_table valueEnvironment, S_table typeEnvironment, _A_op_ op) {
@@ -100,9 +100,9 @@ private:
         auto right = translateExpression(valueEnvironment, typeEnvironment, op.right);
 
         //the two operands' type should match TODO
-        if(oper == A_divideOp && right.getType() != Type::getIntegerType()) {
+        if(oper == A_divideOp && right.getType() != VarType::getIntegerType()) {
             EM_error(op.right->pos, "the divider should be an integer!");
-            return ExpressionAndType(Type::getNilType(), nullptr);
+            return ExpressionAndType(VarType::getNilType(), nullptr);
         }
 
         auto leftISReal = !isIntorBoolorRealorChar(left.getType());
@@ -113,21 +113,21 @@ private:
             return ExpressionAndType(getBiggestType(left.getType(), right.getType()), IR::genOp(op));
         } else {
             EM_error(op.right->pos, "two operands' type mismatch!");
-            return ExpressionAndType(Type::getNilType(), nullptr);
+            return ExpressionAndType(VarType::getNilType(), nullptr);
         }
     }
 
     static ExpressionAndType
     translateSimpleVar(S_table valueEnvironment, S_table typeEnvironment, S_symbol simple, A_pos pos) {
-        if (simple == NULL) return ExpressionAndType(Type::getVoidType());
+        if (simple == NULL) return ExpressionAndType(VarType::getVoidType());
 
         auto entry = unpack<VariableEnvironmentEntry>(S_look(valueEnvironment, simple));
         if (entry == nullptr || *entry == nullptr) {
             EM_error(pos, "undefined variable %s", S_name(simple));
-            return ExpressionAndType(Type::getNilType(), nullptr);
+            return ExpressionAndType(VarType::getNilType(), nullptr);
         } else if ((*entry)->getKind() == EntryKind::FunctionEntry) {
             EM_error(pos, "variable %s is a function rather than a variable", S_name(simple));
-            return ExpressionAndType(Type::getNilType(), nullptr);
+            return ExpressionAndType(VarType::getNilType(), nullptr);
         }
         return ExpressionAndType((*entry)->getType(), IR::genSimpleVar(simple), (*entry)->isConst);
     }
@@ -136,7 +136,7 @@ private:
     translateSubscriptVar(S_table valueEnvironment, S_table typeEnvironment, _A_subscript_ subscript) {
         if (subscript.var == NULL)
             if (subscript.exp == NULL)
-                return ExpressionAndType(Type::getVoidType());
+                return ExpressionAndType(VarType::getVoidType());
             else
                 return translateExpression(valueEnvironment, typeEnvironment, subscript.exp);
 
@@ -144,12 +144,12 @@ private:
 
             if (entry == nullptr || *entry == nullptr) {
                 EM_error(subscript.exp->pos, "undefined variable %s", S_name(subscript.var));
-                return ExpressionAndType(Type::getNilType(), nullptr);
+                return ExpressionAndType(VarType::getNilType(), nullptr);
             }
 
             if ((*entry)->getType()->getKind() != TypeKind::Array) {
                 EM_error(subscript.exp->pos, "variable %s is not a array!", S_name(subscript.var));
-                return ExpressionAndType(Type::getNilType());
+                return ExpressionAndType(VarType::getNilType());
             }
             auto arrayType = std::static_pointer_cast<ArrayType>((*entry)->getType());
 
@@ -157,7 +157,7 @@ private:
 
             if (subExp.getType() != arrayType->getType()) {
                 EM_error(subscript.exp->pos, "variable type and subscript type mismatch!");
-                return ExpressionAndType(Type::getNilType(), nullptr);
+                return ExpressionAndType(VarType::getNilType(), nullptr);
             }
 
             return ExpressionAndType(arrayType->getType(), nullptr); //TODO
@@ -165,13 +165,13 @@ private:
 
         static ExpressionAndType
         translateFieldVar(S_table valueEnvironment, S_table typeEnvironment, _A_field_ field, A_pos pos) {
-            if (field.var == NULL || field.sym == NULL) return ExpressionAndType(Type::getVoidType());
+            if (field.var == NULL || field.sym == NULL) return ExpressionAndType(VarType::getVoidType());
 
             auto recordEnv = unpack<VariableEnvironmentEntry>(S_look(valueEnvironment, field.var));
 
             if (recordEnv == nullptr || *recordEnv == nullptr) {
                 EM_error(pos, "undefined variable %s!", S_name(field.var));
-                return ExpressionAndType(Type::getNilType(), nullptr);
+                return ExpressionAndType(VarType::getNilType(), nullptr);
             }
 
             auto record = std::static_pointer_cast<RecordType>((*recordEnv)->getType());
@@ -181,12 +181,12 @@ private:
                     return ExpressionAndType(_field.getType(), nullptr);
                 }
             }
-            return ExpressionAndType(Type::getNilType(), nullptr); //TODO
+            return ExpressionAndType(VarType::getNilType(), nullptr); //TODO
         }
 
         static ExpressionAndType
         translateConstDec(S_table valueEnvironment, S_table typeEnvironment, _A_const_ constt) {
-            if (constt.name == NULL) return ExpressionAndType(Type::getVoidType());
+            if (constt.name == NULL) return ExpressionAndType(VarType::getVoidType());
 
             auto constExp = translateConst(valueEnvironment, typeEnvironment, constt.constValue);
 
@@ -197,7 +197,7 @@ private:
         }
 
         static ExpressionAndType translateTypeDec(S_table valueEnvironment, S_table typeEnvironment, _A_type_ type) {
-            if (type.name == NULL) return ExpressionAndType(Type::getVoidType());
+            if (type.name == NULL) return ExpressionAndType(VarType::getVoidType());
 
             auto typeExp = translateType(valueEnvironment, typeEnvironment, type.ty);
 
@@ -217,7 +217,7 @@ private:
         }
 
         static ExpressionAndType translateVarDec(S_table valueEnvironment, S_table typeEnvironment, A_field var) {
-            if (var == NULL) return ExpressionAndType(Type::getVoidType());
+            if (var == NULL) return ExpressionAndType(VarType::getVoidType());
 
             auto varExp = translateType(valueEnvironment, typeEnvironment, var->ty);
 
@@ -236,7 +236,7 @@ private:
 
         static ExpressionAndType
         translateRoutineDec(S_table valueEnvironment, S_table typeEnvironment, _A_routine_ routinee) {
-            if (routinee.name == NULL) return ExpressionAndType(Type::getVoidType());
+            if (routinee.name == NULL) return ExpressionAndType(VarType::getVoidType());
             S_beginScope(valueEnvironment);
             S_beginScope(typeEnvironment);
 
@@ -275,7 +275,7 @@ private:
 
             S_enter(typeEnvironment, routinee.name, pack<FunctionEnvironmentEntry>(routineEnv));
 
-            return ExpressionAndType(Type::getVoidType(), IR::genRoutineDec(routinee));
+            return ExpressionAndType(VarType::getVoidType(), IR::genRoutineDec(routinee));
         }
 
         static ExpressionAndType
@@ -299,7 +299,7 @@ private:
                 fieldList = fieldList->tail;
             }
 
-            return ExpressionAndType(std::static_pointer_cast<Type>(recordType));
+            return ExpressionAndType(std::static_pointer_cast<VarType>(recordType));
         }
 
         static ExpressionAndType translateArrayType(S_table valueEnvironment, S_table typeEnvironment, _A_array_ array) {
@@ -307,11 +307,11 @@ private:
             auto arrayType = std::shared_ptr<ArrayType>(new
                 ArrayType(typeExp.getType()));
 
-            return ExpressionAndType(std::static_pointer_cast<Type>(arrayType));
+            return ExpressionAndType(std::static_pointer_cast<VarType>(arrayType));
         }
 
         static ExpressionAndType translateProc(S_table valueEnvironment, S_table typeEnvironment, A_proc proc) {
-            if (proc == NULL) return ExpressionAndType(Type::getVoidType());
+            if (proc == NULL) return ExpressionAndType(VarType::getVoidType());
 
             S_symbol procName;
             if (proc->kind == A_sysProc) {
@@ -321,12 +321,12 @@ private:
                 procName = proc->u.func;
             }
 
-            if (procName == NULL) return ExpressionAndType(Type::getVoidType());
+            if (procName == NULL) return ExpressionAndType(VarType::getVoidType());
 
             auto env = unpack<FunctionEnvironmentEntry>(S_look(typeEnvironment, procName));
             if (env == nullptr) {
                 EM_error(proc->pos, "can not find a function or procedure named %s!", S_name(procName));
-                return ExpressionAndType(Type::getNilType(), nullptr);
+                return ExpressionAndType(VarType::getNilType(), nullptr);
             }
 
             auto &formals = (*env)->getFormals();
@@ -351,7 +351,7 @@ private:
             if (result)
                 return ExpressionAndType(result, IR::genProc(proc));
             else
-                return ExpressionAndType(Type::getVoidType(), IR::genProc(proc));
+                return ExpressionAndType(VarType::getVoidType(), IR::genProc(proc));
         }
 
         static ExpressionAndType
@@ -376,7 +376,7 @@ private:
         S_beginScope(typeEnvironment);
 
         auto testExp = translateExpression(valueEnvironment, typeEnvironment, iff.test);
-        if (testExp.getType() != Type::getIntegerType()) {
+        if (testExp.getType() != VarType::getIntegerType()) {
             EM_error(iff.test->pos, "if expression test should return int type!");
         } else {
             translateStatement(valueEnvironment, typeEnvironment, iff.then);
@@ -386,7 +386,7 @@ private:
         }
         S_endScope(valueEnvironment);
         S_endScope(typeEnvironment);
-        return ExpressionAndType(Type::getVoidType(), IR::genIfStatement(iff));
+        return ExpressionAndType(VarType::getVoidType(), IR::genIfStatement(iff));
     }
 
     static ExpressionAndType
@@ -395,7 +395,7 @@ private:
         S_beginScope(typeEnvironment);
 
         auto testExp = translateExpression(valueEnvironment, typeEnvironment, repeat.test);
-        if (testExp.getType() != Type::getIntegerType()) {
+        if (testExp.getType() != VarType::getIntegerType()) {
             EM_error(repeat.test->pos, "repeat expression test should return int type!");
         } else {
             auto &statementList = repeat.repeat;
@@ -407,7 +407,7 @@ private:
 
         S_endScope(valueEnvironment);
         S_endScope(typeEnvironment);
-        return ExpressionAndType(Type::getVoidType(), nullptr); //TODO
+        return ExpressionAndType(VarType::getVoidType(), nullptr); //TODO
     }
 
     static ExpressionAndType
@@ -416,21 +416,21 @@ private:
         S_beginScope(typeEnvironment);
 
         auto testExp = translateExpression(valueEnvironment, typeEnvironment, whilee.test);
-        if (testExp.getType() != Type::getIntegerType())
+        if (testExp.getType() != VarType::getIntegerType())
             EM_error(whilee.test->pos, "while expression test should return int type!");
         else
             translateStatement(valueEnvironment, typeEnvironment, whilee.whilee);
 
         S_endScope(valueEnvironment);
         S_endScope(typeEnvironment);
-        return ExpressionAndType(Type::getVoidType(), nullptr); //TODO
+        return ExpressionAndType(VarType::getVoidType(), nullptr); //TODO
     }
 
     static ExpressionAndType translateForStatement(S_table valueEnvironment, S_table typeEnvironment, _A_for_ forr) {
         S_beginScope(valueEnvironment);
         S_beginScope(typeEnvironment);
 
-        if (forr.var == NULL) return ExpressionAndType(Type::getVoidType());
+        if (forr.var == NULL) return ExpressionAndType(VarType::getVoidType());
 
         auto initExp = translateExpression(valueEnvironment, typeEnvironment, forr.init);
 
@@ -444,7 +444,7 @@ private:
 
         S_endScope(valueEnvironment);
         S_endScope(typeEnvironment);
-        return ExpressionAndType(Type::getVoidType(), ID::genForStatement(forr));
+        return ExpressionAndType(VarType::getVoidType(), ID::genForStatement(forr));
     }
 
     static ExpressionAndType translateCaseStatement(S_table valueEnvironment, S_table typeEnvironment, _A_case_ casee) {
@@ -455,7 +455,7 @@ private:
 
         auto caseList = casee.caselist;
         while (caseList != nullptr) {
-            std::shared_ptr<Type> &&constType = nullptr;
+            std::shared_ptr<VarType> &&constType = nullptr;
             if (caseList->head->name) {
                 auto varEnv = unpack<VariableEnvironmentEntry>(S_look(valueEnvironment, caseList->head->name));
                 if (varEnv == nullptr) {
@@ -481,11 +481,11 @@ private:
 
         S_endScope(valueEnvironment);
         S_endScope(typeEnvironment);
-        return ExpressionAndType(Type::getVoidType(), nullptr); //TODO
+        return ExpressionAndType(VarType::getVoidType(), nullptr); //TODO
     }
 
     static ExpressionAndType translateGotoType(S_table valueEnvironment, S_table typeEnvironment, _A_goto_ gotoo) {
-        return ExpressionAndType(Type::getVoidType(), nullptr); //TODO
+        return ExpressionAndType(VarType::getVoidType(), nullptr); //TODO
     }
 
     static ExpressionAndType
@@ -501,35 +501,35 @@ private:
 
         S_endScope(valueEnvironment);
         S_endScope(typeEnvironment);
-        return ExpressionAndType(Type::getVoidType(), nullptr); //TODO
+        return ExpressionAndType(VarType::getVoidType(), nullptr); //TODO
     }
 
     static ExpressionAndType
     translateSyscon(S_table valueEnvironment, S_table typeEnvironment, S_symbol syscon, A_pos pos) {
-        if (syscon == NULL) return ExpressionAndType(Type::getVoidType());
+        if (syscon == NULL) return ExpressionAndType(VarType::getVoidType());
 
         auto sysconExp = unpack<VariableEnvironmentEntry>(S_look(valueEnvironment, syscon));
         if (!sysconExp) {
             EM_error(pos, "Can not find a const variable named %s!", S_name(syscon));
-            return ExpressionAndType(Type::getNilType());
+            return ExpressionAndType(VarType::getNilType());
         }
 
         return ExpressionAndType((*sysconExp)->getType(), IR::genSimpleVar(syscon), (*sysconExp)->isConst);
     }
 
     static ExpressionAndType translateString(S_table valueEnvironment, S_table typeEnvironment, string _string) {
-        return ExpressionAndType(Type::getStringType(), IR::genStringConst(_string));
+        return ExpressionAndType(VarType::getStringType(), IR::genStringConst(_string));
     }
 
     static ExpressionAndType
     translateSysType(S_table valueEnvironment, S_table typeEnvironment, S_symbol systy, A_pos pos) {
-        if (systy == NULL) return ExpressionAndType(Type::getVoidType());
+        if (systy == NULL) return ExpressionAndType(VarType::getVoidType());
 
         auto typeEnv = unpack<VariableEnvironmentEntry>(S_look(typeEnvironment, systy));
 
         if (typeEnv == nullptr || *typeEnv == nullptr) {
             EM_error(pos, "undefined type: %s!", S_name(systy));
-            return ExpressionAndType(Type::getNilType(), nullptr);
+            return ExpressionAndType(VarType::getNilType(), nullptr);
         }
 
         return ExpressionAndType((*typeEnv)->getType());
@@ -537,7 +537,7 @@ private:
 
     static ExpressionAndType
     translateDoubleConstSimpleType(S_table valueEnvironment, S_table typeEnvironment, _A_doubleC_ doubleC) {
-        if (doubleC.left == NULL || doubleC.right == NULL) return ExpressionAndType(Type::getVoidType());
+        if (doubleC.left == NULL || doubleC.right == NULL) return ExpressionAndType(VarType::getVoidType());
 
         auto leftExp = translateExpression(valueEnvironment, typeEnvironment, doubleC.left);
         auto rightExp = translateExpression(valueEnvironment, typeEnvironment, doubleC.right);
@@ -551,7 +551,7 @@ private:
 
     static ExpressionAndType
     translateDoubleNameSimpleType(S_table valueEnvironment, S_table typeEnvironment, _A_doubleN_ doubleN, A_pos pos) {
-        if (doubleN.left == NULL || doubleN.right == NULL) return ExpressionAndType(Type::getVoidType());
+        if (doubleN.left == NULL || doubleN.right == NULL) return ExpressionAndType(VarType::getVoidType());
 
         auto leftEnv = unpack<VariableEnvironmentEntry>(S_look(valueEnvironment, doubleN.left));
         auto rightEnv = unpack<VariableEnvironmentEntry>(S_look(valueEnvironment, doubleN.right));
@@ -565,7 +565,7 @@ private:
 
     static ExpressionAndType
     translateListSimpleType(S_table valueEnvironment, S_table typeEnvironment, A_nameList nameList) {
-        if (nameList == NULL) return ExpressionAndType(Type::getVoidType());
+        if (nameList == NULL) return ExpressionAndType(VarType::getVoidType());
 
         auto type = std::shared_ptr<EnumType>(new EnumType);
 
@@ -577,11 +577,11 @@ private:
             nameList = nameList->tail;
         }
 
-        return ExpressionAndType(std::static_pointer_cast<Type>(type));
+        return ExpressionAndType(std::static_pointer_cast<VarType>(type));
     }
 
     static ExpressionAndType translateDecPart(S_table valueEnvironment, S_table typeEnvironment, A_decPart decPart) {
-        if (decPart == NULL) return ExpressionAndType(Type::getVoidType());
+        if (decPart == NULL) return ExpressionAndType(VarType::getVoidType());
 
         auto decList = decPart->head;
 
@@ -593,7 +593,7 @@ private:
             decList = decList->tail;
         }
 
-        return ExpressionAndType(Type::getVoidType(), nullptr);
+        return ExpressionAndType(VarType::getVoidType(), nullptr);
     }
 
 public:
@@ -608,7 +608,7 @@ public:
             return translateArrayType(valueEnvironment, typeEnvironment, type->u.array);
             default:
             EM_error(type->pos, "Not recognized type! type kind: %d", type->kind);
-            return ExpressionAndType(Type::getNilType(), nullptr);
+            return ExpressionAndType(VarType::getNilType(), nullptr);
         }
     }
 
@@ -624,26 +624,26 @@ public:
             case A_routineDec:
             return translateRoutineDec(valueEnvironment, typeEnvironment, declaration->u.routine);
             default:
-            EM_error(declaration->pos, "Not recognized declaration type! Type id: %d", declaration->kind);
-            return ExpressionAndType(Type::getNilType(), nullptr);
+            EM_error(declaration->pos, "Not recognized declaration type! VarType id: %d", declaration->kind);
+            return ExpressionAndType(VarType::getNilType(), nullptr);
         }
     }
 
     static ExpressionAndType translateConst(S_table valueEnvironment, S_table typeEnvironment, A_const constValue) {
         switch (constValue->kind) {
             case A_int:
-            return ExpressionAndType(Type::getIntegerType(), IR::genIntConst(constValue.intt), true);
+            return ExpressionAndType(VarType::getIntegerType(), IR::genIntConst(constValue.intt), true);
             case A_real:
-            return ExpressionAndType(Type::getRealType(), IR::genRealConst(constValue.reall), true);
+            return ExpressionAndType(VarType::getRealType(), IR::genRealConst(constValue.reall), true);
             case A_char:
-            return ExpressionAndType(Type::getCharType(), IR::genCharConst(constValue.charr), true);
+            return ExpressionAndType(VarType::getCharType(), IR::genCharConst(constValue.charr), true);
             case A_string:
-            return ExpressionAndType(Type::getStringType(), IR::genStringConst(constValue.stringg), true);
+            return ExpressionAndType(VarType::getStringType(), IR::genStringConst(constValue.stringg), true);
             case A_syscon:
             return translateSyscon(valueEnvironment, typeEnvironment, constValue->u.syscon, constValue->pos);
             default:
             EM_error(constValue->pos, "Not recognized const value!");
-            return ExpressionAndType(Type::getNilType(), nullptr);
+            return ExpressionAndType(VarType::getNilType(), nullptr);
         }
     }
 
@@ -670,8 +670,8 @@ public:
             case A_compoundStmt:
             return translateCompoundStatement(valueEnvironment, typeEnvironment, statement->u.compound);
             default:
-            EM_error(statement->pos, "Not recognized statement type! Type id: %d", statement->kind);
-            return ExpressionAndType(Type::getNilType(), nullptr);
+            EM_error(statement->pos, "Not recognized statement type! VarType id: %d", statement->kind);
+            return ExpressionAndType(VarType::getNilType(), nullptr);
         }
     }
 
@@ -691,7 +691,7 @@ public:
             return translateListSimpleType(valueEnvironment, typeEnvironment, simpleType->u.nameList);
             default:
             EM_error(simpleType->pos, "Not recognized simple type kind: %d", simpleType->kind);
-            return ExpressionAndType(Type::getNilType(), nullptr);
+            return ExpressionAndType(VarType::getNilType(), nullptr);
         }
     }
 
@@ -706,8 +706,8 @@ public:
             case A_subscriptVar:
             return translateSubscriptVar(valueEnvironment, typeEnvironment, variable->u.subscript);
             default:
-            EM_error(variable->pos, "Not recognized variable type! Type id: %d", variable->kind);
-            return ExpressionAndType(Type::getNilType(), nullptr);
+            EM_error(variable->pos, "Not recognized variable type! VarType id: %d", variable->kind);
+            return ExpressionAndType(VarType::getNilType(), nullptr);
         }
     }
 
@@ -726,8 +726,8 @@ public:
             case A_parenExp:
             return translateExpression(valueEnvironment, typeEnvironment, expression->u.paren);
             default:
-            EM_error(expression->pos, "Not recognized expression type! Type id: %d", expression->kind);
-            return ExpressionAndType(Type::getNilType(), nullptr);
+            EM_error(expression->pos, "Not recognized expression type! VarType id: %d", expression->kind);
+            return ExpressionAndType(VarType::getNilType(), nullptr);
         }
     }
 
@@ -745,7 +745,7 @@ public:
         //body
         translateStatement(valueEnvironment, typeEnvironment, routineBody->head);
 
-        return ExpressionAndType(Type::getVoidType(), nullptr);
+        return ExpressionAndType(VarType::getVoidType(), nullptr);
     }
 
     static ExpressionAndType translateProgram(S_table valueEnvironment, S_table typeEnvironment, A_pro program) {

@@ -17,35 +17,35 @@ enum class TypeKind {
     Nil, Boolean, Char, Integer, Real, Array, Record, Name, String, Range, Enum, Void
 };
 
-class Type {
+class VarType {
 public:
-    Type(TypeKind kind = TypeKind::Nil, bool isConst = false) : kind(kind) {};
+    VarType(TypeKind kind = TypeKind::Nil, bool isConst = false) : kind(kind) {};
 
-    static std::shared_ptr<Type> &getNilType() {
+    static std::shared_ptr<VarType> &getNilType() {
         return NilType;
     }
 
-    static std::shared_ptr<Type> &getBooleanType() {
+    static std::shared_ptr<VarType> &getBooleanType() {
         return BooleanType;
     }
 
-    static std::shared_ptr<Type> &getCharType() {
+    static std::shared_ptr<VarType> &getCharType() {
         return CharType;
     }
 
-    static std::shared_ptr<Type> &getIntegerType() {
+    static std::shared_ptr<VarType> &getIntegerType() {
         return IntegerType;
     }
 
-    static std::shared_ptr<Type> &getRealType() {
+    static std::shared_ptr<VarType> &getRealType() {
         return RealType;
     }
 
-    static std::shared_ptr<Type> &getVoidType() {
+    static std::shared_ptr<VarType> &getVoidType() {
         return VoidType;
     }
 
-    static std::shared_ptr<Type> &getStringType() {
+    static std::shared_ptr<VarType> &getStringType() {
         return StringType;
     }
 
@@ -59,42 +59,42 @@ private:
     TypeKind kind;
 
 
-    static std::shared_ptr<Type> NilType;
-    static std::shared_ptr<Type> BooleanType;
-    static std::shared_ptr<Type> CharType;
-    static std::shared_ptr<Type> IntegerType;
-    static std::shared_ptr<Type> RealType;
-    static std::shared_ptr<Type> VoidType;
-    static std::shared_ptr<Type> StringType;
+    static std::shared_ptr<VarType> NilType;
+    static std::shared_ptr<VarType> BooleanType;
+    static std::shared_ptr<VarType> CharType;
+    static std::shared_ptr<VarType> IntegerType;
+    static std::shared_ptr<VarType> RealType;
+    static std::shared_ptr<VarType> VoidType;
+    static std::shared_ptr<VarType> StringType;
 };
 
-std::shared_ptr<Type> Type::NilType(new Type(TypeKind::Nil));
-std::shared_ptr<Type> Type::BooleanType(new Type(TypeKind::Boolean));
-std::shared_ptr<Type> Type::CharType(new Type(TypeKind::Char));
-std::shared_ptr<Type> Type::IntegerType(new Type(TypeKind::Integer));
-std::shared_ptr<Type> Type::RealType(new Type(TypeKind::Real));
-std::shared_ptr<Type> Type::VoidType(new Type(TypeKind::Void));
-std::shared_ptr<Type> Type::StringType(new Type(TypeKind::String));
+std::shared_ptr<VarType> VarType::NilType(new VarType(TypeKind::Nil));
+std::shared_ptr<VarType> VarType::BooleanType(new VarType(TypeKind::Boolean));
+std::shared_ptr<VarType> VarType::CharType(new VarType(TypeKind::Char));
+std::shared_ptr<VarType> VarType::IntegerType(new VarType(TypeKind::Integer));
+std::shared_ptr<VarType> VarType::RealType(new VarType(TypeKind::Real));
+std::shared_ptr<VarType> VarType::VoidType(new VarType(TypeKind::Void));
+std::shared_ptr<VarType> VarType::StringType(new VarType(TypeKind::String));
 
 
-class ArrayType : public Type {
+class ArrayType : public VarType {
 public:
-    ArrayType(std::shared_ptr<Type> type) : Type(TypeKind::Array), type(type) {};
+    ArrayType(std::shared_ptr<VarType> type) : VarType(TypeKind::Array), type(type) {};
 
-    std::shared_ptr<Type> &getType() {
+    std::shared_ptr<VarType> &getType() {
         return type;
     }
 
 private:
-    std::shared_ptr<Type> type;
+    std::shared_ptr<VarType> type;
 };
 
-//class NameType : Type {
+//class NameType : VarType {
 //public:
-//    NameType(std::shared_ptr<Type> type = Type::getNilType(), S_symbol symbol) : Type(TypeKind::Name), type(type),
+//    NameType(std::shared_ptr<VarType> type = VarType::getNilType(), S_symbol symbol) : VarType(TypeKind::Name), type(type),
 //                                                                                 symbol(symbol) {};
 //
-//    std::shared_ptr<Type> &getType() const {
+//    std::shared_ptr<VarType> &getType() const {
 //        return type;
 //    }
 //
@@ -104,7 +104,7 @@ private:
 //
 //private:
 //    S_symbol symbol;
-//    std::shared_ptr<Type> type;
+//    std::shared_ptr<VarType> type;
 //};
 
 class Field {
@@ -113,22 +113,22 @@ public:
         return name;
     }
 
-    std::shared_ptr<Type> &getType() {
+    std::shared_ptr<VarType> &getType() {
         return type;
     }
 
-    Field(S_symbol name, std::shared_ptr<Type> type) : name(name), type(type) {};
+    Field(S_symbol name, std::shared_ptr<VarType> type) : name(name), type(type) {};
 
 private:
     S_symbol name;
-    std::shared_ptr<Type> type;
+    std::shared_ptr<VarType> type;
 };
 
-class RecordType : public Type {
+class RecordType : public VarType {
 public:
-    RecordType() : Type(TypeKind::Record) {};
+    RecordType() : VarType(TypeKind::Record) {};
 
-    RecordType(std::list<Field> &filedList) : fieldList(fieldList), Type(TypeKind::Record) {};
+    RecordType(std::list<Field> &filedList) : fieldList(fieldList), VarType(TypeKind::Record) {};
 
     std::list<Field> &getFieldList() {
         return fieldList;
@@ -139,21 +139,21 @@ private:
 
 };
 
-class RangeType : public Type {
+class RangeType : public VarType {
 public:
-    RangeType(std::shared_ptr<Type> type) : Type(TypeKind::Range), type(type) {};
+    RangeType(std::shared_ptr<VarType> type) : VarType(TypeKind::Range), type(type) {};
 
-    std::shared_ptr<Type> &getType() {
+    std::shared_ptr<VarType> &getType() {
         return type;
     }
 
 private:
-    std::shared_ptr<Type> type;
+    std::shared_ptr<VarType> type;
 };
 
-class EnumType : public Type {
+class EnumType : public VarType {
 public:
-    EnumType() : Type(TypeKind::Enum) {};
+    EnumType() : VarType(TypeKind::Enum) {};
 
     std::list<S_symbol> &getItems() {
         return items;

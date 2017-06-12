@@ -47,62 +47,62 @@ private:
 
 class VariableEnvironmentEntry : public EnvironmentEntry {
 public:
-    VariableEnvironmentEntry(std::shared_ptr<Type> type, bool isConst = false) : EnvironmentEntry(EntryKind::VariableEntry),
+    VariableEnvironmentEntry(std::shared_ptr<VarType> type, bool isConst = false) : EnvironmentEntry(EntryKind::VariableEntry),
                                                            type(type), isConst(isConst) {};
 
-    std::shared_ptr<Type> &getType() {
+    std::shared_ptr<VarType> &getType() {
         return type;
     }
 
     bool isConst;
 
 private:
-    std::shared_ptr<Type> type;
+    std::shared_ptr<VarType> type;
 };
 
 class FunctionEnvironmentEntry : public EnvironmentEntry {
 public:
     FunctionEnvironmentEntry() : EnvironmentEntry(EntryKind::FunctionEntry) {};
 
-    FunctionEnvironmentEntry(std::list<std::shared_ptr<Type>> &&formals, std::shared_ptr<Type> result)
+    FunctionEnvironmentEntry(std::list<std::shared_ptr<VarType>> &&formals, std::shared_ptr<VarType> result)
             : EnvironmentEntry(EntryKind::FunctionEntry), formals(formals), result(result) {};
 
-    FunctionEnvironmentEntry(std::shared_ptr<Type> result) : EnvironmentEntry(EntryKind::FunctionEntry), result(result) {};
+    FunctionEnvironmentEntry(std::shared_ptr<VarType> result) : EnvironmentEntry(EntryKind::FunctionEntry), result(result) {};
 
-    std::list<std::shared_ptr<Type>> &getFormals() {
+    std::list<std::shared_ptr<VarType>> &getFormals() {
         return formals;
     }
 
-    std::shared_ptr<Type> &getResult() {
+    std::shared_ptr<VarType> &getResult() {
         return result;
     }
 
 private:
-    std::list<std::shared_ptr<Type>> formals;
+    std::list<std::shared_ptr<VarType>> formals;
 
-    std::shared_ptr<Type> result;
+    std::shared_ptr<VarType> result;
 };
 
 S_table EnvironmentEntry::enterBaseTypeEnvironment() {
     S_table environment = S_empty();
-    S_enter(environment, S_Symbol(toCharString("boolean")), pack(new VariableEnvironmentEntry(Type::getBooleanType())));
-    S_enter(environment, S_Symbol(toCharString("char")), pack(new VariableEnvironmentEntry(Type::getCharType())));
-    S_enter(environment, S_Symbol(toCharString("integer")),  pack(new VariableEnvironmentEntry(Type::getIntegerType())));
-    S_enter(environment, S_Symbol(toCharString("real")), pack(new VariableEnvironmentEntry(Type::getRealType())));
-    S_enter(environment, S_Symbol(toCharString("string")), pack(new VariableEnvironmentEntry(Type::getStringType())));
+    S_enter(environment, S_Symbol(toCharString("boolean")), pack(new VariableEnvironmentEntry(VarType::getBooleanType())));
+    S_enter(environment, S_Symbol(toCharString("char")), pack(new VariableEnvironmentEntry(VarType::getCharType())));
+    S_enter(environment, S_Symbol(toCharString("integer")),  pack(new VariableEnvironmentEntry(VarType::getIntegerType())));
+    S_enter(environment, S_Symbol(toCharString("real")), pack(new VariableEnvironmentEntry(VarType::getRealType())));
+    S_enter(environment, S_Symbol(toCharString("string")), pack(new VariableEnvironmentEntry(VarType::getStringType())));
 
     //system functions
-    S_enter(environment, S_Symbol(toCharString("writeln")), pack(new FunctionEnvironmentEntry({Type::getIntegerType()}, Type::getVoidType())));
-    S_enter(environment, S_Symbol(toCharString("write")), pack(new FunctionEnvironmentEntry({Type::getIntegerType()}, Type::getVoidType())));
-    S_enter(environment, S_Symbol(toCharString("read")), pack(new FunctionEnvironmentEntry({Type::getIntegerType()}, Type::getVoidType())));
+    S_enter(environment, S_Symbol(toCharString("writeln")), pack(new FunctionEnvironmentEntry({VarType::getIntegerType()}, VarType::getVoidType())));
+    S_enter(environment, S_Symbol(toCharString("write")), pack(new FunctionEnvironmentEntry({VarType::getIntegerType()}, VarType::getVoidType())));
+    S_enter(environment, S_Symbol(toCharString("read")), pack(new FunctionEnvironmentEntry({VarType::getIntegerType()}, VarType::getVoidType())));
     return environment;
 }
 
 S_table EnvironmentEntry::enterBaseValueEnvironment() {
     S_table environment = S_empty();
-    S_enter(environment, S_Symbol(toCharString("true")), pack(new VariableEnvironmentEntry(Type::getBooleanType(), true)));
-    S_enter(environment, S_Symbol(toCharString("false")), pack(new VariableEnvironmentEntry(Type::getBooleanType(), true)));
-    S_enter(environment, S_Symbol(toCharString("maxint")), pack(new VariableEnvironmentEntry(Type::getIntegerType(), true)));
+    S_enter(environment, S_Symbol(toCharString("true")), pack(new VariableEnvironmentEntry(VarType::getBooleanType(), true)));
+    S_enter(environment, S_Symbol(toCharString("false")), pack(new VariableEnvironmentEntry(VarType::getBooleanType(), true)));
+    S_enter(environment, S_Symbol(toCharString("maxint")), pack(new VariableEnvironmentEntry(VarType::getIntegerType(), true)));
     return environment;
 }
 
