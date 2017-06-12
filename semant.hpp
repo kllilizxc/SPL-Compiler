@@ -67,17 +67,18 @@ private:
         S_beginScope(valueEnvironment);
         S_beginScope(typeEnvironment);
         auto testExp = translateExpression(valueEnvironment, typeEnvironment, iff.test);
+        ExpressionAndType thenExp, elseExp;
         if (testExp.getType() != VarType::getIntegerType()) {
             EM_error(iff.test->pos, "if expression test should return int type!");
         } else {
-            translateExpression(valueEnvironment, typeEnvironment, iff.then);
+            thenExp = translateExpression(valueEnvironment, typeEnvironment, iff.then);
             if (iff.elsee != nullptr) {
-                translateExpression(valueEnvironment, typeEnvironment, iff.elsee);
+                elseExp = translateExpression(valueEnvironment, typeEnvironment, iff.elsee);
             }
         }
         S_endScope(valueEnvironment);
         S_endScope(typeEnvironment);
-        return ExpressionAndType(VarType::getVoidType(), IR::genIf(iff));
+        return ExpressionAndType(VarType::getVoidType(), IR::genIf(testExp.getExpression(), thenExp.getExpression(), elseExp.getExpression()));
     }
 
     static bool isIntorBoolorRealorChar(std::shared_ptr<VarType> type) {
@@ -108,9 +109,9 @@ private:
         auto leftISReal = !isIntorBoolorRealorChar(left.getType());
         auto rightIsReal = !isIntorBoolorRealorChar(right.getType()); 
         if (leftISReal && rightIsReal) {
-            return ExpressionAndType(getBiggestType(left.getType(), right.getType()), IR::genFOp(op));
+            return ExpressionAndType(getBiggestType(left.getType(), right.getType()), IR::genFOp(op, left.getExpression(), right.getExpression()));
         } else if (!leftISReal && !rightIsReal) {
-            return ExpressionAndType(getBiggestType(left.getType(), right.getType()), IR::genOp(op));
+            return ExpressionAndType(getBiggestType(left.getType(), right.getType()), IR::genOp(op, left.getExpression(), right.getExpression()));
         } else {
             EM_error(op.right->pos, "two operands' type mismatch!");
             return ExpressionAndType(VarType::getNilType(), nullptr);
@@ -333,13 +334,15 @@ private:
             auto &args = proc->args;
 
             auto iter = formals.begin();
+            std::vector<Value *> argExps;
             while (iter != formals.end()) {
-                auto argEnv = translateExpression(valueEnvironment, typeEnvironment, args->head);
-                if (argEnv.getType() != *iter) {
+                auto argExp = translateExpression(valueEnvironment, typeEnvironment, args->head);
+                if (argExp.getType() != *iter) {
                     EM_error(proc->args->head->pos, "arguments type mismatch!");
                     break;
                 }
                 iter++;
+                argExps.push_back(argExp.getExpression());
                 args = args->tail;
             }
             if (args != nullptr) {
@@ -349,9 +352,9 @@ private:
             auto result = (*env)->getResult();
 
             if (result)
-                return ExpressionAndType(result, IR::genProc(proc));
+                return ExpressionAndType(result, IR::genProc(proc, argExps));
             else
-                return ExpressionAndType(VarType::getVoidType(), IR::genProc(proc));
+                return ExpressionAndType(VarType::getVoidType(), IR::genProc(proc, argExps));
         }
 
         static ExpressionAndType
@@ -368,7 +371,7 @@ private:
                 variable.getType() != expression.getType()) {
                 EM_error(assign.var->pos, "variable type and expression type mismatch!");
         }
-        return ExpressionAndType(variable.getType(), ID::genAssignStatement(assign));
+        return ExpressionAndType(variable.getType(), IR::genAssignStatement(assign.var, expression.getExpression()));
     }
 
     static ExpressionAndType translateIfStatement(S_table valueEnvironment, S_table typeEnvironment, _A_if_stm_ iff) {
@@ -376,17 +379,18 @@ private:
         S_beginScope(typeEnvironment);
 
         auto testExp = translateExpression(valueEnvironment, typeEnvironment, iff.test);
+        ExpressionAndType thenExp, elseExp;
         if (testExp.getType() != VarType::getIntegerType()) {
             EM_error(iff.test->pos, "if expression test should return int type!");
         } else {
-            translateStatement(valueEnvironment, typeEnvironment, iff.then);
+            thenExp = translateStatement(valueEnvironment, typeEnvironment, iff.then);
             if (iff.elsee != nullptr) {
-                translateStatement(valueEnvironment, typeEnvironment, iff.elsee);
+                elseExp = translateStatement(valueEnvironment, typeEnvironment, iff.elsee);
             }
         }
         S_endScope(valueEnvironment);
         S_endScope(typeEnvironment);
-        return ExpressionAndType(VarType::getVoidType(), IR::genIfStatement(iff));
+        return ExpressionAndType(VarType::getVoidType(), IR::genIf(testExp.getExpression(), thenExp.getExpression(), elseExp.getExpression()));
     }
 
     static ExpressionAndType
@@ -436,15 +440,16 @@ private:
 
         auto changeExp = translateExpression(valueEnvironment, typeEnvironment, forr.change);
 
+
         if (initExp.getType() != changeExp.getType())
             EM_error(forr.change->pos, "variable init value type mismatch its change type!");
 
         S_enter(valueEnvironment, forr.var, pack(new VariableEnvironmentEntry(initExp.getType())));
-        translateStatement(valueEnvironment, typeEnvironment, forr.fordo);
+        auto doExp = translateStatement(valueEnvironment, typeEnvironment, forr.fordo);
 
         S_endScope(valueEnvironment);
         S_endScope(typeEnvironment);
-        return ExpressionAndType(VarType::getVoidType(), ID::genForStatement(forr));
+        return ExpressionAndType(VarType::getVoidType(), ID::genForStatement(forr.var, initExp.getExpression(), changeExp.getExpression(), doExp.getExpression()));
     }
 
     static ExpressionAndType translateCaseStatement(S_table valueEnvironment, S_table typeEnvironment, _A_case_ casee) {
@@ -494,9 +499,11 @@ private:
         S_beginScope(typeEnvironment);
 
         auto statementList = compound.substmtList;
+        std::vector<Value *> statementVals;
         while (statementList != nullptr) {
-            translateStatement(valueEnvironment, typeEnvironment, statementList->head);
+            auto exp = translateStatement(valueEnvironment, typeEnvironment, statementList->head);
             statementList = statementList->tail;
+            statementVals.push_back(exp.getExpression());
         }
 
         S_endScope(valueEnvironment);
@@ -743,9 +750,7 @@ public:
         translateDecPart(valueEnvironment, typeEnvironment, routineHead->routinePart);
 
         //body
-        translateStatement(valueEnvironment, typeEnvironment, routineBody->head);
-
-        return ExpressionAndType(VarType::getVoidType(), nullptr);
+        return translateStatement(valueEnvironment, typeEnvironment, routineBody->head);
     }
 
     static ExpressionAndType translateProgram(S_table valueEnvironment, S_table typeEnvironment, A_pro program) {

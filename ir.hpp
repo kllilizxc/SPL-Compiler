@@ -37,9 +37,7 @@ public:
     return ConstantInt::get(TheContext, APInt(32, (int) val));
   }
 
-  static Value *genOp(_A_op_ op) {
-    Value *L = genExpression(op.left);
-    Value *R = genExpression(op.right);
+  static Value *genOp(_A_op_ op, Value *L, Value *R) {
     switch (op.oper) {
       case A_plusOp:
       return Builder.CreateAdd(L, R);
@@ -66,9 +64,7 @@ public:
     }
   }
 
-  static Value *genFOp(_A_op_ op) {
-    Value *L = genExpression(op.left);
-    Value *R = genExpression(op.right);
+  static Value *genFOp(_A_op_ op, Value *L, Value *R) {
     switch (op.oper) {
       case A_plusOp:
       return Builder.CreateFAdd(L, R);
@@ -117,7 +113,7 @@ public:
     return value;
   }
 
-  static Value *genProc(A_proc proc) {
+  static Value *genProc(A_proc proc, std::vector<Value *> args) {
     S_symbol procName;
     if (proc->kind == A_sysProc) {
       procName = proc->u.proc;
@@ -128,24 +124,16 @@ public:
 
     Function *callee = TheModule->getFunction(S_name(procName));
 
-    std::vector<Value *> args;
-    while (proc->args != nullptr) {
-      args.push_back(genExpression(proc->args->head));
-      proc->args = proc->args->tail;
-    }
-
     return Builder.CreateCall(callee, args);
   }
 
-  static Value *genAssignStatement(_A_assign_ assign) {
-    Value *var = NamedValues[assign.var];
-    Value *exp = genExpression(assign.exp);
+  static Value *genAssignStatement(S_symbol name, Value *assignExp) {
+    Value *var = NamedValues[name];
 
-    return Builder.CreateStore(exp, var);
+    return Builder.CreateStore(assignExp, var);
   }
 
-  static Value *genIf(_A_if_exp_ iff) {
-    Value *condition = genExpression(iff.test);
+  static Value *genIf(Value *condition, Value *thenValue, Value *elseValue) {
     condition = Builder.CreateICmpNE(condition, ConstantInt::get(TheContext, APInt(32, 0)));
 
     Function *theFunction = Builder.GetInsertBlock()->getParent();
@@ -158,7 +146,6 @@ public:
 
     Builder.SetInsertPoint(thenBlock);
 
-    Value *thenValue = genExpression(iff.then);
     if(!thenValue) return nullptr;
 
     Builder.CreateBr(mergeBlock);
@@ -167,7 +154,6 @@ public:
     theFunction->getBasicBlockList().push_back(elseBlock);
     Builder.SetInsertPoint(elseBlock);
 
-    Value *elseValue = genExpression(iff.elsee);
     if(!elseValue) return nullptr;
 
     Builder.CreateBr(mergeBlock);
@@ -182,54 +168,11 @@ public:
     return PN;
   }
 
-  static Value *genIfStatement(_A_if_stm_ iff) {
-    Value *condition = genExpression(iff.test);
-    condition = Builder.CreateICmpNE(condition, ConstantInt::get(TheContext, APInt(32, 0)));
-
-    Function *theFunction = Builder.GetInsertBlock()->getParent();
-
-    BasicBlock *thenBlock = BasicBlock::Create(TheContext, "then", theFunction);
-    BasicBlock *elseBlock = BasicBlock::Create(TheContext, "else");
-    BasicBlock *mergeBlock = BasicBlock::Create(TheContext, "ifcont");
-
-    Builder.CreateCondBr(condition, thenBlock, elseBlock);
-
-    Builder.SetInsertPoint(thenBlock);
-
-    Value *thenValue = genStatement(iff.then);
-    if(!thenValue) return nullptr;
-
-    Builder.CreateBr(mergeBlock);
-    thenBlock = Builder.GetInsertBlock();
-
-    theFunction->getBasicBlockList().push_back(elseBlock);
-    Builder.SetInsertPoint(elseBlock);
-
-    Value *elseValue = genStatement(iff.elsee);
-    if(!elseValue) return nullptr;
-
-    Builder.CreateBr(mergeBlock);
-    thenBlock = Builder.GetInsertBlock();
-
-    theFunction->getBasicBlockList().push_back(mergeBlock);
-    Builder.SetInsertPoint(mergeBlock);
-
-    PHINode *PN = Builder.CreatePHI(Type::getDoubleTy(TheContext), 2, "iftmp"); //TODO
-    PN->addIncoming(thenValue, thenBlock);
-    PN->addIncoming(elseValue, elseBlock);
-    return PN;
-  }
-
-  static Value *genForStatement(_A_for_ forr) {
+  static Value *genForStatement(S_symbol var, Value *StartVal, Value *EndVal, Value *fordo) {
     Function *TheFunction = Builder.GetInsertBlock()->getParent();
 
         // Create an alloca for the variable in the entry block.
-    AllocaInst *Alloca = CreateEntryBlockAlloca(TheFunction, S_name(forr.var));
-
-        // Emit the start code first, without 'variable' in scope.
-    Value *StartVal = genExpression(forr.init);
-    if (!StartVal)
-      return nullptr;
+    AllocaInst *Alloca = CreateEntryBlockAlloca(TheFunction, S_name(var));
 
         // Store the value into the alloca.
     Builder.CreateStore(StartVal, Alloca);
@@ -246,25 +189,16 @@ public:
 
         // Within the loop, the variable is defined equal to the PHI node.  If it
         // shadows an existing variable, we have to restore it, so save it now.
-    AllocaInst *OldVal = NamedValues[forr.var];
-    NamedValues[forr.var] = Alloca;
+    AllocaInst *OldVal = NamedValues[var];
+    NamedValues[var] = Alloca;
 
-        // Emit the body of the loop.  This, like any other expr, can change the
-        // current BB.  Note that we ignore the value computed by the body, but don't
-        // allow an error.
-    if (!genStatement(forr.fordo))
-      return nullptr;
+    //TODO where is the body?
 
     Value *StepVal = ConstantInt::get(TheContext, APInt(32, 1));
 
-        // Compute the end condition.
-    Value *EndVal = genExpression(forr.change);
-    if (!EndVal)
-      return nullptr;
-
         // Reload, increment, and restore the alloca.  This handles the case where
         // the body of the loop mutates the variable.
-    Value *CurVar = Builder.CreateLoad(Alloca, S_name(forr.var));
+    Value *CurVar = Builder.CreateLoad(Alloca, S_name(var));
     Value *NextVar = Builder.CreateFAdd(CurVar, StepVal, "nextvar");
     Builder.CreateStore(NextVar, Alloca);
 
@@ -283,9 +217,9 @@ public:
 
         // Restore the unshadowed variable.
     if (OldVal)
-      NamedValues[forr.var] = OldVal;
+      NamedValues[var] = OldVal;
     else
-      NamedValues.erase(forr.var);
+      NamedValues.erase(var);
 
         // for expr always returns 0.0.
     return Constant::getNullValue(Type::getDoubleTy(TheContext));
@@ -307,7 +241,7 @@ public:
     return nullptr;
   }
 
-  Value *genRoutineDec(_A_routine_ routinee) {
+  Function *genRoutineDec(_A_routine_ routinee, Value *subroutine) {
     std::vector<Type *> argTypes;
     for(auto i = routinee.params; i != nullptr; i = i->tail) {
       for(auto j = i->head->head; j != nullptr; j = j->tail) {
@@ -315,12 +249,12 @@ public:
       }
     }
     FunctionType *FT =
-    FunctionType::get(Type::getDoubleTy(TheContext), argTypes, false);
+    FunctionType::get(genSimpleType(routinee.simplety), argTypes, false);
 
-    Function *F =
+    Function *TheFunction =
     Function::Create(FT, Function::ExternalLinkage, S_name(routinee.name), TheModule.get());
 
-        // Set names for all arguments.
+    // Set names for all arguments.
     auto arg = F->arg_begin();
     for(auto i = routinee.params; i != nullptr; i = i->tail) {
       for(auto j = i->head->head; j != nullptr; j = j->tail) {
@@ -328,11 +262,32 @@ public:
       }
     }
 
-    return F;
+    // Create a new basic block to start insertion into.
+    BasicBlock *BB = BasicBlock::Create(TheContext, "entry", TheFunction);
+    Builder.SetInsertPoint(BB);
+
+    // Record the function arguments in the NamedValues map.
+    // NamedValues.clear();
+    for (auto &Arg : TheFunction->args())
+      NamedValues[Arg.getName()] = &Arg;
+
+    if (Value *RetVal = subroutine) {
+      // Finish off the function.
+      Builder.CreateRet(RetVal);
+
+      // Validate the generated code, checking for consistency.
+      verifyFunction(*TheFunction);
+
+      return TheFunction;
+    }
+
+    // Error reading body, remove function.
+    TheFunction->eraseFromParent();
+    return nullptr;
   }
 
   static Type *genSingleType(S_symbol type) {
-
+    return NamedTypes[type];
   }
 
   static Type *genSimpleType(A_simpleTy simple) {
@@ -359,9 +314,10 @@ public:
     }
   }
 
-  static Value *genExpression(A_exp exp) {
-        //TODO
+  static genCompoundStatement(std::vector<Value *> statements) {
+    //TODO
   }
+
 private:
   Function *getFunction(std::string Name) {
         // First, see if the function has already been added to the current module.
@@ -382,6 +338,7 @@ private:
   static Module *TheModule;
   static IRBuilder<> Builder;
   static std::map<S_symbol, Value *> NamedValues;
+  static std::map<S_symbol, Type *> NamedTypes;
   static std::map<std::string, std::unique_ptr<PrototypeAST>> FunctionProtos;
 }
 
