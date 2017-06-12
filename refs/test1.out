@@ -18,7 +18,7 @@
          constDec : 
           c
           String : 
-           abcd
+           abcdÐï««««««««îþ
 
           constDec : 
            d
@@ -56,8 +56,8 @@
         -1
 
        ProcStmt : 
-         SysProc : 
-         writeln
+         Func : 
+         riteln
          ArgsList : 
           VarExp : 
            simpleVar : 

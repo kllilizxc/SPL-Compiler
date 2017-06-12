@@ -27,6 +27,7 @@ A_pro parse(string fname)
 int main(){
     int i;
     FILE *out;
+
     std::string fnamepart[31]=
     {
         "sample1",

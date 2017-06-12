@@ -13,6 +13,6 @@ const
 	g = maxint;
 
 begin
-	writeln(a,b,c,d,e);
+	riteln(a,b,c,d,e);
 end
 .
