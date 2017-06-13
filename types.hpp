@@ -77,9 +77,9 @@ std::shared_ptr<VarType> VarType::VoidType(new VarType(TypeKind::Void));
 std::shared_ptr<VarType> VarType::StringType(new VarType(TypeKind::String));
 
 
-class ArrayType : public VarType {
+class ArrayVarType : public VarType {
 public:
-    ArrayType(std::shared_ptr<VarType> type) : VarType(TypeKind::Array), type(type) {};
+    ArrayVarType(std::shared_ptr<VarType> type) : VarType(TypeKind::Array), type(type) {};
 
     std::shared_ptr<VarType> &getType() {
         return type;
@@ -124,11 +124,11 @@ private:
     std::shared_ptr<VarType> type;
 };
 
-class RecordType : public VarType {
+class RecordVarType : public VarType {
 public:
-    RecordType() : VarType(TypeKind::Record) {};
+    RecordVarType() : VarType(TypeKind::Record), fieldList() {};
 
-    RecordType(std::list<Field> &filedList) : fieldList(fieldList), VarType(TypeKind::Record) {};
+    RecordVarType(std::list<Field> &filedList) : fieldList(fieldList), VarType(TypeKind::Record) {};
 
     std::list<Field> &getFieldList() {
         return fieldList;
@@ -151,9 +151,9 @@ private:
     std::shared_ptr<VarType> type;
 };
 
-class EnumType : public VarType {
+class EnumVarType : public VarType {
 public:
-    EnumType() : VarType(TypeKind::Enum) {};
+    EnumVarType() : VarType(TypeKind::Enum) {};
 
     std::list<S_symbol> &getItems() {
         return items;

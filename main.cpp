@@ -63,9 +63,9 @@ int main(){
         "test10_error2"
     };
     
-    for(i = 0; i < 31; ++i)
+    for(i = 0; i < 1; ++i)
     {
-        char fname[30] = "../testcase/", fout[30] = "../refs/";
+        char fname[30] = "testcase/", fout[30] = "refs/";
         strcat(fname, fnamepart[i].data());
         strcat(fname, ".spl");
         parse(fname);

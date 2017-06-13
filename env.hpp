@@ -6,6 +6,7 @@
 #define SPL_COMPILER_ENV_H
 
 #include "types.hpp"
+#include <string>
 extern "C" {
 #include "symbol.h"
 };
