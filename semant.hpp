@@ -10,7 +10,6 @@
 #include <cstring>
 #include "types.hpp"
 #include "env.hpp"
-#include "absyn.h"
 #include "ir.hpp"
 
 extern "C" {
@@ -21,7 +20,7 @@ extern "C" {
 };
 
 
-typedef Value *Expression;
+typedef IR *Expression;
 
 class ExpressionAndType {
 public:
@@ -79,7 +78,7 @@ private:
         }
         S_endScope(valueEnvironment);
         S_endScope(typeEnvironment);
-        return ExpressionAndType(VarType::getVoidType(), IR::genIf(testExp.getExpression(), thenExp.getExpression(), elseExp.getExpression()));
+        return ExpressionAndType(VarType::getVoidType(), new IfIR(testExp.getExpression(), thenExp.getExpression(), elseExp.getExpression()));
     }
     
     static bool isIntorBoolorRealorChar(std::shared_ptr<VarType> type) {
@@ -109,14 +108,84 @@ private:
         
         auto leftISReal = !isIntorBoolorRealorChar(left.getType());
         auto rightIsReal = !isIntorBoolorRealorChar(right.getType());
+        IR *ir = nullptr;
         if (leftISReal && rightIsReal) {
-            return ExpressionAndType(getBiggestType(left.getType(), right.getType()), IR::genFOp(op, left.getExpression(), right.getExpression()));
+            switch (op.oper) {
+                case A_plusOp:
+                    ir = new FOpPlusIR(left.getExpression(), right.getExpression());
+                    break;
+                case A_minusOp:
+                    ir = new FOpMinusIR(left.getExpression(), right.getExpression());
+                    break;
+                case A_timesOp:
+                    ir = new FOpTimesIR(left.getExpression(), right.getExpression());
+                    break;
+                case A_divideOp:
+                    ir = new FOpDivideIR(left.getExpression(), right.getExpression());
+                    break;
+                case A_eqOp:
+                    ir = new FOpEqIR(left.getExpression(), right.getExpression());
+                    break;
+                case A_neqOp:
+                    ir = new FOpNeqIR(left.getExpression(), right.getExpression());
+                    break;
+                case A_ltOp:
+                    ir = new FOpLtIR(left.getExpression(), right.getExpression());
+                    break;
+                case A_leOp:
+                    ir = new FOpLeIR(left.getExpression(), right.getExpression());
+                    break;
+                case A_gtOp:
+                    ir = new FOpGtIR(left.getExpression(), right.getExpression());
+                    break;
+                case A_geOp:
+                    ir = new FOpGeIR(left.getExpression(), right.getExpression());
+                    break;
+                default:
+                    EM_error(op.left->pos, "unrecognized operator!");
+                    break;
+            }
         } else if (!leftISReal && !rightIsReal) {
-            return ExpressionAndType(getBiggestType(left.getType(), right.getType()), IR::genOp(op, left.getExpression(), right.getExpression()));
+            switch (op.oper) {
+                case A_plusOp:
+                    ir = new OpPlusIR(left.getExpression(), right.getExpression());
+                    break;
+                case A_minusOp:
+                    ir = new OpMinusIR(left.getExpression(), right.getExpression());
+                    break;
+                case A_timesOp:
+                    ir = new OpTimesIR(left.getExpression(), right.getExpression());
+                    break;
+                case A_divideOp:
+                    ir = new OpDivideIR(left.getExpression(), right.getExpression());
+                    break;
+                case A_eqOp:
+                    ir = new OpEqIR(left.getExpression(), right.getExpression());
+                    break;
+                case A_neqOp:
+                    ir = new OpNeqIR(left.getExpression(), right.getExpression());
+                    break;
+                case A_ltOp:
+                    ir = new OpLtIR(left.getExpression(), right.getExpression());
+                    break;
+                case A_leOp:
+                    ir = new OpLeIR(left.getExpression(), right.getExpression());
+                    break;
+                case A_gtOp:
+                    ir = new OpGtIR(left.getExpression(), right.getExpression());
+                    break;
+                case A_geOp:
+                    ir = new OpGeIR(left.getExpression(), right.getExpression());
+                    break;
+                default:
+                    EM_error(op.left->pos, "unrecognized operator!");
+                    break;
+            }
         } else {
             EM_error(op.right->pos, "two operands' type mismatch!");
             return ExpressionAndType(VarType::getNilType(), nullptr);
         }
+        return ExpressionAndType(getBiggestType(left.getType(), right.getType()), ir);
     }
     
     static ExpressionAndType
@@ -131,7 +200,7 @@ private:
             EM_error(pos, "variable %s is a function rather than a variable", S_name(simple));
             return ExpressionAndType(VarType::getNilType(), nullptr);
         }
-        return ExpressionAndType((*entry)->getType(), IR::genSimpleVar(simple), (*entry)->isConst);
+        return ExpressionAndType((*entry)->getType(), new SimpleVarIR(S_name(simple)), (*entry)->isConst);
     }
     
     static ExpressionAndType
@@ -195,7 +264,8 @@ private:
         
         S_enter(valueEnvironment, constt.name, pack(new VariableEnvironmentEntry(constExp.getType(), true)));
         
-        IR::genConstDec(constt.name, constExp.getExpression());
+        constExp.setExpression(new ConstVarDecIR(S_name(constt.name), constExp.getExpression()));
+
         return constExp;
     }
     
@@ -225,15 +295,16 @@ private:
         auto varExp = translateType(valueEnvironment, typeEnvironment, var->ty);
         
         auto nameList = var->head;
-        
+        std::vector<std::string> names;
         while (nameList != nullptr) {
             
             S_enter(valueEnvironment, nameList->head->name, pack(new VariableEnvironmentEntry(varExp.getType())));
             
+            names.push_back(S_name(nameList->head->name));
             nameList = nameList->tail;
         }
         
-        IR::genVarDec(var);
+        varExp.setExpression(new VarDecIR(names, IR::genType(varExp.getType())));
         return varExp;
     }
     
@@ -246,6 +317,8 @@ private:
         auto routineEnv = new FunctionEnvironmentEntry();
         
         auto params = routinee.params;
+        std::vector<std::string> fieldNames;
+        std::vector<Type *> fieldTypes;
         while (params != nullptr) {
             auto param = params->head;
             auto names = param->head;
@@ -255,6 +328,8 @@ private:
                 routineEnv->getFormals().push_back(typeExp.getType());
                 S_enter(valueEnvironment, names->head->name, pack<VariableEnvironmentEntry>(new VariableEnvironmentEntry(typeExp.getType())));
                 
+                fieldNames.push_back(S_name(names->head->name));
+                fieldTypes.push_back(IR::genType(typeExp.getType()));
                 names = names->tail;
             }
             
@@ -271,14 +346,16 @@ private:
         S_enter(typeEnvironment, routinee.name, pack<FunctionEnvironmentEntry>(routineEnv));
         S_enter(valueEnvironment, routinee.name, pack<VariableEnvironmentEntry>(new VariableEnvironmentEntry(routineEnv->getResult())));
         
+        IR *theFunc = new RoutineDecIR(S_name(routinee.name), fieldNames, fieldTypes, IR::genType(routineEnv->getResult()));
         auto subroutineExp = translateRoutine(valueEnvironment, typeEnvironment, routinee.subroutine);
+        theFunc = new RoutineBodyIR((Function *)theFunc, subroutineExp.getExpression());
         
         S_endScope(typeEnvironment);
         S_endScope(valueEnvironment);
         
         S_enter(typeEnvironment, routinee.name, pack<FunctionEnvironmentEntry>(routineEnv));
         
-        return ExpressionAndType(VarType::getVoidType(), IR::genRoutineDec(routinee.name, routinee.params, routinee.simplety, subroutineExp.getExpression()));
+        return ExpressionAndType(VarType::getVoidType(), theFunc);
     }
     
     static ExpressionAndType
@@ -336,7 +413,7 @@ private:
         auto &args = proc->args;
         
         auto iter = formals.begin();
-        std::vector<Value *> argExps;
+        std::vector<IR *> argExps;
         while (iter != formals.end()) {
             auto argExp = translateExpression(valueEnvironment, typeEnvironment, args->head);
             if (argExp.getType() != *iter) {
@@ -354,9 +431,9 @@ private:
         auto result = (*env)->getResult();
         
         if (result)
-            return ExpressionAndType(result, IR::genProc(proc, argExps));
+            return ExpressionAndType(result, new ProcIR(S_name(procName), argExps));
         else
-            return ExpressionAndType(VarType::getVoidType(), IR::genProc(proc, argExps));
+            return ExpressionAndType(VarType::getVoidType(), new ProcIR(S_name(procName), argExps));
     }
     
     static ExpressionAndType
@@ -373,7 +450,7 @@ private:
             variable.getType() != expression.getType()) {
             EM_error(assign.var->pos, "variable type and expression type mismatch!");
         }
-        return ExpressionAndType(variable.getType(), IR::genAssignStatement(variable.getExpression(), expression.getExpression()));
+        return ExpressionAndType(variable.getType(), new AssignIR(variable.getExpression(), expression.getExpression()));
     }
     
     static ExpressionAndType translateIfStatement(S_table valueEnvironment, S_table typeEnvironment, _A_if_stm_ iff) {
@@ -392,7 +469,7 @@ private:
         }
         S_endScope(valueEnvironment);
         S_endScope(typeEnvironment);
-        return ExpressionAndType(VarType::getVoidType(), IR::genIf(testExp.getExpression(), thenExp.getExpression(), elseExp.getExpression()));
+        return ExpressionAndType(VarType::getVoidType(), new IfIR(testExp.getExpression(), thenExp.getExpression(), elseExp.getExpression()));
     }
     
     static ExpressionAndType
@@ -451,7 +528,7 @@ private:
         
         S_endScope(valueEnvironment);
         S_endScope(typeEnvironment);
-        return ExpressionAndType(VarType::getVoidType(), IR::genForStatement(forr.var, initExp.getExpression(), changeExp.getExpression(), doExp.getExpression()));
+        return ExpressionAndType(VarType::getVoidType(), new ForIR(S_name(forr.var), initExp.getExpression(), changeExp.getExpression(), doExp.getExpression()));
     }
     
     static ExpressionAndType translateCaseStatement(S_table valueEnvironment, S_table typeEnvironment, _A_case_ casee) {
@@ -497,20 +574,20 @@ private:
     
     static ExpressionAndType
     translateCompoundStatement(S_table valueEnvironment, S_table typeEnvironment, _A_compound_ compound) {
-        S_beginScope(valueEnvironment);
+        S_beginScope(valueEnvironment); //TODO
         S_beginScope(typeEnvironment);
         
         auto statementList = compound.substmtList;
-        std::vector<Value *> statementVals;
+        std::vector<IR *> statementIRs;
         while (statementList != nullptr) {
             auto exp = translateStatement(valueEnvironment, typeEnvironment, statementList->head);
             statementList = statementList->tail;
-            statementVals.push_back(exp.getExpression());
+            statementIRs.push_back(exp.getExpression());
         }
         
         S_endScope(valueEnvironment);
         S_endScope(typeEnvironment);
-        return ExpressionAndType(VarType::getVoidType(), nullptr); //TODO
+        return ExpressionAndType(VarType::getVoidType(), new CompoundIR(statementIRs));
     }
     
     static ExpressionAndType
@@ -523,11 +600,11 @@ private:
             return ExpressionAndType(VarType::getNilType());
         }
         
-        return ExpressionAndType((*sysconExp)->getType(), IR::genSimpleVar(syscon), (*sysconExp)->isConst);
+        return ExpressionAndType((*sysconExp)->getType(), new SimpleVarIR(S_name(syscon)), (*sysconExp)->isConst);
     }
     
     static ExpressionAndType translateString(S_table valueEnvironment, S_table typeEnvironment, string _string) {
-        return ExpressionAndType(VarType::getStringType(), IR::genStringConst(_string));
+        return ExpressionAndType(VarType::getStringType(), new ConstStringIR(_string));
     }
     
     static ExpressionAndType
@@ -538,7 +615,7 @@ private:
         
         if (typeEnv == nullptr || *typeEnv == nullptr) {
             EM_error(pos, "undefined type: %s!", S_name(systy));
-            return ExpressionAndType(VarType::getNilType(), nullptr);
+            return ExpressionAndType(VarType::getNilType());
         }
         
         return ExpressionAndType((*typeEnv)->getType());
@@ -641,13 +718,13 @@ public:
     static ExpressionAndType translateConst(S_table valueEnvironment, S_table typeEnvironment, A_const constValue) {
         switch (constValue->kind) {
             case A_int:
-                return ExpressionAndType(VarType::getIntegerType(), IR::genIntConst(constValue->u.intt), true);
+                return ExpressionAndType(VarType::getIntegerType(), new ConstIntIR(constValue->u.intt), true);
             case A_real:
-                return ExpressionAndType(VarType::getRealType(), IR::genRealConst(constValue->u.reall), true);
+                return ExpressionAndType(VarType::getRealType(), new ConstRealIR(constValue->u.reall), true);
             case A_char:
-                return ExpressionAndType(VarType::getCharType(), IR::genCharConst(constValue->u.charr), true);
+                return ExpressionAndType(VarType::getCharType(), new ConstCharIR(constValue->u.charr), true);
             case A_string:
-                return ExpressionAndType(VarType::getStringType(), IR::genStringConst(constValue->u.stringg), true);
+                return ExpressionAndType(VarType::getStringType(), new ConstStringIR(constValue->u.stringg), true);
             case A_syscon:
                 return translateSyscon(valueEnvironment, typeEnvironment, constValue->u.syscon, constValue->pos);
             default:
@@ -756,9 +833,11 @@ public:
     }
     
     static ExpressionAndType translateProgram(S_table valueEnvironment, S_table typeEnvironment, A_pro program) {
-        auto routine = program->routine;
-        auto mainFunc = translateRoutine(valueEnvironment, typeEnvironment, routine);
-        IR::genRoutineDec(S_Symbol(toCharString("main")), nullptr, nullptr, mainFunc.getExpression());
+        IR *theFunc = new RoutineDecIR("main", std::vector<std::string>(), std::vector<Type *>(), nullptr);
+        auto mainFunc = translateRoutine(valueEnvironment, typeEnvironment, program->routine);
+        theFunc = new RoutineBodyIR((Function *)theFunc->genCode(), mainFunc.getExpression());
+        
+        mainFunc.setExpression(theFunc);
         return mainFunc;
     }
 };

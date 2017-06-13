@@ -56,7 +56,7 @@ struct A_routineHead_{
     A_decPart labelPart;
     A_decPart constPart;
     A_decPart typePart;
-    A_decPart varPart;
+    A_decPart varPart;  
     A_decPart routinePart;
 };
 

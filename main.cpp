@@ -27,7 +27,8 @@ A_pro parse(string fname)
 int main(){
     int i;
     FILE *out;
-
+    std::string syslib = "testcase/syslib.spl";
+    
     std::string fnamepart[31]=
     {
         "sample1",
@@ -69,6 +70,18 @@ int main(){
         strcat(fname, fnamepart[i].data());
         strcat(fname, ".spl");
         parse(fname);
+
+        //semant
+        S_table vEnv = EnvironmentEntry::enterBaseValueEnvironment();
+        S_table tEnv = EnvironmentEntry::enterBaseTypeEnvironment();
+        IR::initSysTypes();
+        printf("analysing %s\n", fname);
+        //parse((char *)syslib.data());
+        //Semant::translateProgram(vEnv, tEnv, absyn_root);
+        Semant::translateProgram(vEnv, tEnv, absyn_root)
+        .getExpression();
+        
+        IR::TheModule->dump();
         
         strcat(fout, fnamepart[i].data());
         strcat(fout, ".out");
@@ -76,15 +89,7 @@ int main(){
         pr_pro(out,absyn_root,0);
         fprintf(out,"\n");
         fclose(out);
-        //semant
-        S_table vEnv = EnvironmentEntry::enterBaseValueEnvironment();
-        S_table tEnv = EnvironmentEntry::enterBaseTypeEnvironment();
-        printf("analysing %s\n", fname);
-        auto exp = Semant::translateProgram(vEnv, tEnv, absyn_root)
-                    .getExpression();
-
-        IR::TheModule->dump();
-
+        
         absyn_root = NULL;
     }
     

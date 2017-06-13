@@ -126,7 +126,7 @@ private:
 
 class RecordVarType : public VarType {
 public:
-    RecordVarType() : VarType(TypeKind::Record), fieldList() {};
+    RecordVarType() : VarType(TypeKind::Record) {};
 
     RecordVarType(std::list<Field> &filedList) : fieldList(fieldList), VarType(TypeKind::Record) {};
 
