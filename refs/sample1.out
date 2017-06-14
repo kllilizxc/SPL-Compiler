@@ -4,13 +4,7 @@
     labelPart : 
      
     constPart : 
-     decList : 
-       constDec : 
-        s2
-        Int : 
-         2
-
-
+     
     typePart : 
      
     varPart : 
@@ -28,7 +22,176 @@
 
 
     routinePart : 
-     
+     decList : 
+       routineDec : 
+        go : 
+         FieldList : 
+           Field : 
+            NameList : 
+             Name : a
+
+
+            Type : 
+             SimpleTy : 
+              SysTy : 
+               integer
+
+
+
+         SysTy : 
+          integer
+
+         routine : 
+          routineHead : 
+           labelPart : 
+            
+           constPart : 
+            
+           typePart : 
+            
+           varPart : 
+            decList : 
+              varDec : 
+               Field : 
+                NameList : 
+                 Name : i
+
+
+                Type : 
+                 SimpleTy : 
+                  SysTy : 
+                   integer
+
+
+           routinePart : 
+            
+
+          routineBody : 
+           CompoundStmt : 
+            StmtList : 
+             LabelStmt : 
+              Int : 
+               -1
+
+              IfStmt : 
+               OpExp : 
+                EQUAL
+                VarExp : 
+                 simpleVar : 
+                  a
+
+                ConstExp : 
+                 Int : 
+                  1
+
+               LabelStmt : 
+                Int : 
+                 -1
+
+                CompoundStmt : 
+                 StmtList : 
+                  LabelStmt : 
+                   Int : 
+                    -1
+
+                   AssignStmt : 
+                    simpleVar : 
+                     go
+
+                    ConstExp : 
+                     Int : 
+                      1
+
+
+
+               LabelStmt : 
+                Int : 
+                 -1
+
+                CompoundStmt : 
+                 StmtList : 
+                  LabelStmt : 
+                   Int : 
+                    -1
+
+                   IfStmt : 
+                    OpExp : 
+                     EQUAL
+                     VarExp : 
+                      simpleVar : 
+                       a
+
+                     ConstExp : 
+                      Int : 
+                       2
+
+                    LabelStmt : 
+                     Int : 
+                      -1
+
+                     CompoundStmt : 
+                      StmtList : 
+                       LabelStmt : 
+                        Int : 
+                         -1
+
+                        AssignStmt : 
+                         simpleVar : 
+                          go
+
+                         ConstExp : 
+                          Int : 
+                           1
+
+                        LabelStmt : 
+                         Int : 
+                          -1
+
+                         AssignStmt : 
+                          simpleVar : 
+                           a
+
+                          ConstExp : 
+                           Int : 
+                            2
+
+
+
+                    LabelStmt : 
+                     Int : 
+                      -1
+
+                     CompoundStmt : 
+                      StmtList : 
+                       LabelStmt : 
+                        Int : 
+                         -1
+
+                        AssignStmt : 
+                         simpleVar : 
+                          go
+
+                         OpExp : 
+                          PLUS
+                          FuncExp : 
+                            Func : 
+                            go
+                            ArgsList : 
+
+
+                          FuncExp : 
+                            Func : 
+                            go
+                            ArgsList : 
+
+
+
+
+
+
+
+
+
 
    routineBody : 
     CompoundStmt : 
@@ -37,43 +200,14 @@
        Int : 
         -1
 
-       caseStmt : 
-        VarExp : 
-         simpleVar : 
-          i
+       AssignStmt : 
+        simpleVar : 
+         i
 
-       CaseList : 
-         Case : 
-          Int : 
-           1
-
-          LabelStmt : 
-           Int : 
-            -1
-
-           AssignStmt : 
-            simpleVar : 
-             i
-
-            ConstExp : 
-             Int : 
-              1
-
-          Case : 
-          s2
-
-           LabelStmt : 
-            Int : 
-             -1
-
-            AssignStmt : 
-             simpleVar : 
-              i
-
-             ConstExp : 
-              Int : 
-               2
-
+        FuncExp : 
+          Func : 
+          go
+          ArgsList : 
 
 
 

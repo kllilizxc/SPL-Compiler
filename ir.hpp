@@ -94,6 +94,28 @@ public:
         NamedValues["maxint"] = ConstantInt::get(Type::getInt32Ty(TheContext), APInt(32, INT32_MAX));
     }
 
+    static std::map<std::string, Value *> backUpNamedValues() {
+        std::map<std::string, Value *> backup;
+        backup.insert(NamedValues.begin(), NamedValues.end());
+        return backup;
+    };
+
+    static void restoreNamedValues(std::map<std::string, Value *> backup) {
+        NamedValues.clear();
+        NamedValues = backup;
+    }
+
+    static std::map<std::string, Type *> backUpNamedTypes() {
+        std::map<std::string, Type *> backup;
+        backup.insert(NamedTypes.begin(), NamedTypes.end());
+        return backup;
+    };
+
+    static void restoreNamedTypes(std::map<std::string, Type *> backup) {
+        NamedTypes.clear();
+        NamedTypes = backup;
+    }
+
     virtual Value *genCode() = 0;
 
     static LLVMContext TheContext;
@@ -514,6 +536,9 @@ public:
     IfIR(IR *condition, IR *thenIR, IR *elseIR) : condition(condition), thenIR(thenIR), elseIR(elseIR) {}
 
     Value *genCode() {
+        auto backupValues = backUpNamedValues();
+        auto backupTypes = backUpNamedTypes();
+
         Function *theFunction = Builder.GetInsertBlock()->getParent();
 
         BasicBlock *thenBlock = BasicBlock::Create(TheContext, "then", theFunction);
@@ -542,6 +567,9 @@ public:
         theFunction->getBasicBlockList().push_back(mergeBlock);
         Builder.SetInsertPoint(mergeBlock);
 
+        restoreNamedValues(backupValues);
+        restoreNamedTypes(backupTypes);
+
         // if expr always returns 0.0.
         return Constant::getNullValue(Type::getDoubleTy(TheContext));
     }
@@ -557,6 +585,9 @@ public:
     ForIR(std::string var, IR *startIR, IR *endIR, IR *doIR) : var(var), startIR(startIR), endIR(endIR), doIR(doIR) {}
 
     Value *genCode() {
+        auto backupValues = backUpNamedValues();
+        auto backupTypes = backUpNamedTypes();
+
         Function *TheFunction = Builder.GetInsertBlock()->getParent();
 
         // Create an alloca for the variable in the entry block.
@@ -611,6 +642,9 @@ public:
         else
             NamedValues.erase(var);
 
+        restoreNamedValues(backupValues);
+        restoreNamedTypes(backupTypes);
+
         // for expr always returns 0
         return Constant::getNullValue(Type::getInt32PtrTy(TheContext));
     }
@@ -624,6 +658,9 @@ public:
     RepeatIR(IR *condition, const std::vector<IR *, std::allocator<IR *>> &statements) : condition(condition),
                                                                                          statements(statements) {}
     Value *genCode() {
+        auto backupValues = backUpNamedValues();
+        auto backupTypes = backUpNamedTypes();
+
         Function *TheFunction = Builder.GetInsertBlock()->getParent();
 
         // Make the new basic block for the loop header, inserting after current
@@ -650,6 +687,9 @@ public:
         // Any new code will be inserted in AfterBB.
         Builder.SetInsertPoint(AfterBB);
 
+        restoreNamedValues(backupValues);
+        restoreNamedTypes(backupTypes);
+
         // for expr always returns 0
         return Constant::getNullValue(Type::getInt32PtrTy(TheContext));
     }
@@ -663,6 +703,9 @@ public:
     WhileIR(IR *condition, IR *statement) : condition(condition), statement(statement) {}
 
     Value *genCode() {
+        auto backupValues = backUpNamedValues();
+        auto backupTypes = backUpNamedTypes();
+
         Function *TheFunction = Builder.GetInsertBlock()->getParent();
 
         BasicBlock *entryBB = BasicBlock::Create(TheContext, "entry", TheFunction);
@@ -690,6 +733,9 @@ public:
         // Any new code will be inserted in AfterBB.
         Builder.SetInsertPoint(AfterBB);
 
+        restoreNamedValues(backupValues);
+        restoreNamedTypes(backupTypes);
+
         // for expr always returns 0
         return Constant::getNullValue(Type::getInt32PtrTy(TheContext));
     }
@@ -707,6 +753,9 @@ public:
                                                                               statements(statements) {}
 
     Value *genCode() {
+        auto backupValues = backUpNamedValues();
+        auto backupTypes = backUpNamedTypes();
+
         Function *TheFunction = Builder.GetInsertBlock()->getParent();
 
         // Make the new basic block for the loop header, inserting after current
@@ -728,6 +777,9 @@ public:
 
             switchInst->addCase(ConstantInt::get(Type::getInt32Ty(TheContext), testCase), caseBB);
         }
+
+        restoreNamedValues(backupValues);
+        restoreNamedTypes(backupTypes);
 
         return nullptr;
     }
@@ -777,11 +829,13 @@ public:
     CompoundIR(std::vector<IR *> statements) : statements(statements) {}
 
     Value *genCode() {
+
         Value *returnVal = nullptr;
         for (auto statement : statements) {
             assert(statement);
             returnVal = statement->genCode();
         }
+
         return returnVal;
     }
 };
@@ -863,6 +917,9 @@ public:
                                     funcBodyIR(funcBodyIR) {}
 
     Value *genCode() {
+        auto backupValues = backUpNamedValues();
+        auto backupTypes = backUpNamedTypes();
+
         Function *TheFunction = TheModule->getFunction(functionName);
         if (!TheFunction)
             return nullptr;
@@ -906,6 +963,9 @@ public:
 
         // Validate the generated code, checking for consistency.
         verifyFunction(*TheFunction);
+
+        restoreNamedValues(backupValues);
+        restoreNamedTypes(backupTypes);
 
         return TheFunction;
     }

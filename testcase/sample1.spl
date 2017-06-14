@@ -3,6 +3,7 @@ var
 	i : integer;
 
 function go(a : integer): integer;
+var i: integer;
 begin
 	if a = 1 then
 	begin
