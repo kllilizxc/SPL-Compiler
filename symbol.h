@@ -9,8 +9,6 @@
 #ifndef symbol_h
 #define symbol_h
 
-#ifndef SYMBOL_H
-#define SYMBOL_H
 /*
  * symbol.h - Symbols and symbol-tables
  *
@@ -52,7 +50,5 @@ void S_endScope(S_table t);
 int S_compare(S_symbol a, S_symbol b);
 
 S_symbol S_copy(S_symbol other);
-#endif
-
 
 #endif /* symbol_h */

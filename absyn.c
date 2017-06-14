@@ -180,7 +180,14 @@ A_fieldList A_FieldList(A_field head, A_fieldList tail)
     return p;
 }
 
-
+A_ty A_SimpleTy(A_pos pos, A_simpleTy simplety)
+{
+    A_ty p = checked_malloc(sizeof(*p));
+    p->kind = A_simTy;
+    p->pos = pos;
+    p->u.simple = simplety;
+    return p;
+}
 
 
 A_ty A_RecordTy(A_pos pos, A_fieldList record)

@@ -5,29 +5,29 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "C:/Users/54179/CLion Projects/SPL Compiler/absyn.c" "C:/Users/54179/CLion Projects/SPL Compiler/CMakeFiles/SPL_Compiler.dir/absyn.c.obj"
-  "C:/Users/54179/CLion Projects/SPL Compiler/errormsg.c" "C:/Users/54179/CLion Projects/SPL Compiler/CMakeFiles/SPL_Compiler.dir/errormsg.c.obj"
-  "C:/Users/54179/CLion Projects/SPL Compiler/lex.yy.c" "C:/Users/54179/CLion Projects/SPL Compiler/CMakeFiles/SPL_Compiler.dir/lex.yy.c.obj"
-  "C:/Users/54179/CLion Projects/SPL Compiler/prabsyn.c" "C:/Users/54179/CLion Projects/SPL Compiler/CMakeFiles/SPL_Compiler.dir/prabsyn.c.obj"
-  "C:/Users/54179/CLion Projects/SPL Compiler/symbol.c" "C:/Users/54179/CLion Projects/SPL Compiler/CMakeFiles/SPL_Compiler.dir/symbol.c.obj"
-  "C:/Users/54179/CLion Projects/SPL Compiler/table.c" "C:/Users/54179/CLion Projects/SPL Compiler/CMakeFiles/SPL_Compiler.dir/table.c.obj"
-  "C:/Users/54179/CLion Projects/SPL Compiler/util.c" "C:/Users/54179/CLion Projects/SPL Compiler/CMakeFiles/SPL_Compiler.dir/util.c.obj"
-  "C:/Users/54179/CLion Projects/SPL Compiler/y.tab.c" "C:/Users/54179/CLion Projects/SPL Compiler/CMakeFiles/SPL_Compiler.dir/y.tab.c.obj"
+  "/Users/cai/CLionProjects/SPL-Compiler/absyn.c" "/Users/cai/CLionProjects/SPL-Compiler/CMakeFiles/SPL_Compiler.dir/absyn.c.o"
+  "/Users/cai/CLionProjects/SPL-Compiler/errormsg.c" "/Users/cai/CLionProjects/SPL-Compiler/CMakeFiles/SPL_Compiler.dir/errormsg.c.o"
+  "/Users/cai/CLionProjects/SPL-Compiler/lex.yy.c" "/Users/cai/CLionProjects/SPL-Compiler/CMakeFiles/SPL_Compiler.dir/lex.yy.c.o"
+  "/Users/cai/CLionProjects/SPL-Compiler/prabsyn.c" "/Users/cai/CLionProjects/SPL-Compiler/CMakeFiles/SPL_Compiler.dir/prabsyn.c.o"
+  "/Users/cai/CLionProjects/SPL-Compiler/symbol.c" "/Users/cai/CLionProjects/SPL-Compiler/CMakeFiles/SPL_Compiler.dir/symbol.c.o"
+  "/Users/cai/CLionProjects/SPL-Compiler/table.c" "/Users/cai/CLionProjects/SPL-Compiler/CMakeFiles/SPL_Compiler.dir/table.c.o"
+  "/Users/cai/CLionProjects/SPL-Compiler/util.c" "/Users/cai/CLionProjects/SPL-Compiler/CMakeFiles/SPL_Compiler.dir/util.c.o"
+  "/Users/cai/CLionProjects/SPL-Compiler/y.tab.c" "/Users/cai/CLionProjects/SPL-Compiler/CMakeFiles/SPL_Compiler.dir/y.tab.c.o"
   )
-set(CMAKE_C_COMPILER_ID "GNU")
+set(CMAKE_C_COMPILER_ID "AppleClang")
 
 # The include file search paths:
 set(CMAKE_C_TARGET_INCLUDE_PATH
-  "C:/Users/54179/Downloads/llvm/llvm/include"
+  "/usr/local/include"
   )
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Users/54179/CLion Projects/SPL Compiler/main.cpp" "C:/Users/54179/CLion Projects/SPL Compiler/CMakeFiles/SPL_Compiler.dir/main.cpp.obj"
+  "/Users/cai/CLionProjects/SPL-Compiler/main.cpp" "/Users/cai/CLionProjects/SPL-Compiler/CMakeFiles/SPL_Compiler.dir/main.cpp.o"
   )
-set(CMAKE_CXX_COMPILER_ID "GNU")
+set(CMAKE_CXX_COMPILER_ID "AppleClang")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "C:/Users/54179/Downloads/llvm/llvm/include"
+  "/usr/local/include"
   )
 
 # Targets to which this target links.

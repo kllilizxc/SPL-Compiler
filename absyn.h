@@ -38,7 +38,6 @@ typedef struct A_case_ *A_case;
 typedef struct A_caseList_ *A_caseList;
 typedef struct A_proc_ *A_proc;
 
-
 typedef enum {A_plusOp, A_minusOp, A_timesOp, A_modOp, A_divideOp,
     A_eqOp, A_neqOp, A_ltOp, A_leOp, A_gtOp, A_geOp} A_oper;
 //typedef enum {A_falseSysCon, A_maxintSysCon, A_trueSysCon} A_sysCon;

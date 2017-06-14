@@ -216,6 +216,7 @@ typedef union YYSTYPE
 # define YYSTYPE_IS_TRIVIAL 1
 #endif
 
+
+int yyparse(void);
 extern YYSTYPE yylval;
-extern int yyparse (void);
 

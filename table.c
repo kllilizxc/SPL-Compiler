@@ -10,6 +10,8 @@
  * table.c - Functions to manipulate generic tables.
  * Copyright (c) 1997 Andrew W. Appel.
  */
+#ifndef SPL_COMPILER_SYMBOL_H
+#define SPL_COMPILER_SYMBOL_H
 
 #include <stdio.h>
 #include "util.h"
@@ -95,3 +97,4 @@ void TAB_dump(TAB_table t, void (*show)(void *key, void *value)) {
     t->table[index]=b;
 }
 
+#endif

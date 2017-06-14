@@ -1,3 +1,6 @@
+#ifndef SPL_COMPILER_IR_H
+#define SPL_COMPILER_IR_H
+
 #include "llvm/ADT/STLExtras.h"
 #include "llvm/Analysis/BasicAliasAnalysis.h"
 #include "llvm/Analysis/Passes.h"
@@ -10,10 +13,13 @@
 #include "llvm/Support/TargetSelect.h"
 #include "llvm/Transforms/Scalar.h"
 #include <cstdio>
-#include "symbol.h"
 #include <string>
 #include <map>
 #include <vector>
+
+extern "C" {
+#include "symbol.h"
+};
 
 using namespace llvm;
 
@@ -595,7 +601,7 @@ public:
     
     Value *genCode() {
         FunctionType *FT =
-        FunctionType::get(returnType, fieldTypes, false);
+        FunctionType::get(returnType ? returnType : Type::getVoidTy(TheContext), fieldTypes, false);
         
         Function *TheFunction =
         Function::Create(FT, Function::ExternalLinkage, name.c_str(), TheModule);
@@ -647,3 +653,5 @@ IRBuilder<> IR::Builder (TheContext);
 Module *IR::TheModule = new Module("Mine", IR::TheContext);
 std::map<std::string, Value *> IR::NamedValues;
 std::map<std::string, Type *> IR::NamedTypes;
+
+#endif

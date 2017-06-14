@@ -1,6 +1,6 @@
-"C:\Program Files\JetBrains\CLion 2017.1.1\bin\cmake\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" "C:\Users\54179\CLion Projects\SPL Compiler"
--- Found LLVM 
--- Using LLVMConfig.cmake in: LLVM_DIR-NOTFOUND
+/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/cai/CLionProjects/SPL-Compiler
+-- Found LLVM 4.0.0
+-- Using LLVMConfig.cmake in: /usr/local/lib/cmake/llvm
 -- Configuring done
 -- Generating done
--- Build files have been written to: C:/Users/54179/CLion Projects/SPL Compiler
+-- Build files have been written to: /Users/cai/CLionProjects/SPL-Compiler

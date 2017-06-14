@@ -19,7 +19,7 @@ enum class EntryKind {
 
 
 char *toCharString(const std::string s) {
-    return const_cast<char *>(s.data());
+    return (char *)s.c_str();
 }
 
 
