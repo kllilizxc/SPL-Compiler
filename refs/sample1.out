@@ -131,6 +131,18 @@
                           Int : 
                            1
 
+                        LabelStmt : 
+                         Int : 
+                          -1
+
+                         AssignStmt : 
+                          simpleVar : 
+                           a
+
+                          ConstExp : 
+                           Int : 
+                            2
+
 
 
                     LabelStmt : 

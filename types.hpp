@@ -55,10 +55,10 @@ public:
     }
 
 
-private:
+protected:
     TypeKind kind;
 
-
+private:
     static std::shared_ptr<VarType> NilType;
     static std::shared_ptr<VarType> BooleanType;
     static std::shared_ptr<VarType> CharType;
@@ -77,16 +77,42 @@ std::shared_ptr<VarType> VarType::VoidType(new VarType(TypeKind::Void));
 std::shared_ptr<VarType> VarType::StringType(new VarType(TypeKind::String));
 
 
+class RangeVarType : public VarType {
+public:
+    RangeVarType(int min = 0, int max = 0) : VarType(TypeKind::Range), min(min), max(max) {};
+
+    int getMin() const {
+        return min;
+    };
+
+    int getMax() const {
+        return max;
+    };
+
+    int getSize() const {
+        return max -min;
+    }
+
+private:
+    int min;
+    int max;
+};
+
 class ArrayVarType : public VarType {
 public:
-    ArrayVarType(std::shared_ptr<VarType> type) : VarType(TypeKind::Array), type(type) {};
+    ArrayVarType(std::shared_ptr<VarType> type, std::shared_ptr<RangeVarType> rangeType) : VarType(TypeKind::Array), type(type), rangeType(rangeType) {};
 
     std::shared_ptr<VarType> &getType() {
         return type;
     }
 
+    std::shared_ptr<RangeVarType> &getRangeType() {
+        return rangeType;
+    }
+
 private:
     std::shared_ptr<VarType> type;
+    std::shared_ptr<RangeVarType> rangeType;
 };
 
 //class NameType : VarType {
@@ -139,21 +165,11 @@ private:
 
 };
 
-class RangeType : public VarType {
+class EnumVarType : public RangeVarType {
 public:
-    RangeType(std::shared_ptr<VarType> type) : VarType(TypeKind::Range), type(type) {};
-
-    std::shared_ptr<VarType> &getType() {
-        return type;
-    }
-
-private:
-    std::shared_ptr<VarType> type;
-};
-
-class EnumVarType : public VarType {
-public:
-    EnumVarType() : VarType(TypeKind::Enum) {};
+    EnumVarType(std::list<S_symbol> &items) : RangeVarType(0, items.size() - 1) {
+        kind = TypeKind::Enum;
+    };
 
     std::list<S_symbol> &getItems() {
         return items;

@@ -61,6 +61,50 @@ private:
     std::shared_ptr<VarType> type;
 };
 
+class ConstIntVariableEnvironnmentEntry : public VariableEnvironmentEntry {
+public:
+    ConstIntVariableEnvironnmentEntry(int val) : val(val), VariableEnvironmentEntry(VarType::getIntegerType(), true) {}
+
+    int getVal() const {
+        return val;
+    };
+private:
+    int val;
+};
+
+class ConstRealVariableEnvironnmentEntry : public VariableEnvironmentEntry {
+public:
+    ConstRealVariableEnvironnmentEntry(double val) : val(val), VariableEnvironmentEntry(VarType::getRealType(), true) {}
+
+    double getVal() const {
+        return val;
+    };
+private:
+    double val;
+};
+
+class ConstCharVariableEnvironnmentEntry : public VariableEnvironmentEntry {
+public:
+    ConstCharVariableEnvironnmentEntry(char val) : val(val), VariableEnvironmentEntry(VarType::getCharType(), true) {}
+
+    char getVal() const {
+        return val;
+    };
+private:
+    char val;
+};
+
+class ConstStringVariableEnvironnmentEntry : public VariableEnvironmentEntry {
+public:
+    ConstStringVariableEnvironnmentEntry(char *val) : val(val), VariableEnvironmentEntry(VarType::getStringType(), true) {}
+
+    char *getVal() const {
+        return val;
+    };
+private:
+    char *val;
+};
+
 class FunctionEnvironmentEntry : public EnvironmentEntry {
 public:
     FunctionEnvironmentEntry() : EnvironmentEntry(EntryKind::FunctionEntry) {};

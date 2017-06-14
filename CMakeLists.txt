@@ -14,10 +14,7 @@ message(STATUS "Using LLVMConfig.cmake in: ${LLVM_DIR}")
 # for your compiler.
 
 include_directories(${LLVM_INCLUDE_DIRS})
-set(CUSTOM_FLAGS "-v")
 add_definitions(${LLVM_DEFINITIONS})
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CUSTOM_FLAGS}")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${CUSTOM_FLAGS}")
 
 set(SOURCE_FILES
     absyn.c

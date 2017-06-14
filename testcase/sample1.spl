@@ -13,6 +13,7 @@ begin
 		if a = 2 then
 		begin
 			go := 1;
+			a := 2;
 		end
 		else
 		begin

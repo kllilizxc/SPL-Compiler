@@ -83,6 +83,8 @@ env.hpp
 /Users/cai/CLionProjects/SPL-Compiler/env.hpp
 ir.hpp
 /Users/cai/CLionProjects/SPL-Compiler/ir.hpp
+absyn.h
+/Users/cai/CLionProjects/SPL-Compiler/absyn.h
 symbol.h
 /Users/cai/CLionProjects/SPL-Compiler/symbol.h
 absyn.h

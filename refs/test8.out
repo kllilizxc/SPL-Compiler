@@ -22,7 +22,56 @@
 
 
     routinePart : 
-     
+     decList : 
+       routineDec : 
+        go : 
+         FieldList : 
+           Field : 
+            NameList : 
+             Name : a
+
+
+            Type : 
+             SimpleTy : 
+              SysTy : 
+               integer
+
+
+
+         SysTy : 
+          integer
+
+         routine : 
+          routineHead : 
+           labelPart : 
+            
+           constPart : 
+            
+           typePart : 
+            
+           varPart : 
+            
+           routinePart : 
+            
+
+          routineBody : 
+           CompoundStmt : 
+            StmtList : 
+             LabelStmt : 
+              Int : 
+               -1
+
+              AssignStmt : 
+               simpleVar : 
+                go
+
+               VarExp : 
+                simpleVar : 
+                 a
+
+
+
+
 
    routineBody : 
     CompoundStmt : 
@@ -35,23 +84,20 @@
         index
         ConstExp : 
          Int : 
-          3
+          1
 
         ConstExp : 
          Int : 
-          1
+          3
 
         LabelStmt : 
          Int : 
           -1
 
          ProcStmt : 
-           SysProc : 
-           writeln
+           Func : 
+           go
            ArgsList : 
-            VarExp : 
-             simpleVar : 
-              index
 
 
 

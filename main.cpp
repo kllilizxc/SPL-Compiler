@@ -27,7 +27,7 @@ int main(){
     
     std::string fnamepart[31]=
     {
-        "sample1",
+        "test8",
         "sample2",
         "sample3",
         "test1",
@@ -70,7 +70,6 @@ int main(){
         //semant
         S_table vEnv = EnvironmentEntry::enterBaseValueEnvironment();
         S_table tEnv = EnvironmentEntry::enterBaseTypeEnvironment();
-        IR::initSysTypes();
         printf("analysing %s\n", fname);
         //parse((char *)syslib.data());
         //Semant::translateProgram(vEnv, tEnv, absyn_root);
