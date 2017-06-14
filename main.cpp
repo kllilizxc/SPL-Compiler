@@ -75,7 +75,7 @@ int main(){
         //parse((char *)syslib.data());
         //Semant::translateProgram(vEnv, tEnv, absyn_root);
         Semant::translateProgram(vEnv, tEnv, absyn_root)
-        .getExpression();
+                .getExpression()->genCode();
         
         IR::TheModule->dump();
         
