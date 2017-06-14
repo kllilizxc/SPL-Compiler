@@ -34,14 +34,16 @@ public:
     }
 
     static Type *genType(std::shared_ptr<VarType> type) {
-        if (type == VarType::getIntegerType())
+        if(type == nullptr)
+            return Type::getVoidTy(TheContext);
+        else if (type == VarType::getIntegerType())
             return Type::getInt32Ty(TheContext);
         else if (type == VarType::getBooleanType())
             return Type::getInt32Ty(TheContext);
         else if (type == VarType::getCharType())
-            return Type::getInt32Ty(TheContext);
+            return Type::getInt8Ty(TheContext);
         else if (type == VarType::getStringType())
-            return Type::getInt32Ty(TheContext);
+            return Type::getInt32Ty(TheContext); //TODO? do we have non-const string variables?
         else if (type == VarType::getRealType())
             return Type::getDoubleTy(TheContext);
         else if (type->getKind() == TypeKind::Record) {
@@ -70,8 +72,10 @@ public:
             }
 
             return Type::getInt32Ty(TheContext); //Enum seen as integer
+        } else if (type->getKind() == TypeKind::Range) {
+            return Type::getInt32Ty(TheContext);
         } else
-            return Type::getVoidTy(TheContext);
+            return Type::getInt32Ty(TheContext);
     }
 
     static bool isPtrType(Type *type) {
@@ -82,6 +86,12 @@ public:
 
     Value *loadIfIsPtr(Value * value) {
         return isPtrType(value->getType()) ? Builder.CreateLoad(value, value->getName()) : value;
+    }
+
+    static void genBaseNamedValues() {
+        NamedValues["true"] = ConstantInt::get(Type::getInt32Ty(TheContext), APInt(32, 1));
+        NamedValues["false"] = ConstantInt::get(Type::getInt32Ty(TheContext), APInt(32, 0));
+        NamedValues["maxint"] = ConstantInt::get(Type::getInt32Ty(TheContext), APInt(32, INT32_MAX));
     }
 
     virtual Value *genCode() = 0;
@@ -141,16 +151,21 @@ public:
 
 class ConstStringIR : public IR {
 private:
-    char *val;
+    std::string val;
 public:
-    ConstStringIR(char *val) : val(val) {}
+    ConstStringIR(std::string val) : val(val) {}
 
-    char *getVal() const {
+    std::string getVal() const {
         return val;
     }
 
     Value *genCode() {
-        return ConstantInt::get(TheContext, APInt(32, (uint64_t) (val)));
+        ArrayType *arrayType = ArrayType::get(Type::getInt8Ty(TheContext), val.size());
+        std::vector<Constant *> data;
+        for(auto c : val) {
+            data.push_back(ConstantInt::get(Type::getInt8Ty(TheContext), APInt(8, c)));
+        }
+        return ConstantArray::get(arrayType, ArrayRef<Constant *>(data.data(), data.size()));
     }
 };
 
@@ -421,7 +436,7 @@ public:
         assert(type && "No such array!");
         Value *subscriptVal = subscript->genCode();
 
-        return Builder.CreateAdd(array, Builder.CreateIntToPtr(subscriptVal, array->getType()));
+        return Builder.CreateAdd(array, Builder.CreateIntToPtr(subscriptVal, type->getArrayElementType())); //TODO wonder if this works
     }
 };
 
@@ -465,12 +480,13 @@ public:
 
     Value *genCode() {
         Function *callee = TheModule->getFunction(name.c_str());
+        assert(callee && "Undefined Function!");
 
         std::vector<Value *> argValues;
 
         for (auto arg : args) {
             Value *argVal = arg->genCode();
-            argValues.push_back(Builder.CreateLoad(argVal, argVal->getName()));
+            argValues.push_back(loadIfIsPtr(argVal));
         }
 
         return Builder.CreateCall(callee, argValues);
@@ -540,7 +556,7 @@ private:
 public:
     ForIR(std::string var, IR *startIR, IR *endIR, IR *doIR) : var(var), startIR(startIR), endIR(endIR), doIR(doIR) {}
 
-    Value *genCode() { //TODO adjust condition position
+    Value *genCode() {
         Function *TheFunction = Builder.GetInsertBlock()->getParent();
 
         // Create an alloca for the variable in the entry block.
@@ -549,12 +565,24 @@ public:
         // Store the value into the alloca.
         Builder.CreateStore(startIR->genCode(), Alloca);
 
+        BasicBlock *entryBB = BasicBlock::Create(TheContext, "entry", TheFunction);
+        BasicBlock *LoopBB = BasicBlock::Create(TheContext, "loop");
+        // Create the "after loop" block and insert it.
+        BasicBlock *AfterBB = BasicBlock::Create(TheContext, "afterloop");
+
+        Builder.SetInsertPoint(entryBB);
+
+        // the body of the loop mutates the variable.
+        Value *CurVar = Builder.CreateLoad(Alloca, var.c_str());
+
+        Value *EndCond = Builder.CreateICmpNE(endIR->genCode(), CurVar, "loopcond");
+
+        // Insert the conditional branch into the end of LoopEndBB.
+        Builder.CreateCondBr(EndCond, LoopBB, AfterBB);
+
         // Make the new basic block for the loop header, inserting after current
         // block.
-        BasicBlock *LoopBB = BasicBlock::Create(TheContext, "loop", TheFunction);
-
-        // Insert an explicit fall through from the current block to the LoopBB.
-        Builder.CreateBr(LoopBB);
+        TheFunction->getBasicBlockList().push_back(LoopBB);
 
         // Start insertion in LoopBB.
         Builder.SetInsertPoint(LoopBB);
@@ -568,22 +596,12 @@ public:
 
         Value *StepVal = ConstantInt::get(TheContext, APInt(32, 1));
 
-        // Reload, increment, and restore the alloca.  This handles the case where
-        // the body of the loop mutates the variable.
-        Value *CurVar = Builder.CreateLoad(Alloca, var.c_str());
         Value *NextVar = Builder.CreateAdd(CurVar, StepVal, "nextvar");
         Builder.CreateStore(NextVar, Alloca);
 
-        Value *EndCond = Builder.CreateICmpNE(
-                endIR->genCode(), CurVar, "loopcond");
+        Builder.CreateBr(entryBB);
 
-        // Create the "after loop" block and insert it.
-        BasicBlock *AfterBB =
-                BasicBlock::Create(TheContext, "afterloop", TheFunction);
-
-        // Insert the conditional branch into the end of LoopEndBB.
-        Builder.CreateCondBr(EndCond, LoopBB, AfterBB);
-
+        TheFunction->getBasicBlockList().push_back(AfterBB);
         // Any new code will be inserted in AfterBB.
         Builder.SetInsertPoint(AfterBB);
 
@@ -644,28 +662,31 @@ private:
 public:
     WhileIR(IR *condition, IR *statement) : condition(condition), statement(statement) {}
 
-    Value *genCode() { //TODO adjust condition position
+    Value *genCode() {
         Function *TheFunction = Builder.GetInsertBlock()->getParent();
+
+        BasicBlock *entryBB = BasicBlock::Create(TheContext, "entry", TheFunction);
+        Builder.SetInsertPoint(entryBB);
 
         // Make the new basic block for the loop header, inserting after current
         // block.
-        BasicBlock *LoopBB = BasicBlock::Create(TheContext, "loop", TheFunction);
+        BasicBlock *LoopBB = BasicBlock::Create(TheContext, "loop");
+        // Create the "after loop" block and insert it.
+        BasicBlock *AfterBB = BasicBlock::Create(TheContext, "afterloop");
 
-        // Insert an explicit fall through from the current block to the LoopBB.
-        Builder.CreateBr(LoopBB);
+        // Insert the conditional branch into the end of LoopEndBB.
+        Builder.CreateCondBr(condition->genCode(), LoopBB, AfterBB);
 
+        TheFunction->getBasicBlockList().push_back(LoopBB);
         // Start insertion in LoopBB.
         Builder.SetInsertPoint(LoopBB);
 
         statement->genCode();
 
-        // Create the "after loop" block and insert it.
-        BasicBlock *AfterBB =
-                BasicBlock::Create(TheContext, "afterloop", TheFunction);
+        // Insert an explicit fall through from the current block to the LoopBB.
+        Builder.CreateBr(entryBB);
 
-        // Insert the conditional branch into the end of LoopEndBB.
-        Builder.CreateCondBr(condition->genCode(), LoopBB, AfterBB);
-
+        TheFunction->getBasicBlockList().push_back(AfterBB);
         // Any new code will be inserted in AfterBB.
         Builder.SetInsertPoint(AfterBB);
 
@@ -686,11 +707,17 @@ public:
                                                                               statements(statements) {}
 
     Value *genCode() {
-        SwitchInst *switchInst = SwitchInst::Create(condition->genCode(), nullptr, testCases.size());
+        Function *TheFunction = Builder.GetInsertBlock()->getParent();
+
+        // Make the new basic block for the loop header, inserting after current
+        // block.
+        BasicBlock *switchBB = BasicBlock::Create(TheContext, "switch", TheFunction);
+
+        Builder.SetInsertPoint(switchBB);
+
+        SwitchInst *switchInst = Builder.CreateSwitch(loadIfIsPtr(condition->genCode()), switchBB, testCases.size());
         int index = 0;
         for(auto testCase : testCases) {
-            Function *TheFunction = Builder.GetInsertBlock()->getParent();
-
             // Make the new basic block for the loop header, inserting after current
             // block.
             BasicBlock *caseBB = BasicBlock::Create(TheContext, "case", TheFunction);
@@ -713,7 +740,9 @@ public:
     GotoIR(std::string name) : name(name) {}
 
     Value *genCode() {
-        Builder.CreateBr(NamedLabels[name]);
+        BasicBlock *des = NamedLabels[name];
+        assert(des);
+        Builder.CreateBr(des);
 
         return nullptr;
     }
@@ -733,6 +762,7 @@ public:
         // Create a new basic block to start insertion into.
         BasicBlock *BB = BasicBlock::Create(TheContext, "entry", TheFunction);
         Builder.SetInsertPoint(BB);
+        assert(BB);
 
         NamedLabels[name] = BB;
 
@@ -749,6 +779,7 @@ public:
     Value *genCode() {
         Value *returnVal = nullptr;
         for (auto statement : statements) {
+            assert(statement);
             returnVal = statement->genCode();
         }
         return returnVal;
@@ -765,6 +796,7 @@ public:
     void decVar(Function* TheFunction, std::string name) {
         AllocaInst *Alloca = CreateEntryBlockAlloca(TheFunction, name.c_str(), type);
         NamedValues[name] = Alloca;
+        NamedTypes[name] = type;
     }
 
     Value *genCode() {
@@ -857,7 +889,7 @@ public:
 
         if (labelDecIR) labelDecIR->genCode();
         if (constDecIR) constDecIR->genCode();
-        if (typeDecIR) typeDecIR->genCode();
+//        if (typeDecIR) typeDecIR->genCode();
         if (varDecIR) varDecIR->genCode();
         if (routineDecIR) routineDecIR->genCode();
 

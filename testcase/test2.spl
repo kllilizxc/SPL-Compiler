@@ -35,12 +35,9 @@ begin
 	for i:= 1 to 10 do
 	begin
 		arrayvar[i] := i;
-		writeln(arrayvar[i]);
 	end
 	;
 
 	recordvar.a := 2;
-	write(recordvar.a);
-	
 end
 .

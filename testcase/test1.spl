@@ -12,7 +12,17 @@ const
 	f = false;
 	g = maxint;
 
+var
+    I : integer;
+    D : real;
+    C : char;
+    S : string;
+
+
 begin
-	riteln(a,b,c,d,e);
+	D := b;
+	I := e;
+	S := c;
+	C := d;
 end
 .

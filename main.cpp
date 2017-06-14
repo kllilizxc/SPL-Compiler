@@ -27,7 +27,7 @@ int main(){
     
     std::string fnamepart[31]=
     {
-        "test8",
+        "sample1",
         "sample2",
         "sample3",
         "test1",
@@ -63,13 +63,14 @@ int main(){
     for(i = 0; i < 1; ++i)
     {
         char fname[30] = "testcase/", fout[30] = "refs/";
-        strcat(fname, fnamepart[i].data());
+        strcat(fname, fnamepart[26].data());
         strcat(fname, ".spl");
         parse(fname);
 
         //semant
         S_table vEnv = EnvironmentEntry::enterBaseValueEnvironment();
         S_table tEnv = EnvironmentEntry::enterBaseTypeEnvironment();
+        IR::genBaseNamedValues();
         printf("analysing %s\n", fname);
         //parse((char *)syslib.data());
         //Semant::translateProgram(vEnv, tEnv, absyn_root);

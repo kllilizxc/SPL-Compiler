@@ -30,13 +30,11 @@ end
 procedure progo(a : integer);
 begin
 	i := go(a);
-	writeln(i);
 end
 ;
 
 procedure moreParams(a,b,c : integer ; var d,e,f : integer);
 begin
-	writeln(a,b,c,d,e,f);
 end
 ;
 

@@ -90,7 +90,11 @@ public:
     };
 
     int getSize() const {
-        return max -min;
+        return max - min + 1;
+    }
+
+    bool inRange(int val) {
+        return val >= min && val <= max;
     }
 
 private:
@@ -167,7 +171,7 @@ private:
 
 class EnumVarType : public RangeVarType {
 public:
-    EnumVarType(std::list<S_symbol> &items) : RangeVarType(0, items.size() - 1) {
+    EnumVarType(std::list<S_symbol> &items) : RangeVarType(0, items.size() - 1), items(items) {
         kind = TypeKind::Enum;
     };
 

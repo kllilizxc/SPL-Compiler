@@ -103,6 +103,16 @@ private:
         auto left = translateExpression(valueEnvironment, typeEnvironment, op.left);
         auto right = translateExpression(valueEnvironment, typeEnvironment, op.right);
 
+        if (oper == A_minusOp && right.isConst && left.isConst) {
+            //for negtive value
+            auto rightVal = static_cast<ConstIntIR *>(right.getExpression());
+            auto leftVal = static_cast<ConstIntIR *>(left.getExpression());
+
+            if (leftVal && rightVal && leftVal->getVal() == 0) {
+                return ExpressionAndType(VarType::getIntegerType(), new ConstIntIR(-rightVal->getVal()), true);
+            }
+        }
+
         if (oper == A_divideOp && right.getType() != VarType::getIntegerType()) {
             EM_error(op.right->pos, "the divider should be an integer!");
             return ExpressionAndType(VarType::getNilType(), nullptr);
@@ -210,8 +220,9 @@ private:
         if (subscript.var == NULL) {
             if (subscript.exp == NULL)
                 return ExpressionAndType(VarType::getVoidType());
-        } else
-            return translateExpression(valueEnvironment, typeEnvironment, subscript.exp);
+            else
+                return translateExpression(valueEnvironment, typeEnvironment, subscript.exp);
+        }
 
         auto entry = unpack<VariableEnvironmentEntry>(S_look(valueEnvironment, subscript.var));
 
@@ -228,13 +239,30 @@ private:
 
         auto subExp = translateExpression(valueEnvironment, typeEnvironment, subscript.exp);
 
-        if (subExp.getType() != arrayType->getType()) {
-            EM_error(subscript.exp->pos, "variable type and subscript type mismatch!");
-            return ExpressionAndType(VarType::getNilType(), nullptr);
+        if (subExp.getType() != VarType::getIntegerType()) {
+            EM_error(subscript.exp->pos, "subscript should be an integer!");
+            return ExpressionAndType(VarType::getNilType());
         }
 
-        return ExpressionAndType(arrayType->getType(),
-                                 new SubscriptVarIR(S_name(subscript.var), subExp.getExpression()));
+        if (subExp.isConst) {
+            int val = 0;
+            auto intValExp = static_cast<ConstIntIR *>(subExp.getExpression());
+            if (intValExp) {
+                val = intValExp->getVal();
+                if (!arrayType->getRangeType()->inRange(val)) {
+                    EM_error(subscript.exp->pos, "the subscript is not in the correct range!");
+                    return ExpressionAndType(VarType::getNilType());
+                }
+                val -= arrayType->getRangeType()->getMin();
+            }
+
+            return ExpressionAndType(arrayType->getType(),
+                                     new SubscriptVarIR(S_name(subscript.var), new ConstIntIR(val)));
+        } else {
+            auto minusMin = new OpMinusIR(subExp.getExpression(), new ConstIntIR(arrayType->getRangeType()->getMin()));
+            return ExpressionAndType(arrayType->getType(), new SubscriptVarIR(S_name(subscript.var), minusMin));
+        }
+
     }
 
     static ExpressionAndType
@@ -266,13 +294,21 @@ private:
 
         auto constExp = translateConst(valueEnvironment, typeEnvironment, constt.constValue);
 
-        if (auto intExp = static_cast<ConstIntIR *>(constExp.getExpression())) {
+        if (constExp.getType() == VarType::getIntegerType()) {
+            auto intExp = static_cast<ConstIntIR *>(constExp.getExpression());
+            assert(intExp);
             S_enter(valueEnvironment, constt.name, pack(new ConstIntVariableEnvironnmentEntry(intExp->getVal())));
-        } else if (auto charExp = static_cast<ConstCharIR *>(constExp.getExpression())) {
+        } else if (constExp.getType() == VarType::getCharType()) {
+            auto charExp = static_cast<ConstCharIR *>(constExp.getExpression());
+            assert(charExp);
             S_enter(valueEnvironment, constt.name, pack(new ConstCharVariableEnvironnmentEntry(charExp->getVal())));
-        } else if (auto realExp = static_cast<ConstRealIR *>(constExp.getExpression())) {
+        } else if (constExp.getType() == VarType::getRealType()) {
+            auto realExp = static_cast<ConstRealIR *>(constExp.getExpression());
+            assert(realExp);
             S_enter(valueEnvironment, constt.name, pack(new ConstRealVariableEnvironnmentEntry(realExp->getVal())));
-        } else if (auto stringExp = static_cast<ConstStringIR *>(constExp.getExpression())) {
+        } else if (constExp.getType() == VarType::getStringType()) {
+            auto stringExp = static_cast<ConstStringIR *>(constExp.getExpression());
+            assert(stringExp);
             S_enter(valueEnvironment, constt.name, pack(new ConstStringVariableEnvironnmentEntry(stringExp->getVal())));
         } else {
             EM_error(constt.constValue->pos, "the initial value of const variable %s is not const!",
@@ -470,10 +506,28 @@ private:
             return ExpressionAndType(variable.getType(), nullptr, true);
         }
 
-        if (variable.getType() == nullptr || expression.getType() == nullptr ||
-            variable.getType() != expression.getType()) {
-            EM_error(assign.var->pos, "variable type and expression type mismatch!");
+        if (variable.getType() == nullptr || expression.getType() == nullptr) {
+            EM_error(assign.var->pos, "variable type or expression has unrecognized type!");
+            return ExpressionAndType(VarType::getVoidType());
         }
+
+        TypeKind kind = variable.getType()->getKind();
+        if (expression.getType() == VarType::getIntegerType() && (kind == TypeKind::Enum || kind == TypeKind::Range)) {
+
+        } else if (variable.getType() != expression.getType()) {
+            EM_error(assign.var->pos, "variable type and expression type mismatch!");
+            return ExpressionAndType(VarType::getVoidType());
+        }
+
+        if ((kind == TypeKind::Enum || kind == TypeKind::Range) && expression.isConst &&
+            expression.getType() == VarType::getIntegerType()) {
+            auto rangeType = std::static_pointer_cast<RangeVarType>(variable.getType());
+            auto constIntVal = static_cast<ConstIntIR *>(expression.getExpression())->getVal();
+            if (rangeType && constIntVal && (constIntVal > rangeType->getMax() || constIntVal < rangeType->getMin())) {
+                EM_error(assign.var->pos, "the const value is not in the range!");
+            }
+        }
+
         return ExpressionAndType(variable.getType(),
                                  new AssignIR(variable.getExpression(), expression.getExpression()));
     }
@@ -601,7 +655,7 @@ private:
 
                 ConstIntIR *ir = static_cast<ConstIntIR *>(constExp.getExpression());
 
-                if(!ir) {
+                if (!ir) {
                     EM_error(caseList->head->pos, "type of const value must be integer!");
                     break;
                 }
@@ -609,7 +663,8 @@ private:
                 caseTests.push_back(ir->getVal());
             }
 
-            statements.push_back(translateStatement(valueEnvironment, typeEnvironment, caseList->head->casee).getExpression());
+            statements.push_back(
+                    translateStatement(valueEnvironment, typeEnvironment, caseList->head->casee).getExpression());
 
             caseList = caseList->tail;
         }
@@ -620,11 +675,17 @@ private:
     }
 
     static ExpressionAndType translateGotoStatement(S_table valueEnvironment, S_table typeEnvironment, _A_goto_ gotoo) {
-        if (gotoo.des->kind != A_string) {
-            EM_error(gotoo.des->pos, "the label must be a string!");
+        std::string name;
+        if (gotoo.des->kind == A_string) {
+            name = gotoo.des->u.stringg;
+        } else if (gotoo.des->kind == A_int) {
+            name = std::to_string(gotoo.des->u.intt);
+        } else {
+            EM_error(gotoo.des->pos, "the label is either a string or a integer!");
+            return ExpressionAndType(VarType::getVoidType());
         }
 
-        return ExpressionAndType(VarType::getVoidType(), new GotoIR(gotoo.des->u.stringg));
+        return ExpressionAndType(VarType::getVoidType(), new GotoIR(name));
     }
 
     static ExpressionAndType
@@ -681,6 +742,10 @@ private:
     translateSingleType(S_table valueEnvironment, S_table typeEnvironment, S_symbol single, A_pos pos) {
         auto maxEnv = unpack<VariableEnvironmentEntry>(S_look(valueEnvironment, single));
 
+        if (!maxEnv) {
+            EM_error(pos, "undefined variable %s!", S_name(single));
+        }
+
         auto maxExp = std::static_pointer_cast<ConstIntVariableEnvironnmentEntry>(*maxEnv);
         if (!maxExp) {
             EM_error(pos, "the variable %s should be a const integer!", S_name(single));
@@ -701,17 +766,25 @@ private:
         }
 
         ConstIntIR *min, *max;
-        if (!leftExp.isConst || !(min = static_cast<ConstIntIR *>(rightExp.getExpression()))) {
+        if (!leftExp.isConst || !(min = static_cast<ConstIntIR *>(leftExp.getExpression()))) {
             EM_error(doubleC.left->pos, "left expression must be a const integer value!");
             return ExpressionAndType(VarType::getVoidType());
         }
 
-        if (!rightExp.isConst || !(max = static_cast<ConstIntIR *>(leftExp.getExpression()))) {
+        if (!rightExp.isConst || !(max = static_cast<ConstIntIR *>(rightExp.getExpression()))) {
             EM_error(doubleC.right->pos, "right expression must be a const integer value!");
             return ExpressionAndType(VarType::getVoidType());
         }
 
-        return ExpressionAndType(std::shared_ptr<VarType>(new RangeVarType(min->getVal(), max->getVal())));
+        int minVal = min->getVal();
+        int maxVal = max->getVal();
+        if (minVal > maxVal) {
+            int temp = minVal;
+            minVal = maxVal;
+            maxVal = temp;
+        }
+
+        return ExpressionAndType(std::shared_ptr<VarType>(new RangeVarType(minVal, maxVal)));
     }
 
     static ExpressionAndType
@@ -735,7 +808,15 @@ private:
             EM_error(pos, "right variable %s is not a const int variable!", S_name(doubleN.right));
         }
 
-        return ExpressionAndType(std::shared_ptr<VarType>(new RangeVarType(leftExp->getVal(), rightExp->getVal())));
+        int minVal = leftExp->getVal();
+        int maxVal = rightExp->getVal();
+        if (minVal > maxVal) {
+            int temp = minVal;
+            minVal = maxVal;
+            maxVal = temp;
+        }
+
+        return ExpressionAndType(std::shared_ptr<VarType>(new RangeVarType(minVal, maxVal)));
     }
 
     static ExpressionAndType
@@ -827,13 +908,19 @@ public:
 
     static ExpressionAndType
     translateLabelStatemennt(S_table valueEnvironment, S_table typeEnvironmrnt, _A_label_ label) {
-        if (label.label->kind != A_string) {
-            EM_error(label.label->pos, "the label should be a string!");
+        auto statement = translateStatement(valueEnvironment, typeEnvironmrnt, label.stmt);
+
+        std::string name;
+        if (label.label->kind == A_int) {
+            name = std::to_string(label.label->u.intt);
+        } else if (label.label->kind == A_string) {
+            name = label.label->u.stringg;
+        } else {
+            EM_error(label.label->pos, "the label is either a string or a integer!");
+            return ExpressionAndType(VarType::getVoidType());
         }
 
         std::vector<IR *> irs;
-        char *name = label.label->u.stringg;
-        auto statement = translateStatement(valueEnvironment, typeEnvironmrnt, label.stmt);
         irs.push_back(new LabelDecIR(name));
         irs.push_back(statement.getExpression());
 
@@ -872,9 +959,9 @@ public:
     translateSimpleType(S_table valueEnvironment, S_table typeEnvironment, A_simpleTy simpleType) {
         switch (simpleType->kind) {
             case A_sysTy:
-                return translateSysType(valueEnvironment, typeEnvironment, simpleType->u.systy, simpleType->pos);
             case A_singleTy:
-                return translateSingleType(valueEnvironment, typeEnvironment, simpleType->u.single, simpleType->pos);
+                return translateSysType(valueEnvironment, typeEnvironment, simpleType->u.systy, simpleType->pos);
+//                return translateSingleType(valueEnvironment, typeEnvironment, simpleType->u.single, simpleType->pos);
             case A_doubleCTy:
                 return translateDoubleConstSimpleType(valueEnvironment, typeEnvironment, simpleType->u.doubleC);
             case A_doubleNTy:

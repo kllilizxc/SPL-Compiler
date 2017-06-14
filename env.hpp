@@ -46,7 +46,7 @@ private:
     EntryKind entryKind;
 };
 
-class VariableEnvironmentEntry : public EnvironmentEntry {
+class   VariableEnvironmentEntry : public EnvironmentEntry {
 public:
     VariableEnvironmentEntry(std::shared_ptr<VarType> type, bool isConst = false) : EnvironmentEntry(EntryKind::VariableEntry),
                                                            type(type), isConst(isConst) {};
@@ -96,13 +96,13 @@ private:
 
 class ConstStringVariableEnvironnmentEntry : public VariableEnvironmentEntry {
 public:
-    ConstStringVariableEnvironnmentEntry(char *val) : val(val), VariableEnvironmentEntry(VarType::getStringType(), true) {}
+    ConstStringVariableEnvironnmentEntry(std::string val) : val(val), VariableEnvironmentEntry(VarType::getStringType(), true) {}
 
-    char *getVal() const {
+    std::string getVal() const {
         return val;
     };
 private:
-    char *val;
+    std::string val;
 };
 
 class FunctionEnvironmentEntry : public EnvironmentEntry {
@@ -145,8 +145,8 @@ S_table EnvironmentEntry::enterBaseTypeEnvironment() {
 
 S_table EnvironmentEntry::enterBaseValueEnvironment() {
     S_table environment = S_empty();
-    S_enter(environment, S_Symbol(toCharString("true")), pack(new VariableEnvironmentEntry(VarType::getBooleanType(), true)));
-    S_enter(environment, S_Symbol(toCharString("false")), pack(new VariableEnvironmentEntry(VarType::getBooleanType(), true)));
+    S_enter(environment, S_Symbol(toCharString("true")), pack(new ConstIntVariableEnvironnmentEntry(1)));
+    S_enter(environment, S_Symbol(toCharString("false")), pack(new ConstIntVariableEnvironnmentEntry(0)));
     S_enter(environment, S_Symbol(toCharString("maxint")), pack(new VariableEnvironmentEntry(VarType::getIntegerType(), true)));
     return environment;
 }
