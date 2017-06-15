@@ -13,12 +13,13 @@ var
 begin
 	a := (-1 + 2) * 4 + 4 / 2 - 3;
 	b := -3.5 - 5.78;
-	c := 1 and 0;
-	d := 1 or 0;
+	c := true;
+	d := false;
 	printf("%d\n", a);
 	printf("%f\n", b);
 	printf("%d\n", c);
-	printf("%d\n", d);git
+	printf("%d\n", d);
+　  printf("%f\n", 1.22);
 end
 .
 

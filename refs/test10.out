@@ -152,18 +152,9 @@
           simpleVar : 
            c
 
-          IfExp : 
-           ConstExp : 
-            Int : 
-             1
-
-           ConstExp : 
-            Int : 
-             0
-
-           ConstExp : 
-            Int : 
-             0
+          ConstExp : 
+           Syscon : 
+            true
 
          LabelStmt : 
           Int : 
@@ -173,36 +164,59 @@
            simpleVar : 
             d
 
-           IfExp : 
-            ConstExp : 
-             Int : 
-              1
-
-            ConstExp : 
-             Int : 
-              1
-
-            ConstExp : 
-             Int : 
-              0
+           ConstExp : 
+            Syscon : 
+             false
 
           LabelStmt : 
            Int : 
             -1
 
-           AssignStmt : 
-            simpleVar : 
-             e
+           ProcStmt : 
+             Func : 
+             printf
+             ArgsList : 
 
-            OpExp : 
-             MOD
-             ConstExp : 
-              Int : 
-               4
 
-             ConstExp : 
+           LabelStmt : 
+            Int : 
+             -1
+
+            ProcStmt : 
+              Func : 
+              printf
+              ArgsList : 
+
+
+            LabelStmt : 
+             Int : 
+              -1
+
+             ProcStmt : 
+               Func : 
+               printf
+               ArgsList : 
+
+
+             LabelStmt : 
               Int : 
-               2
+               -1
+
+              ProcStmt : 
+                Func : 
+                printf
+                ArgsList : 
+
+
+              LabelStmt : 
+               Int : 
+                -1
+
+               ProcStmt : 
+                 Func : 
+                 printf
+                 ArgsList : 
+
 
 
 

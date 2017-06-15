@@ -83,13 +83,17 @@ private:
                                  new IfIR(testExp.getExpression(), thenExp.getExpression(), elseExp.getExpression()));
     }
 
-    static bool isIntorBoolorRealorChar(std::shared_ptr<VarType> type) {
+    static bool isSmpleType(std::shared_ptr<VarType> type) {
         return type == VarType::getIntegerType() || type == VarType::getBooleanType() ||
                type == VarType::getRealType() || type == VarType::getCharType();
     }
 
+    static bool isRealType(std::shared_ptr<VarType> type) {
+        return type == VarType::getRealType();
+    }
+
     static std::shared_ptr<VarType> &getBiggestType(std::shared_ptr<VarType> type1, std::shared_ptr<VarType> type2) {
-        assert(isIntorBoolorRealorChar(type1) && isIntorBoolorRealorChar(type2));
+        assert(isSmpleType(type1) && isSmpleType(type2));
 
         if (type1 == VarType::getRealType() || type2 == VarType::getRealType())
             return VarType::getRealType();
@@ -103,23 +107,109 @@ private:
         auto left = translateExpression(valueEnvironment, typeEnvironment, op.left);
         auto right = translateExpression(valueEnvironment, typeEnvironment, op.right);
 
-        if (oper == A_minusOp && right.isConst && left.isConst) {
-            //for negtive value
-            auto rightVal = static_cast<ConstIntIR *>(right.getExpression());
-            auto leftVal = static_cast<ConstIntIR *>(left.getExpression());
+        auto leftISReal = isRealType(left.getType());
+        auto rightIsReal = isRealType(right.getType());
 
-            if (leftVal && rightVal && leftVal->getVal() == 0) {
-                return ExpressionAndType(VarType::getIntegerType(), new ConstIntIR(-rightVal->getVal()), true);
+        if (oper == A_divideOp) {
+            if (right.getType() != VarType::getIntegerType()) {
+                EM_error(op.right->pos, "the divider should be an integer!");
+                return ExpressionAndType(VarType::getNilType(), nullptr);
+            } else if (right.isConst) {
+                auto rightVal = static_cast<ConstIntIR *>(right.getExpression());
+                if (!rightVal || rightVal->getVal() == 0) {
+                    EM_error(op.right->pos, "the divider should be an integer and can not be 0!");
+                    return ExpressionAndType(VarType::getNilType(), nullptr);
+                }
             }
         }
 
-        if (oper == A_divideOp && right.getType() != VarType::getIntegerType()) {
-            EM_error(op.right->pos, "the divider should be an integer!");
-            return ExpressionAndType(VarType::getNilType(), nullptr);
+        //optimize constant value
+        if (right.isConst && left.isConst) {
+            if (leftISReal && rightIsReal) {
+                auto rightVal = static_cast<ConstRealIR *>(right.getExpression())->getVal();
+                auto leftVal = static_cast<ConstRealIR *>(left.getExpression())->getVal();
+
+                double result = 0;
+
+                switch (op.oper) {
+                    case A_plusOp:
+                        result = leftVal + rightVal;
+                        break;
+                    case A_minusOp:
+                        result = leftVal - rightVal;
+                        break;
+                    case A_timesOp:
+                        result = leftVal * rightVal;
+                        break;
+                    case A_divideOp:
+                        result = leftVal / rightVal;
+                        break;
+                    case A_eqOp:
+                        return ExpressionAndType(VarType::getIntegerType(), new ConstIntIR(leftVal == rightVal), true);
+                    case A_neqOp:
+                        return ExpressionAndType(VarType::getIntegerType(), new ConstIntIR(leftVal != rightVal), true);
+                    case A_ltOp:
+                        return ExpressionAndType(VarType::getIntegerType(), new ConstIntIR(leftVal < rightVal), true);
+                    case A_leOp:
+                        return ExpressionAndType(VarType::getIntegerType(), new ConstIntIR(leftVal <= rightVal), true);
+                    case A_gtOp:
+                        return ExpressionAndType(VarType::getIntegerType(), new ConstIntIR(leftVal > rightVal), true);
+                    case A_geOp:
+                        return ExpressionAndType(VarType::getIntegerType(), new ConstIntIR(leftVal >= rightVal), true);
+                    default:
+                        EM_error(op.left->pos, "unrecognized operator!");
+                        break;
+                }
+
+                return ExpressionAndType(right.getType(), new ConstRealIR(result), true);
+            } else if (!leftISReal && !rightIsReal) {
+                auto rightVal = static_cast<ConstIntIR *>(right.getExpression())->getVal();
+                auto leftVal = static_cast<ConstIntIR *>(left.getExpression())->getVal();
+
+                int result = 0;
+
+                switch (op.oper) {
+                    case A_plusOp:
+                        result = leftVal + rightVal;
+                        break;
+                    case A_minusOp:
+                        result = leftVal - rightVal;
+                        break;
+                    case A_timesOp:
+                        result = leftVal * rightVal;
+                        break;
+                    case A_divideOp:
+                        result = leftVal / rightVal;
+                        break;
+                    case A_eqOp:
+                        return ExpressionAndType(VarType::getIntegerType(), new ConstIntIR(leftVal == rightVal), true);
+                    case A_neqOp:
+                        return ExpressionAndType(VarType::getIntegerType(), new ConstIntIR(leftVal != rightVal), true);
+                    case A_ltOp:
+                        return ExpressionAndType(VarType::getIntegerType(), new ConstIntIR(leftVal < rightVal), true);
+                    case A_leOp:
+                        return ExpressionAndType(VarType::getIntegerType(), new ConstIntIR(leftVal <= rightVal), true);
+                    case A_gtOp:
+                        return ExpressionAndType(VarType::getIntegerType(), new ConstIntIR(leftVal >= rightVal), true);
+                    case A_geOp:
+                        return ExpressionAndType(VarType::getIntegerType(), new ConstIntIR(leftVal > rightVal), true);
+                    default:
+                        EM_error(op.left->pos, "unrecognized operator!");
+                        break;
+                }
+
+                return ExpressionAndType(right.getType(), new ConstIntIR(result), true);
+            } else if (op.oper == A_minusOp && !leftISReal) {
+                //check negtive
+                auto leftVal = static_cast<ConstIntIR *>(left.getExpression())->getVal();
+                if (leftVal == 0) {
+                    auto rightVal = static_cast<ConstRealIR *>(right.getExpression())->getVal();
+                    return ExpressionAndType(VarType::getRealType(), new ConstRealIR(-rightVal),
+                                             true);
+                }
+            }
         }
 
-        auto leftISReal = !isIntorBoolorRealorChar(left.getType());
-        auto rightIsReal = !isIntorBoolorRealorChar(right.getType());
         IR *ir = nullptr;
         if (leftISReal && rightIsReal) {
             switch (op.oper) {
@@ -1043,7 +1133,7 @@ public:
         std::string programName = S_name(program->name);
 
         auto bodyExp = translateRoutine(valueEnvironment, typeEnvironment, program->routine, programName);
-        bodyExp.setExpression(new ProgramIR(programName, (RoutineBodyIR *)bodyExp.getExpression()));
+        bodyExp.setExpression(new ProgramIR(programName, (RoutineBodyIR *) bodyExp.getExpression()));
 
         return bodyExp;
     }

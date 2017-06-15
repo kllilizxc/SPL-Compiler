@@ -72,6 +72,17 @@ private:
     int val;
 };
 
+class ConstBoolVariableEnvironmentEntry : public VariableEnvironmentEntry {
+public:
+    ConstBoolVariableEnvironmentEntry(bool val) : val(val), VariableEnvironmentEntry(VarType::getBooleanType(), true) {}
+
+    bool getVal() const {
+        return val;
+    }
+private:
+    bool val;
+};
+
 class ConstRealVariableEnvironnmentEntry : public VariableEnvironmentEntry {
 public:
     ConstRealVariableEnvironnmentEntry(double val) : val(val), VariableEnvironmentEntry(VarType::getRealType(), true) {}
@@ -146,8 +157,8 @@ S_table EnvironmentEntry::enterBaseTypeEnvironment() {
 
 S_table EnvironmentEntry::enterBaseValueEnvironment() {
     S_table environment = S_empty();
-    S_enter(environment, S_Symbol(toCharString("true")), pack(new ConstIntVariableEnvironnmentEntry(1)));
-    S_enter(environment, S_Symbol(toCharString("false")), pack(new ConstIntVariableEnvironnmentEntry(0)));
+    S_enter(environment, S_Symbol(toCharString("true")), pack(new ConstBoolVariableEnvironmentEntry(true)));
+    S_enter(environment, S_Symbol(toCharString("false")), pack(new ConstBoolVariableEnvironmentEntry(false)));
     S_enter(environment, S_Symbol(toCharString("maxint")), pack(new VariableEnvironmentEntry(VarType::getIntegerType(), true)));
     return environment;
 }
