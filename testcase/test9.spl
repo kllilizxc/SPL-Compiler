@@ -12,7 +12,7 @@ begin
 	1: i := 1;
 	s2: i := 2;
 	end;
-
+    printf("%d", i);
 end
 .
 

@@ -8,7 +8,7 @@ begin
 		gcd := a;
 	end
 	else begin
-		gcd := gcd(b , a mod b);
+		gcd := gcd(b , 0);
 	end
 	;
 end
@@ -16,5 +16,6 @@ end
 
 begin
 	ans := gcd(9 , 36) * gcd(3 , 6);
+	printf("%d",ans);
 end
 .

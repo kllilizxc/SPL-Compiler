@@ -474,19 +474,22 @@ private:
 
         auto iter = formals.begin();
         std::vector<IR *> argExps;
-        while (iter != formals.end()) {
+        while (args != nullptr) {
             auto argExp = translateExpression(valueEnvironment, typeEnvironment, args->head);
-            if (argExp.getType() != *iter) {
-                EM_error(proc->args->head->pos, "arguments type mismatch!");
-                break;
+            if (*iter != VarType::getNilType()) { //Nil means any number of args
+                if (argExp.getType() != *iter) {
+                    EM_error(proc->args->head->pos, "arguments type mismatch!");
+                    break;
+                }
+                iter++;
             }
-            iter++;
             argExps.push_back(argExp.getExpression());
             args = args->tail;
         }
-        if (args != nullptr) {
+        if (*iter != VarType::getNilType() && iter != formals.end()) {
             EM_error(proc->args->head->pos, "arguments number mismatch!");
         }
+
 
         auto result = (*env)->getResult();
 
@@ -912,7 +915,7 @@ public:
 
         std::string name;
         if (label.label->kind == A_int) {
-            if(label.label->u.intt == -1)
+            if (label.label->u.intt == -1)
                 return statement;
             name = std::to_string(label.label->u.intt);
         } else if (label.label->kind == A_string) {
@@ -1037,13 +1040,12 @@ public:
     }
 
     static ExpressionAndType translateProgram(S_table valueEnvironment, S_table typeEnvironment, A_pro program) {
-        std::string mainFuncName = "main";
-        auto mainFuncBody = translateRoutine(valueEnvironment, typeEnvironment, program->routine, mainFuncName);
-        RoutineDecIR *mainFunc = new RoutineDecIR("main", std::vector<std::string>(), std::vector<Type *>(), nullptr,
-                                                  mainFuncBody.getExpression());
+        std::string programName = S_name(program->name);
 
-        mainFuncBody.setExpression(mainFunc);
-        return mainFuncBody;
+        auto bodyExp = translateRoutine(valueEnvironment, typeEnvironment, program->routine, programName);
+        bodyExp.setExpression(new ProgramIR(programName, (RoutineBodyIR *)bodyExp.getExpression()));
+
+        return bodyExp;
     }
 };
 

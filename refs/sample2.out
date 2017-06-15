@@ -140,18 +140,6 @@
                        Func : 
                        go
                        ArgsList : 
-                        VarExp : 
-                         simpleVar : 
-                          b
-                         OpExp : 
-                          MINUS
-                          VarExp : 
-                           simpleVar : 
-                            a
-
-                          ConstExp : 
-                           Int : 
-                            1
 
 
 
@@ -243,12 +231,6 @@
            Func : 
            go
            ArgsList : 
-            VarExp : 
-             simpleVar : 
-              k
-             ConstExp : 
-              Int : 
-               5
 
 
         LabelStmt : 
@@ -256,12 +238,9 @@
           -1
 
          ProcStmt : 
-           SysProc : 
-           writeln
+           Func : 
+           printf
            ArgsList : 
-            VarExp : 
-             simpleVar : 
-              f
 
 
          LabelStmt : 
@@ -269,12 +248,9 @@
            -1
 
           ProcStmt : 
-            SysProc : 
-            writeln
+            Func : 
+            printf
             ArgsList : 
-             VarExp : 
-              simpleVar : 
-               k
 
 
 

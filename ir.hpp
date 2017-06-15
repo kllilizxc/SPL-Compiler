@@ -26,6 +26,8 @@ using namespace llvm;
 
 class IR {
 public:
+    static bool inTopFunc;
+
     static AllocaInst *CreateEntryBlockAlloca(Function *TheFunction,
                                               const std::string &VarName, Type *type) {
         IRBuilder<> TmpB(&TheFunction->getEntryBlock(),
@@ -129,6 +131,9 @@ public:
     }
 
     virtual Value *genCode() = 0;
+    virtual Value *genCodeGlobal() {
+        return genCode();
+    }
 
     static LLVMContext TheContext;
     static std::unique_ptr<Module> TheModule;
@@ -839,6 +844,10 @@ private:
 public:
     CompoundIR(std::vector<IR *> statements) : statements(statements) {}
 
+    std::vector<IR *> &getStatements() {
+        return statements;
+    }
+
     Value *genCode() {
 
         Value *returnVal = nullptr;
@@ -849,10 +858,20 @@ public:
 
         return returnVal;
     }
+
+    Value *genCodeGlobal() {
+        Value *returnVal = nullptr;
+        for (auto statement : statements) {
+            assert(statement);
+            returnVal = statement->genCodeGlobal();
+        }
+
+        return returnVal;
+    }
 };
 
 class VarDecIR : public IR {
-private:
+protected:
     std::vector<std::string> names;
     Type *type;
 public:
@@ -864,12 +883,29 @@ public:
         NamedTypes[name] = type;
     }
 
-    Value *genCode() {
+    virtual Value *genCode() {
         Function *TheFunction = Builder.GetInsertBlock()->getParent();
 
         // Register all variables and emit their initializer.
         for (auto name : names) {
             decVar(TheFunction, name);
+        }
+
+        return nullptr;
+    }
+
+    Value *genCodeGlobal() {
+        Function *TheFunction = Builder.GetInsertBlock()->getParent();
+
+        // Register all variables and emit their initializer.
+        for (auto name : names) {
+            TheModule->getOrInsertGlobal(name, type);
+            auto globalVar = TheModule->getNamedGlobal(name);
+            globalVar->setInitializer(ConstantAggregateZero::get(type));
+            globalVar->setLinkage(GlobalVariable::InternalLinkage);
+            globalVar->setAlignment(4);
+            NamedValues[name] = globalVar;
+            NamedTypes[name] = type;
         }
 
         return nullptr;
@@ -912,7 +948,7 @@ public:
 };
 
 class RoutineBodyIR : public IR {
-private:
+public:
     std::string functionName;
     IR *labelDecIR;
     IR *constDecIR;
@@ -927,7 +963,7 @@ public:
                                     typeDecIR(typeDecIR), varDecIR(varDecIR), routineDecIR(routineDecIR),
                                     funcBodyIR(funcBodyIR) {}
 
-    Value *genCode() {
+    virtual Value *genCode() {
         auto backupValues = backUpNamedValues();
         auto backupTypes = backUpNamedTypes();
 
@@ -982,7 +1018,39 @@ public:
     }
 };
 
-class ProgramIR : public IR {
+class ProgramIR : public RoutineBodyIR {
+    friend class RoutineBodyIR;
+public:
+    ProgramIR(std::string name, RoutineBodyIR *body) :
+    RoutineBodyIR(name, body->labelDecIR, body->constDecIR, body->typeDecIR, body->varDecIR, body->routineDecIR, body->funcBodyIR) {}
+
+    virtual Value *genCode() {
+        FunctionType *FT =
+                FunctionType::get(Type::getVoidTy(TheContext), std::vector<Type *>(), false);
+
+        Function *TheFunction =
+                Function::Create(FT, Function::ExternalLinkage, functionName.c_str(), TheModule.get());
+
+        BasicBlock *BB = BasicBlock::Create(TheContext, "entry", TheFunction);
+        Builder.SetInsertPoint(BB);
+
+        if (labelDecIR) labelDecIR->genCodeGlobal();
+        if (constDecIR) constDecIR->genCodeGlobal();
+//        if (typeDecIR) typeDecIR->genCode();
+        if (varDecIR) varDecIR->genCodeGlobal();
+        if (routineDecIR) routineDecIR->genCode();
+
+        Builder.SetInsertPoint(&TheFunction->getEntryBlock());
+        if (funcBodyIR) funcBodyIR->genCodeGlobal();
+
+        Builder.CreateRet(nullptr);
+
+        // Validate the generated code, checking for consistency.
+        verifyFunction(*TheFunction);
+
+        return TheFunction;
+    }
+
 };
 
 LLVMContext IR::TheContext;
@@ -991,5 +1059,4 @@ std::unique_ptr<Module> IR::TheModule = llvm::make_unique<Module>("Mine", IR::Th
 std::map<std::string, Value *> IR::NamedValues;
 std::map<std::string, Type *> IR::NamedTypes;
 std::map<std::string, BasicBlock *> IR::NamedLabels;
-
 #endif

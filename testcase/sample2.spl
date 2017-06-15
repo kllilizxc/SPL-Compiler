@@ -25,7 +25,7 @@ end
 begin
 	k := 0;
 	f := go(k , 5);
-	writeln(f);
-	writeln(k);
+	printf("%d\n",f);
+	printf("%d\n",k);
 end
 .

@@ -14,8 +14,7 @@ begin
 	begin
 		if a = 2 then
 		begin
-			go := 1;
-			a := 2;
+			go := 2;
 			printf("2");
 		end
 		else
@@ -31,6 +30,7 @@ end
 
 begin
 	i := go(10);
+	printf("%d",i);
 end
 .
 

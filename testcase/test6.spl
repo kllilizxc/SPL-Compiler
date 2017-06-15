@@ -9,8 +9,11 @@ begin
 	i := 0;
 	repeat 
 	i := i + 1;
+	printf("%d\n",i);
 	until
 	i > 4;
+
+	printf("%d\n", i);
 end
 .
 

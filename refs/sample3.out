@@ -112,18 +112,6 @@
                       Func : 
                       gcd
                       ArgsList : 
-                       VarExp : 
-                        simpleVar : 
-                         b
-                        OpExp : 
-                         MOD
-                         VarExp : 
-                          simpleVar : 
-                           a
-
-                         VarExp : 
-                          simpleVar : 
-                           b
 
 
 
@@ -149,24 +137,12 @@
            Func : 
            gcd
            ArgsList : 
-            ConstExp : 
-             Int : 
-              9
-             ConstExp : 
-              Int : 
-               36
 
 
          FuncExp : 
            Func : 
            gcd
            ArgsList : 
-            ConstExp : 
-             Int : 
-              3
-             ConstExp : 
-              Int : 
-               6
 
 
        LabelStmt : 
@@ -174,12 +150,9 @@
          -1
 
         ProcStmt : 
-          SysProc : 
-          writeln
+          Func : 
+          printf
           ArgsList : 
-           VarExp : 
-            simpleVar : 
-             ans
 
 
 

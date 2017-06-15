@@ -138,7 +138,7 @@ S_table EnvironmentEntry::enterBaseTypeEnvironment() {
 
     //system functions
     S_enter(environment, S_Symbol(toCharString("writeln")), pack(new FunctionEnvironmentEntry({VarType::getIntegerType()}, VarType::getIntegerType())));
-    S_enter(environment, S_Symbol(toCharString("printf")), pack(new FunctionEnvironmentEntry({VarType::getStringType()}, VarType::getIntegerType())));
+    S_enter(environment, S_Symbol(toCharString("printf")), pack(new FunctionEnvironmentEntry({VarType::getNilType()}, VarType::getIntegerType())));
     S_enter(environment, S_Symbol(toCharString("write")), pack(new FunctionEnvironmentEntry({VarType::getIntegerType()}, VarType::getIntegerType())));
     S_enter(environment, S_Symbol(toCharString("read")), pack(new FunctionEnvironmentEntry({VarType::getIntegerType()}, VarType::getIntegerType())));
     return environment;

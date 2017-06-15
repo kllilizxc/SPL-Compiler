@@ -137,7 +137,7 @@ reserverSYSTYPE boolean|char|integer|real|string
 
 
 
-<INITINAL>"\""([a-zA-Z0-9]|"/"|" "|"\\n"|"."|"_"|"-"|"\\t")*"\"" {// string
+<INITINAL>"\""([a-zA-Z0-9]|"/"|" "|"%"|"\\n"|"."|"_"|"-"|"\\t")*"\"" {// string
   adjust(); 
   int size = strlen(yytext), i, p = 0;
   if(size == 2) {

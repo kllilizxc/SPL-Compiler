@@ -13,7 +13,8 @@ end
 
 begin
 	for index := 1 to 3 do
-		go(index);
+		printf("%d\n", index);
+
 
 end
 .

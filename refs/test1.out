@@ -18,7 +18,7 @@
          constDec : 
           c
           String : 
-           abcdÐï««««««««îþ
+           abcd
 
           constDec : 
            d
@@ -44,7 +44,52 @@
     typePart : 
      
     varPart : 
-     
+     decList : 
+       varDec : 
+        Field : 
+         NameList : 
+          Name : I
+
+
+         Type : 
+          SimpleTy : 
+           SysTy : 
+            integer
+
+        varDec : 
+         Field : 
+          NameList : 
+           Name : D
+
+
+          Type : 
+           SimpleTy : 
+            SysTy : 
+             real
+
+         varDec : 
+          Field : 
+           NameList : 
+            Name : C
+
+
+           Type : 
+            SimpleTy : 
+             SysTy : 
+              char
+
+          varDec : 
+           Field : 
+            NameList : 
+             Name : S
+
+
+            Type : 
+             SimpleTy : 
+              SysTy : 
+               string
+
+
     routinePart : 
      
 
@@ -55,25 +100,88 @@
        Int : 
         -1
 
-       ProcStmt : 
-         Func : 
-         riteln
-         ArgsList : 
+       AssignStmt : 
+        simpleVar : 
+         D
+
+        VarExp : 
+         simpleVar : 
+          b
+
+       LabelStmt : 
+        Int : 
+         -1
+
+        AssignStmt : 
+         simpleVar : 
+          I
+
+         VarExp : 
+          simpleVar : 
+           e
+
+        LabelStmt : 
+         Int : 
+          -1
+
+         AssignStmt : 
+          simpleVar : 
+           S
+
           VarExp : 
            simpleVar : 
-            a
+            c
+
+         LabelStmt : 
+          Int : 
+           -1
+
+          AssignStmt : 
+           simpleVar : 
+            C
+
            VarExp : 
             simpleVar : 
-             b
-            VarExp : 
-             simpleVar : 
-              c
-             VarExp : 
-              simpleVar : 
-               d
-              VarExp : 
-               simpleVar : 
-                e
+             d
+
+          LabelStmt : 
+           Int : 
+            -1
+
+           ProcStmt : 
+             Func : 
+             printf
+             ArgsList : 
+
+
+           LabelStmt : 
+            Int : 
+             -1
+
+            ProcStmt : 
+              Func : 
+              printf
+              ArgsList : 
+
+
+            LabelStmt : 
+             Int : 
+              -1
+
+             ProcStmt : 
+               Func : 
+               printf
+               ArgsList : 
+
+
+             LabelStmt : 
+              Int : 
+               -1
+
+              ProcStmt : 
+                Func : 
+                printf
+                ArgsList : 
 
 
 

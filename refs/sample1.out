@@ -151,28 +151,16 @@
 
                          ConstExp : 
                           Int : 
-                           1
+                           2
 
                         LabelStmt : 
                          Int : 
                           -1
 
-                         AssignStmt : 
-                          simpleVar : 
-                           a
-
-                          ConstExp : 
-                           Int : 
-                            2
-
-                         LabelStmt : 
-                          Int : 
-                           -1
-
-                          ProcStmt : 
-                            Func : 
-                            printf
-                            ArgsList : 
+                         ProcStmt : 
+                           Func : 
+                           printf
+                           ArgsList : 
 
 
 
@@ -238,6 +226,19 @@
           Func : 
           go
           ArgsList : 
+
+
+       LabelStmt : 
+        Int : 
+         -1
+
+        ProcStmt : 
+          Func : 
+          printf
+          ArgsList : 
+           VarExp : 
+            simpleVar : 
+             i
 
 
 

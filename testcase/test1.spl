@@ -24,6 +24,9 @@ begin
 	I := e;
 	S := c;
 	C := d;
-	printf(S);
+	printf("%f\n",D);
+	printf("%d\n",e);
+	printf("%s\n",S);
+	printf("%c\n",C);
 end
 .

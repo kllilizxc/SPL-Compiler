@@ -78,14 +78,21 @@ StmtList :
              -1
 
             ProcStmt : 
-              SysProc : 
-              writeln
+              Func : 
+              printf
               ArgsList : 
-               VarExp : 
-                simpleVar : 
-                 i
 
 
+
+
+        LabelStmt : 
+         Int : 
+          -1
+
+         ProcStmt : 
+           Func : 
+           printf
+           ArgsList : 
 
 
 

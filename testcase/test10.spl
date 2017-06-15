@@ -15,7 +15,10 @@ begin
 	b := -3.5 - 5.78;
 	c := 1 and 0;
 	d := 1 or 0;
-	e := 4 mod 2;
+	printf("%d\n", a);
+	printf("%f\n", b);
+	printf("%d\n", c);
+	printf("%d\n", d);git
 end
 .
 
