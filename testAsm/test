@@ -1,0 +1,43 @@
+; ModuleID = 'Mine'
+source_filename = "Mine"
+
+@a = internal global i32 zeroinitializer, align 4
+@b = internal global double zeroinitializer, align 4
+@c = internal global i32 zeroinitializer, align 4
+@d = internal global i32 zeroinitializer, align 4
+@e = internal global i32 zeroinitializer, align 4
+
+declare i32 @printf(i8*, ...)
+
+define void @hello() {
+entry:
+  %a = load i32, i32* @a
+  store i32 3, i32 %a
+  %b = load double, double* @b
+  store i32 -1610612736, double %b
+  %c = load i32, i32* @c
+  store i32 1, i32 %c
+  %d = load i32, i32* @d
+  store i32 0, i32 %d
+  %0 = alloca [4 x i8]
+  store [4 x i8] c"%d\0A\00", [4 x i8]* %0
+  %1 = bitcast [4 x i8]* %0 to i8*
+  %a1 = load i32, i32* @a
+  %2 = call i32 (i8*, ...) @printf(i8* %1, i32 %a1)
+  %3 = alloca [4 x i8]
+  store [4 x i8] c"%f\0A\00", [4 x i8]* %3
+  %4 = bitcast [4 x i8]* %3 to i8*
+  %b2 = load double, double* @b
+  %5 = call i32 (i8*, ...) @printf(i8* %4, double %b2)
+  %6 = alloca [4 x i8]
+  store [4 x i8] c"%d\0A\00", [4 x i8]* %6
+  %7 = bitcast [4 x i8]* %6 to i8*
+  %c3 = load i32, i32* @c
+  %8 = call i32 (i8*, ...) @printf(i8* %7, i32 %c3)
+  %9 = alloca [4 x i8]
+  store [4 x i8] c"%d\0A\00", [4 x i8]* %9
+  %10 = bitcast [4 x i8]* %9 to i8*
+  %d4 = load i32, i32* @d
+  %11 = call i32 (i8*, ...) @printf(i8* %10, i32 %d4)
+  ret void
+}
