@@ -912,6 +912,8 @@ public:
 
         std::string name;
         if (label.label->kind == A_int) {
+            if(label.label->u.intt == -1)
+                return statement;
             name = std::to_string(label.label->u.intt);
         } else if (label.label->kind == A_string) {
             name = label.label->u.stringg;

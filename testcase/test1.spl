@@ -24,5 +24,6 @@ begin
 	I := e;
 	S := c;
 	C := d;
+	printf(S);
 end
 .

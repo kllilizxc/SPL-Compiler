@@ -12,6 +12,7 @@
 #include "llvm/IR/Verifier.h"
 #include "llvm/Support/TargetSelect.h"
 #include "llvm/Transforms/Scalar.h"
+#include "llvm/IR/TypeBuilder.h"
 #include <cstdio>
 #include <string>
 #include <map>
@@ -43,7 +44,7 @@ public:
         else if (type == VarType::getCharType())
             return Type::getInt8Ty(TheContext);
         else if (type == VarType::getStringType())
-            return Type::getInt32Ty(TheContext); //TODO? do we have non-const string variables?
+            return Type::getInt8PtrTy(TheContext);
         else if (type == VarType::getRealType())
             return Type::getDoubleTy(TheContext);
         else if (type->getKind() == TypeKind::Record) {
@@ -80,8 +81,8 @@ public:
 
     static bool isPtrType(Type *type) {
         return type == Type::getDoublePtrTy(TheContext)
-               || type == Type::getInt32PtrTy(TheContext)
-               || type == Type::getInt8PtrTy(TheContext);
+               || type == Type::getInt32PtrTy(TheContext);
+//               || type == Type::getInt8PtrTy(TheContext);
     }
 
     Value *loadIfIsPtr(Value * value) {
@@ -92,6 +93,17 @@ public:
         NamedValues["true"] = ConstantInt::get(Type::getInt32Ty(TheContext), APInt(32, 1));
         NamedValues["false"] = ConstantInt::get(Type::getInt32Ty(TheContext), APInt(32, 0));
         NamedValues["maxint"] = ConstantInt::get(Type::getInt32Ty(TheContext), APInt(32, INT32_MAX));
+    }
+
+    template <class T>
+    static void linkExternFunction(std::string name) {
+        FunctionType *type = TypeBuilder<T, false>::get(TheContext);
+        auto function = Function::Create(type, Function::ExternalLinkage, name, TheModule.get());
+        function->setCallingConv(CallingConv::C);
+    }
+
+    static void linkBaseFunctions() {
+        linkExternFunction<int(char *, ...)>("printf");
     }
 
     static std::map<std::string, Value *> backUpNamedValues() {
@@ -119,7 +131,7 @@ public:
     virtual Value *genCode() = 0;
 
     static LLVMContext TheContext;
-    static Module *TheModule;
+    static std::unique_ptr<Module> TheModule;
     static IRBuilder<> Builder;
     static std::map<std::string, Value *> NamedValues;
     static std::map<std::string, Type *> NamedTypes;
@@ -182,12 +194,11 @@ public:
     }
 
     Value *genCode() {
-        ArrayType *arrayType = ArrayType::get(Type::getInt8Ty(TheContext), val.size());
-        std::vector<Constant *> data;
-        for(auto c : val) {
-            data.push_back(ConstantInt::get(Type::getInt8Ty(TheContext), APInt(8, c)));
-        }
-        return ConstantArray::get(arrayType, ArrayRef<Constant *>(data.data(), data.size()));
+        ArrayType *type = ArrayType::get(Type::getInt8Ty(TheContext), val.size() + 1);
+        auto theString = Builder.CreateAlloca(type);
+        Builder.CreateStore(ConstantDataArray::getString(TheContext, val, true), theString);
+
+        return Builder.CreateBitCast(theString, Type::getInt8PtrTy(TheContext));
     }
 };
 
@@ -808,7 +819,7 @@ public:
 
     Value *genCode() {
         Function *TheFunction = Builder.GetInsertBlock()->getParent();
-        if (!TheFunction)
+        if (!TheFunction || name.size() == 0)
             return nullptr;
 
         // Create a new basic block to start insertion into.
@@ -886,7 +897,7 @@ public:
                 FunctionType::get(returnType ? returnType : Type::getVoidTy(TheContext), fieldTypes, false);
 
         Function *TheFunction =
-                Function::Create(FT, Function::ExternalLinkage, name.c_str(), TheModule);
+                Function::Create(FT, Function::ExternalLinkage, name.c_str(), TheModule.get());
 
         // Set names for all arguments.
         int index = 0;
@@ -976,7 +987,7 @@ class ProgramIR : public IR {
 
 LLVMContext IR::TheContext;
 IRBuilder<> IR::Builder(TheContext);
-Module *IR::TheModule = new Module("Mine", IR::TheContext);
+std::unique_ptr<Module> IR::TheModule = llvm::make_unique<Module>("Mine", IR::TheContext);
 std::map<std::string, Value *> IR::NamedValues;
 std::map<std::string, Type *> IR::NamedTypes;
 std::map<std::string, BasicBlock *> IR::NamedLabels;

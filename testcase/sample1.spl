@@ -8,6 +8,7 @@ begin
 	if a = 1 then
 	begin
 		go := 1;
+		printf("1");
 	end
 	else
 	begin
@@ -15,10 +16,12 @@ begin
 		begin
 			go := 1;
 			a := 2;
+			printf("2");
 		end
 		else
 		begin
 			go := go(a - 1) + go(a - 2);
+		    printf("3");
 		end
 		;
 	end

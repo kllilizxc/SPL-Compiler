@@ -1,5 +1,9 @@
 #include "env.hpp"
 #include "semant.hpp"
+#include "llvm/ExecutionEngine/ExecutionEngine.h"
+#include "llvm/ExecutionEngine/GenericValue.h"
+#include "llvm/ExecutionEngine/MCJIT.h"
+#include "llvm/Support/TargetSelect.h"
 
 extern "C" {
 #include <stdio.h>
@@ -63,22 +67,33 @@ int main(){
     for(i = 0; i < 1; ++i)
     {
         char fname[30] = "testcase/", fout[30] = "refs/";
-        strcat(fname, fnamepart[3].data());
+        strcat(fname, fnamepart[0].data());
         strcat(fname, ".spl");
         parse(fname);
+
+        llvm::InitializeNativeTarget();
+        llvm::InitializeNativeTargetAsmPrinter();
+        llvm::InitializeNativeTargetAsmParser();
 
         //semant
         S_table vEnv = EnvironmentEntry::enterBaseValueEnvironment();
         S_table tEnv = EnvironmentEntry::enterBaseTypeEnvironment();
         IR::genBaseNamedValues();
+        IR::linkBaseFunctions();
         printf("analysing %s\n", fname);
         //parse((char *)syslib.data());
         //Semant::translateProgram(vEnv, tEnv, absyn_root);
-        Semant::translateProgram(vEnv, tEnv, absyn_root)
+        Function *mainFunc = (Function *)Semant::translateProgram(vEnv, tEnv, absyn_root)
                 .getExpression()->genCode();
         
         IR::TheModule->dump();
-        
+
+        std::cerr << "--------------------------------------------" << std::endl;
+
+        llvm::ExecutionEngine *engine = llvm::EngineBuilder(std::move(IR::TheModule)).create();
+        engine->finalizeObject();
+        engine->runFunction(mainFunc, std::vector<llvm::GenericValue>());
+
         strcat(fout, fnamepart[i].data());
         strcat(fout, ".out");
         out = fopen(fout, "w");

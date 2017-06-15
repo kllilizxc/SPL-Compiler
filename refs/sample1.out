@@ -102,6 +102,16 @@
                      Int : 
                       1
 
+                   LabelStmt : 
+                    Int : 
+                     -1
+
+                    ProcStmt : 
+                      Func : 
+                      printf
+                      ArgsList : 
+
+
 
 
                LabelStmt : 
@@ -155,6 +165,16 @@
                            Int : 
                             2
 
+                         LabelStmt : 
+                          Int : 
+                           -1
+
+                          ProcStmt : 
+                            Func : 
+                            printf
+                            ArgsList : 
+
+
 
 
                     LabelStmt : 
@@ -183,6 +203,16 @@
                             Func : 
                             go
                             ArgsList : 
+
+
+                        LabelStmt : 
+                         Int : 
+                          -1
+
+                         ProcStmt : 
+                           Func : 
+                           printf
+                           ArgsList : 
 
 
 
