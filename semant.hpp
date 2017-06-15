@@ -400,6 +400,10 @@ private:
             auto stringExp = static_cast<ConstStringIR *>(constExp.getExpression());
             assert(stringExp);
             S_enter(valueEnvironment, constt.name, pack(new ConstStringVariableEnvironnmentEntry(stringExp->getVal())));
+        } else if (constExp.getType() == VarType::getBooleanType()) {
+            auto boolExp = static_cast<ConstBoolIR *>(constExp.getExpression());
+            assert(boolExp);
+            S_enter(valueEnvironment, constt.name, pack(new ConstBoolVariableEnvironmentEntry(boolExp->getVal())));
         } else {
             EM_error(constt.constValue->pos, "the initial value of const variable %s is not const!",
                      S_name(constt.name));
@@ -993,6 +997,7 @@ public:
                 return ExpressionAndType(VarType::getStringType(), new ConstStringIR(constValue->u.stringg), true);
             case A_syscon:
                 return translateSyscon(valueEnvironment, typeEnvironment, constValue->u.syscon, constValue->pos);
+            //case A_bool
             default:
                 EM_error(constValue->pos, "Not recognized const value!");
                 return ExpressionAndType(VarType::getNilType(), nullptr);

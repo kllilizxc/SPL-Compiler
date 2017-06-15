@@ -158,6 +158,21 @@ public:
     }
 };
 
+class ConstBoolIR : public IR {
+private:
+    bool val;
+public:
+    ConstBoolIR(bool val) : val(val) {}
+
+    bool getVal() const {
+        return val;
+    }
+
+    Value *genCode() {
+        return ConstantInt::get(TheContext, APInt(32, val));
+    }
+};
+
 class ConstRealIR : public IR {
 private:
     double val;
@@ -474,7 +489,8 @@ public:
         assert(type && "No such array!");
         Value *subscriptVal = subscript->genCode();
 
-        return Builder.CreateAdd(array, Builder.CreateIntToPtr(subscriptVal, type->getArrayElementType())); //TODO wonder if this works
+        return Builder.CreateInBoundsGEP(type, array, ArrayRef<Value *>({ ConstantInt::get(TheContext, APInt(32, 0)),
+                                                                 subscriptVal }));
     }
 };
 
@@ -524,6 +540,7 @@ public:
 
         for (auto arg : args) {
             Value *argVal = arg->genCode();
+            assert(argVal);
             argValues.push_back(loadIfIsPtr(argVal));
         }
 
@@ -617,12 +634,15 @@ public:
         // Create the "after loop" block and insert it.
         BasicBlock *AfterBB = BasicBlock::Create(TheContext, "afterloop");
 
+        // Insert an explicit fall through from the current block to the EntryBB.
+        Builder.CreateBr(entryBB);
+
         Builder.SetInsertPoint(entryBB);
 
         // the body of the loop mutates the variable.
         Value *CurVar = Builder.CreateLoad(Alloca, var.c_str());
 
-        Value *EndCond = Builder.CreateICmpNE(endIR->genCode(), CurVar, "loopcond");
+        Value *EndCond = Builder.CreateICmpUGE(endIR->genCode(), CurVar, "loopcond");
 
         // Insert the conditional branch into the end of LoopEndBB.
         Builder.CreateCondBr(EndCond, LoopBB, AfterBB);
@@ -698,7 +718,7 @@ public:
                 BasicBlock::Create(TheContext, "afterloop", TheFunction);
 
         // Insert the conditional branch into the end of LoopEndBB.
-        Builder.CreateCondBr(condition->genCode(), LoopBB, AfterBB);
+        Builder.CreateCondBr(condition->genCode(), AfterBB, LoopBB);
 
         // Any new code will be inserted in AfterBB.
         Builder.SetInsertPoint(AfterBB);
@@ -725,6 +745,10 @@ public:
         Function *TheFunction = Builder.GetInsertBlock()->getParent();
 
         BasicBlock *entryBB = BasicBlock::Create(TheContext, "entry", TheFunction);
+
+        // Insert an explicit fall through from the current block to the EntryBB.
+        Builder.CreateBr(entryBB);
+
         Builder.SetInsertPoint(entryBB);
 
         // Make the new basic block for the loop header, inserting after current
@@ -774,13 +798,9 @@ public:
 
         Function *TheFunction = Builder.GetInsertBlock()->getParent();
 
-        // Make the new basic block for the loop header, inserting after current
-        // block.
-        BasicBlock *switchBB = BasicBlock::Create(TheContext, "switch", TheFunction);
+        BasicBlock *exitBB = BasicBlock::Create(TheContext, "exit");
 
-        Builder.SetInsertPoint(switchBB);
-
-        SwitchInst *switchInst = Builder.CreateSwitch(loadIfIsPtr(condition->genCode()), switchBB, testCases.size());
+        SwitchInst *switchInst = Builder.CreateSwitch(loadIfIsPtr(condition->genCode()), exitBB, testCases.size());
         int index = 0;
         for(auto testCase : testCases) {
             // Make the new basic block for the loop header, inserting after current
@@ -791,8 +811,13 @@ public:
 
             statements[index++]->genCode();
 
+            Builder.CreateBr(exitBB);
+
             switchInst->addCase(ConstantInt::get(Type::getInt32Ty(TheContext), testCase), caseBB);
         }
+
+        TheFunction->getBasicBlockList().push_back(exitBB);
+        Builder.SetInsertPoint(exitBB);
 
         restoreNamedValues(backupValues);
         restoreNamedTypes(backupTypes);
@@ -828,7 +853,8 @@ public:
             return nullptr;
 
         // Create a new basic block to start insertion into.
-        BasicBlock *BB = BasicBlock::Create(TheContext, "entry", TheFunction);
+        BasicBlock *BB = BasicBlock::Create(TheContext, name, TheFunction);
+        Builder.CreateBr(BB);
         Builder.SetInsertPoint(BB);
         assert(BB);
 
@@ -972,7 +998,7 @@ public:
             return nullptr;
 
         // Create a new basic block to start insertion into.
-        BasicBlock *BB = BasicBlock::Create(TheContext, "entry", TheFunction);
+        BasicBlock *BB = BasicBlock::Create(TheContext, functionName, TheFunction);
         Builder.SetInsertPoint(BB);
 
         if(TheFunction->getReturnType() != Type::getVoidTy(TheContext)) {
@@ -1029,9 +1055,9 @@ public:
                 FunctionType::get(Type::getVoidTy(TheContext), std::vector<Type *>(), false);
 
         Function *TheFunction =
-                Function::Create(FT, Function::ExternalLinkage, functionName.c_str(), TheModule.get());
+                Function::Create(FT, Function::ExternalLinkage, "main", TheModule.get());
 
-        BasicBlock *BB = BasicBlock::Create(TheContext, "entry", TheFunction);
+        BasicBlock *BB = BasicBlock::Create(TheContext, functionName, TheFunction);
         Builder.SetInsertPoint(BB);
 
         if (labelDecIR) labelDecIR->genCodeGlobal();
@@ -1040,7 +1066,8 @@ public:
         if (varDecIR) varDecIR->genCodeGlobal();
         if (routineDecIR) routineDecIR->genCode();
 
-        Builder.SetInsertPoint(&TheFunction->getEntryBlock());
+        BasicBlock *bodyBlock = &TheFunction->getEntryBlock();
+        Builder.SetInsertPoint(bodyBlock);
         if (funcBodyIR) funcBodyIR->genCodeGlobal();
 
         Builder.CreateRet(nullptr);

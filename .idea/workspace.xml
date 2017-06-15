@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/semant.hpp" line="935" />
+    <bookmark url="file://$PROJECT_DIR$/semant.hpp" line="939" />
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="true">
     <generated>
@@ -18,10 +18,13 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeFiles/SPL_Compiler.dir/main.cpp.o" afterPath="$PROJECT_DIR$/CMakeFiles/SPL_Compiler.dir/main.cpp.o" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SPL_Compiler" afterPath="$PROJECT_DIR$/SPL_Compiler" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/env.hpp" afterPath="$PROJECT_DIR$/env.hpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ir.hpp" afterPath="$PROJECT_DIR$/ir.hpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.cpp" afterPath="$PROJECT_DIR$/main.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/refs/test10.out" afterPath="$PROJECT_DIR$/refs/test10.out" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/semant.hpp" afterPath="$PROJECT_DIR$/semant.hpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testcase/test10.spl" afterPath="$PROJECT_DIR$/testcase/test10.spl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testAsm/test" afterPath="$PROJECT_DIR$/testAsm/test" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testcase/test3.spl" afterPath="$PROJECT_DIR$/testcase/test3.spl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testcase/test9.spl" afterPath="$PROJECT_DIR$/testcase/test9.spl" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/CMakeFiles/" />
@@ -37,18 +40,28 @@
     <favorites_list name="SPL_Compiler" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.34981686">
+    <splitter split-orientation="horizontal" split-proportion="0.4072039">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
           <file leaf-file-name="ir.hpp" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/ir.hpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="196">
-                  <caret line="533" column="6" lean-forward="false" selection-start-line="533" selection-start-column="6" selection-end-line="533" selection-end-column="6" />
+                <state relative-caret-position="379">
+                  <caret line="1067" column="0" lean-forward="true" selection-start-line="1067" selection-start-column="0" selection-end-line="1067" selection-end-column="0" />
                   <folding>
                     <element signature="e#53#84#0" expanded="true" />
                     <element signature="e#3703#3712#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="IRBuilder.h" pinned="false" current-in-tab="false">
+            <entry file="file:///usr/local/include/llvm/IR/IRBuilder.h">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="240">
+                  <caret line="1672" column="39" lean-forward="false" selection-start-line="1672" selection-start-column="34" selection-end-line="1672" selection-end-column="39" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -96,7 +109,7 @@
           <file leaf-file-name="Value.h" pinned="false" current-in-tab="false">
             <entry file="file:///usr/local/include/llvm/IR/Value.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="3435">
+                <state relative-caret-position="608">
                   <caret line="229" column="0" lean-forward="false" selection-start-line="229" selection-start-column="0" selection-end-line="229" selection-end-column="0" />
                   <folding />
                 </state>
@@ -106,8 +119,8 @@
           <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1425">
-                  <caret line="95" column="29" lean-forward="false" selection-start-line="95" selection-start-column="29" selection-end-line="95" selection-end-column="29" />
+                <state relative-caret-position="527">
+                  <caret line="109" column="1" lean-forward="true" selection-start-line="109" selection-start-column="1" selection-end-line="109" selection-end-column="1" />
                   <folding>
                     <element signature="e#0#18#0" expanded="true" />
                     <element signature="e#231#249#0" expanded="true" />
@@ -129,7 +142,7 @@
         </leaf>
       </split-first>
       <split-second>
-        <splitter split-orientation="horizontal" split-proportion="0.67731094">
+        <splitter split-orientation="horizontal" split-proportion="0.4464555">
           <split-first>
             <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
               <file leaf-file-name="ArrayRef.h" pinned="false" current-in-tab="false">
@@ -175,12 +188,22 @@
               <file leaf-file-name="semant.hpp" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/semant.hpp">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="341">
-                      <caret line="122" column="0" lean-forward="false" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
+                    <state relative-caret-position="212">
+                      <caret line="126" column="0" lean-forward="false" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
                       <folding>
                         <element signature="e#101#118#0" expanded="true" />
                         <element signature="e#249#268#0" expanded="true" />
                       </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="absyn.h" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/absyn.h">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="197">
+                      <caret line="79" column="35" lean-forward="false" selection-start-line="79" selection-start-column="35" selection-end-line="79" selection-end-column="35" />
+                      <folding />
                     </state>
                   </provider>
                 </entry>
@@ -208,8 +231,8 @@
               <file leaf-file-name="env.hpp" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/env.hpp">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="2400">
-                      <caret line="160" column="106" lean-forward="false" selection-start-line="160" selection-start-column="106" selection-end-line="160" selection-end-column="106" />
+                    <state relative-caret-position="387">
+                      <caret line="153" column="24" lean-forward="false" selection-start-line="153" selection-start-column="24" selection-end-line="153" selection-end-column="24" />
                       <folding>
                         <element signature="e#95#115#0" expanded="true" />
                       </folding>
@@ -234,8 +257,8 @@
               <file leaf-file-name="test2.spl" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/testcase/test2.spl">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="225">
-                      <caret line="15" column="20" lean-forward="false" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
+                    <state relative-caret-position="109">
+                      <caret line="13" column="22" lean-forward="false" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
                       <folding />
                     </state>
                   </provider>
@@ -264,8 +287,8 @@
               <file leaf-file-name="test7.spl" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/testcase/test7.spl">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="300">
-                      <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+                    <state relative-caret-position="90">
+                      <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
                       <folding />
                     </state>
                   </provider>
@@ -274,8 +297,8 @@
               <file leaf-file-name="test4.spl" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/testcase/test4.spl">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="300">
-                      <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+                    <state relative-caret-position="135">
+                      <caret line="9" column="2" lean-forward="true" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
                       <folding />
                     </state>
                   </provider>
@@ -294,38 +317,38 @@
               <file leaf-file-name="test9.spl" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/testcase/test9.spl">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="210">
-                      <caret line="14" column="20" lean-forward="false" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+                    <state relative-caret-position="180">
+                      <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
                       <folding />
                     </state>
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="test10.spl" pinned="false" current-in-tab="true">
+              <file leaf-file-name="test10.spl" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/testcase/test10.spl">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="315">
-                      <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+                    <state relative-caret-position="270">
+                      <caret line="18" column="18" lean-forward="false" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
                       <folding />
                     </state>
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="test5_error1.spl" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/testcase/test5_error1.spl">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="0">
-                      <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="test3.spl" pinned="false" current-in-tab="false">
+              <file leaf-file-name="test3.spl" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/testcase/test3.spl">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="555">
-                      <caret line="37" column="16" lean-forward="false" selection-start-line="37" selection-start-column="16" selection-end-line="37" selection-end-column="16" />
+                    <state relative-caret-position="315">
+                      <caret line="21" column="19" lean-forward="false" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="test1.spl" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/testcase/test1.spl">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="90">
+                      <caret line="6" column="10" lean-forward="true" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
                       <folding />
                     </state>
                   </provider>
@@ -339,9 +362,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>typedecIR</find>
-      <find>NamedTypes</find>
-      <find>vardec</find>
       <find>SubscriptVarIR</find>
       <find>genTY</find>
       <find>label</find>
@@ -369,6 +389,9 @@
       <find>assign</find>
       <find>translateOp</find>
       <find>AS</find>
+      <find>ca</find>
+      <find>bit</find>
+      <find>bitcast</find>
     </findStrings>
     <replaceStrings>
       <replace>TypeKind::</replace>
@@ -414,17 +437,17 @@
         <option value="$PROJECT_DIR$/testcase/sample3.spl" />
         <option value="$PROJECT_DIR$/testcase/test1.spl" />
         <option value="$PROJECT_DIR$/testcase/test2.spl" />
-        <option value="$PROJECT_DIR$/testcase/test3.spl" />
         <option value="$PROJECT_DIR$/testcase/test4.spl" />
         <option value="$PROJECT_DIR$/testcase/test6.spl" />
         <option value="$PROJECT_DIR$/testcase/test7.spl" />
         <option value="$PROJECT_DIR$/testcase/test8.spl" />
+        <option value="$PROJECT_DIR$/testcase/test10.spl" />
         <option value="$PROJECT_DIR$/testcase/test9.spl" />
         <option value="$PROJECT_DIR$/env.hpp" />
-        <option value="$PROJECT_DIR$/main.cpp" />
         <option value="$PROJECT_DIR$/semant.hpp" />
+        <option value="$PROJECT_DIR$/main.cpp" />
         <option value="$PROJECT_DIR$/ir.hpp" />
-        <option value="$PROJECT_DIR$/testcase/test10.spl" />
+        <option value="$PROJECT_DIR$/testcase/test3.spl" />
       </list>
     </option>
   </component>
@@ -443,7 +466,7 @@
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -456,51 +479,12 @@
       <manualOrder />
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SPL_Compiler" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SPL_Compiler" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SPL-Compiler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SPL_Compiler" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SPL-Compiler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="testcase" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="reference.idesettings.debugger.python" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="ASSIGN&#9;null&#9;null&#10;consRe&#9;null&#9;null&#10;assi&#9;null&#9;null&#10;translateAs&#9;null&#9;null&#10;ir&#9;FILE&#9;file:///Users/cai/CLionProjects/SPL-Compiler/ir.hpp&#10;env&#9;FILE&#9;file:///Users/cai/CLionProjects/SPL-Compiler/env.hpp&#10;transAss&#9;null&#9;null&#10;transOp&#9;null&#9;null&#10;translateVar&#9;null&#9;null&#10;vardec&#9;null&#9;null&#10;ir.&#9;FILE&#9;file:///Users/cai/CLionProjects/SPL-Compiler/ir.hpp&#10;m&#9;FILE&#9;file:///Users/cai/CLionProjects/SPL-Compiler/main.cpp&#10;transRo&#9;null&#9;null&#10;semant&#9;null&#9;null&#10;ProcIR&#9;null&#9;null&#10;proc&#9;null&#9;null&#10;transPro&#9;null&#9;null&#10;transPr&#9;FILE&#9;file:///Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/VideoToolbox.framework/Headers/VTPixelTransferProperties.h&#10;cmakeL&#9;FILE&#9;file:///Users/cai/CLionProjects/SPL-Compiler/CMakeLists.txt&#10;cm&#9;ACTION&#9;ActivateCMakeToolWindow&#10;cma&#9;FILE&#9;file:///Users/cai/CLionProjects/SPL-Compiler/CMakeLists.txt&#10;se&#9;FILE&#9;file:///Users/cai/CLionProjects/SPL-Compiler/semant.hpp&#10;routine&#9;null&#9;null&#10;main&#9;FILE&#9;file:///Users/cai/CLionProjects/SPL-Compiler/main.cpp&#10;link&#9;null&#9;null&#10;constSt&#9;null&#9;null&#10;constS&#9;null&#9;null&#10;consts&#9;null&#9;null&#10;genTy&#9;null&#9;null&#10;loadIf&#9;null&#9;null&#10;genType&#9;null&#9;null&#10;translateLa&#9;null&#9;null&#10;com&#9;null&#9;null&#10;routi&#9;null&#9;null&#10;for&#9;null&#9;null&#10;transCa&#9;null&#9;null&#10;case&#9;null&#9;null&#10;translateFor&#9;null&#9;null&#10;forir&#9;null&#9;null&#10;whi&#9;null&#9;null&#10;transLa&#9;null&#9;null&#10;tLa&#9;null&#9;null&#10;sub&#9;null&#9;null&#10;varde&#9;null&#9;null&#10;transSub&#9;null&#9;null&#10;translateV&#9;null&#9;null&#10;tranConsD&#9;null&#9;null&#10;transV&#9;null&#9;null&#10;r&#9;FILE&#9;file:///Users/cai/CLionProjects/SPL-Compiler/ir.hpp&#10;t&#9;FILE&#9;file:///Users/cai/CLionProjects/SPL-Compiler/types.hpp" />
+    <property name="SearchEverywhereHistoryKey" value="routine&#9;null&#9;null&#10;test3&#9;FILE&#9;file:///Users/cai/CLionProjects/SPL-Compiler/testcase/test3.spl&#10;main&#9;FILE&#9;file:///Users/cai/CLionProjects/SPL-Compiler/main.cpp&#10;sub&#9;null&#9;null&#10;subs&#9;null&#9;null&#10;genTy&#9;null&#9;null&#10;ir&#9;FILE&#9;file:///Users/cai/CLionProjects/SPL-Compiler/ir.hpp&#10;test2&#9;FILE&#9;file:///Users/cai/CLionProjects/SPL-Compiler/testcase/test2.spl&#10;trCD&#9;null&#9;null&#10;se&#9;FILE&#9;file:///Users/cai/CLionProjects/SPL-Compiler/semant.hpp&#10;env&#9;FILE&#9;file:///Users/cai/CLionProjects/SPL-Compiler/env.hpp&#10;traConD&#9;null&#9;null&#10;constDe&#9;null&#9;null&#10;test1.spl&#9;FILE&#9;file:///Users/cai/CLionProjects/SPL-Compiler/testcase/test1.spl&#10;la&#9;null&#9;null&#10;for&#9;null&#9;null&#10;test&#9;FILE&#9;file:///Users/cai/CLionProjects/SPL-Compiler/testcase/test8.spl&#10;while&#9;null&#9;null&#10;repea&#9;null&#9;null&#10;cas&#9;null&#9;null&#10;case&#9;null&#9;null&#10;transOp&#9;null&#9;null&#10;transCons&#9;null&#9;null&#10;transO&#9;null&#9;null&#10;transAss&#9;null&#9;null&#10;ASSIGN&#9;null&#9;null&#10;consRe&#9;null&#9;null&#10;assi&#9;null&#9;null&#10;translateAs&#9;null&#9;null&#10;translateVar&#9;null&#9;null&#10;vardec&#9;null&#9;null&#10;ir.&#9;FILE&#9;file:///Users/cai/CLionProjects/SPL-Compiler/ir.hpp&#10;m&#9;FILE&#9;file:///Users/cai/CLionProjects/SPL-Compiler/main.cpp&#10;transRo&#9;null&#9;null&#10;semant&#9;null&#9;null&#10;ProcIR&#9;null&#9;null&#10;proc&#9;null&#9;null&#10;transPro&#9;null&#9;null&#10;transPr&#9;FILE&#9;file:///Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/VideoToolbox.framework/Headers/VTPixelTransferProperties.h&#10;cmakeL&#9;FILE&#9;file:///Users/cai/CLionProjects/SPL-Compiler/CMakeLists.txt&#10;cm&#9;ACTION&#9;ActivateCMakeToolWindow&#10;cma&#9;FILE&#9;file:///Users/cai/CLionProjects/SPL-Compiler/CMakeLists.txt&#10;link&#9;null&#9;null&#10;constSt&#9;null&#9;null&#10;constS&#9;null&#9;null&#10;consts&#9;null&#9;null&#10;loadIf&#9;null&#9;null&#10;genType&#9;null&#9;null&#10;translateLa&#9;null&#9;null&#10;com&#9;null&#9;null" />
     <property name="last_opened_file_path" value="$USER_HOME$/Downloads/llvm-3.9.1.src" />
     <property name="FullScreen" value="true" />
   </component>
@@ -746,7 +730,7 @@
       <workItem from="1497176352670" duration="10704000" />
       <workItem from="1497422245087" duration="78256000" />
       <workItem from="1497539279950" duration="2808000" />
-      <workItem from="1497542132127" duration="441000" />
+      <workItem from="1497542132127" duration="6975000" />
     </task>
     <task id="LOCAL-00001" summary="now a runnable program">
       <created>1497438870386</created>
@@ -766,7 +750,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="188409000" />
+    <option name="totallyTimeSpent" value="194943000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -779,18 +763,19 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.06776557" sideWeight="0.4960452" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28265306" sideWeight="0.497558" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3265306" sideWeight="0.3785104" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3265306" sideWeight="0.35714287" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34387755" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32857144" sideWeight="0.495116" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36632654" sideWeight="0.3840049" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36632654" sideWeight="0.4047619" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31555554" sideWeight="0.5039548" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32040817" sideWeight="0.55860806" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36632654" sideWeight="0.5952381" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20974027" sideWeight="0.5021807" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32040817" sideWeight="0.44139194" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32040817" sideWeight="0.42673993" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -865,27 +850,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/ir.hpp</url>
-          <line>782</line>
-          <option name="timeStamp" value="53" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/ir.hpp</url>
-          <line>828</line>
+          <line>853</line>
           <option name="timeStamp" value="57" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/ir.hpp</url>
-          <line>541</line>
-          <option name="timeStamp" value="72" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/semant.hpp</url>
-          <line>121</line>
-          <option name="timeStamp" value="73" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/ir.hpp</url>
-          <line>171</line>
+          <line>186</line>
           <option name="timeStamp" value="74" />
         </line-breakpoint>
       </breakpoints>
@@ -960,6 +930,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="198" column="6" lean-forward="false" selection-start-line="198" selection-start-column="6" selection-end-line="198" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -989,14 +960,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="325" column="7" lean-forward="false" selection-start-line="325" selection-start-column="7" selection-end-line="325" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/absyn.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="145" column="49" lean-forward="false" selection-start-line="145" selection-start-column="49" selection-end-line="145" selection-end-column="49" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1034,13 +997,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="141">
           <caret line="4959" column="31" lean-forward="false" selection-start-line="4959" selection-start-column="31" selection-end-line="4959" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/include/llvm/IR/IRBuilder.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="1184" column="59" lean-forward="false" selection-start-line="1184" selection-start-column="56" selection-end-line="1184" selection-end-column="59" />
         </state>
       </provider>
     </entry>
@@ -1088,14 +1044,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/include/llvm/IR/Value.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3435">
-          <caret line="229" column="0" lean-forward="false" selection-start-line="229" selection-start-column="0" selection-end-line="229" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/include/llvm/IR/GlobalVariable.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="600">
@@ -1134,13 +1082,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testcase/test1.spl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="16" lean-forward="false" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/testcase/test1_error2.spl">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1169,22 +1110,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testcase/test3.spl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="37" column="16" lean-forward="false" selection-start-line="37" selection-start-column="16" selection-end-line="37" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testcase/test2.spl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="20" lean-forward="false" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/testcase/test5_error1.spl">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1193,18 +1118,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testcase/test4.spl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/testcase/test5.spl">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="8" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/include/llvm/ExecutionEngine/ExecutionEngine.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3405">
+          <caret line="227" column="23" lean-forward="false" selection-start-line="227" selection-start-column="23" selection-end-line="227" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/include/llvm/IR/Constants.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="332">
+          <caret line="292" column="21" lean-forward="false" selection-start-line="292" selection-start-column="21" selection-end-line="292" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testcase/test10.spl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="18" lean-forward="false" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testcase/test9.spl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1219,8 +1168,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/testcase/test7.spl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+        <state relative-caret-position="90">
+          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1233,55 +1182,68 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testcase/test9.spl">
+    <entry file="file://$PROJECT_DIR$/testcase/test4.spl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="20" lean-forward="false" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+        <state relative-caret-position="135">
+          <caret line="9" column="2" lean-forward="true" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/absyn.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="79" column="35" lean-forward="false" selection-start-line="79" selection-start-column="35" selection-end-line="79" selection-end-column="35" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/env.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2400">
-          <caret line="160" column="106" lean-forward="false" selection-start-line="160" selection-start-column="106" selection-end-line="160" selection-end-column="106" />
+        <state relative-caret-position="387">
+          <caret line="153" column="24" lean-forward="false" selection-start-line="153" selection-start-column="24" selection-end-line="153" selection-end-column="24" />
           <folding>
             <element signature="e#95#115#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/include/llvm/ExecutionEngine/ExecutionEngine.h">
+    <entry file="file://$PROJECT_DIR$/testcase/test1.spl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3405">
-          <caret line="227" column="23" lean-forward="false" selection-start-line="227" selection-start-column="23" selection-end-line="227" selection-end-column="23" />
+        <state relative-caret-position="90">
+          <caret line="6" column="10" lean-forward="true" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
+    <entry file="file:///usr/local/include/llvm/IR/IRBuilder.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1425">
-          <caret line="95" column="29" lean-forward="false" selection-start-line="95" selection-start-column="29" selection-end-line="95" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#231#249#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="240">
+          <caret line="1672" column="39" lean-forward="false" selection-start-line="1672" selection-start-column="34" selection-end-line="1672" selection-end-column="39" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/include/llvm/IR/Constants.h">
+    <entry file="file:///usr/local/include/llvm/IR/Value.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="292" column="21" lean-forward="false" selection-start-line="292" selection-start-column="21" selection-end-line="292" selection-end-column="21" />
+        <state relative-caret-position="608">
+          <caret line="229" column="0" lean-forward="false" selection-start-line="229" selection-start-column="0" selection-end-line="229" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testcase/test2.spl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="13" column="22" lean-forward="false" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/semant.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="122" column="0" lean-forward="false" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
+        <state relative-caret-position="212">
+          <caret line="126" column="0" lean-forward="false" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
           <folding>
             <element signature="e#101#118#0" expanded="true" />
             <element signature="e#249#268#0" expanded="true" />
@@ -1289,22 +1251,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ir.hpp">
+    <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="533" column="6" lean-forward="false" selection-start-line="533" selection-start-column="6" selection-end-line="533" selection-end-column="6" />
+        <state relative-caret-position="527">
+          <caret line="109" column="1" lean-forward="true" selection-start-line="109" selection-start-column="1" selection-end-line="109" selection-end-column="1" />
           <folding>
-            <element signature="e#53#84#0" expanded="true" />
-            <element signature="e#3703#3712#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#231#249#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testcase/test10.spl">
+    <entry file="file://$PROJECT_DIR$/testcase/test3.spl">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
-          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <caret line="21" column="19" lean-forward="false" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ir.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="379">
+          <caret line="1067" column="0" lean-forward="true" selection-start-line="1067" selection-start-column="0" selection-end-line="1067" selection-end-column="0" />
+          <folding>
+            <element signature="e#53#84#0" expanded="true" />
+            <element signature="e#3703#3712#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

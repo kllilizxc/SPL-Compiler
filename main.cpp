@@ -68,7 +68,7 @@ int main() {
 //    for(i = 0; i < 1; ++i)
 //    {
     char fname[30] = "testcase/", fout[30] = "refs/";
-    strcat(fname, fnamepart[28].data());
+    strcat(fname, fnamepart[11].data());
     strcat(fname, ".spl");
     parse(fname);
 
