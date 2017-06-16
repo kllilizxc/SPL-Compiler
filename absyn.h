@@ -76,7 +76,7 @@ struct A_dec_ { enum A_dec_Kind kind;
     } u;
 };
 
-enum A_const_Kind {A_int, A_real, A_char, A_string, A_syscon};
+enum A_const_Kind {A_int, A_real, A_char, A_string, A_syscon, A_bool};
 struct A_const_ {enum A_const_Kind kind;
     A_pos pos;
     union{
@@ -85,6 +85,7 @@ struct A_const_ {enum A_const_Kind kind;
         char charr;
         string stringg;
         int syscon;
+        int booll;
     } u;
 };
 
@@ -209,7 +210,7 @@ A_const A_Int(A_pos pos, int i);
 A_const A_Real(A_pos pos, float f);
 A_const A_Char(A_pos pos, char c);
 A_const A_String(A_pos pos, string s);
-A_const A_Syscon(A_pos pos, int sysc);
+A_const A_Bool(A_pos pos, int b);
 
 
 A_name A_Name(A_pos pos, S_symbol name);

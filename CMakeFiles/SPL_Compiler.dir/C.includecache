@@ -121,6 +121,8 @@ stdio.h
 -
 stdlib.h
 -
+string.h
+-
 util.h
 /Users/cai/CLionProjects/SPL-Compiler/util.h
 symbol.h
