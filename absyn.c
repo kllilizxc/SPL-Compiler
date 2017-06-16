@@ -148,6 +148,15 @@ A_const A_Syscon(A_pos pos, int sysc)
     return p;
 }
 
+A_const A_Bool(A_pos pos, int b)
+{
+    A_const p = checked_malloc(sizeof(*p));
+    p->kind = A_bool;
+    p->pos = pos;
+    p->u.booll = b;
+    return p;
+}
+
 A_name A_Name(A_pos pos, S_symbol name)
 {
     A_name p = checked_malloc(sizeof(*p));

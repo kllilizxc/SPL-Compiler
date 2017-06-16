@@ -68,7 +68,7 @@ int main() {
 //    for(i = 0; i < 1; ++i)
 //    {
     char fname[30] = "testcase/", fout[30] = "refs/";
-    strcat(fname, fnamepart[6].data());
+    strcat(fname, fnamepart[4].data());
     strcat(fname, ".spl");
     parse(fname);
 
@@ -96,7 +96,7 @@ int main() {
     engine->finalizeObject();
     engine->runFunction(mainFunc, std::vector<llvm::GenericValue>());
 
-    strcat(fout, fnamepart[6].data());
+    strcat(fout, fnamepart[4].data());
     strcat(fout, ".out");
     out = fopen(fout, "w");
     pr_pro(out, absyn_root, 0);
