@@ -1174,16 +1174,15 @@ YY_RULE_SETUP
 #line 97 "spl.lex"
 {
   adjust();
-  if(strcmp(yytext,"true"))
-    yylval.ival = 1;
-  else if(strcmp(yytext,"false"))
-    yylval.ival = 0;
+  int size = strlen(yytext);
+  yylval.sval = checked_malloc(sizeof(char)*size);
+  strcpy(yylval.sval, yytext);
   return SYS_CON;
 }
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 105 "spl.lex"
+#line 104 "spl.lex"
 {
   adjust(); 
   int size = strlen(yytext);
@@ -1194,7 +1193,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 112 "spl.lex"
+#line 111 "spl.lex"
 {
   adjust(); 
   int size = strlen(yytext);
@@ -1206,7 +1205,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 121 "spl.lex"
+#line 120 "spl.lex"
 {
   adjust();
   int size = strlen(yytext);
@@ -1218,7 +1217,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 130 "spl.lex"
+#line 129 "spl.lex"
 {// identifier
   adjust(); 
   int size = strlen(yytext);
@@ -1230,7 +1229,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
-#line 141 "spl.lex"
+#line 140 "spl.lex"
 {// string
   adjust(); 
   int size = strlen(yytext), i, p = 0;
@@ -1260,7 +1259,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 168 "spl.lex"
+#line 167 "spl.lex"
 {// char
   adjust();
   int size = strlen(yytext);
@@ -1272,41 +1271,41 @@ YY_RULE_SETUP
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 176 "spl.lex"
+#line 175 "spl.lex"
 {adjust(); yylval.ival=atoi(yytext);return INTEGER;}
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
-#line 177 "spl.lex"
+#line 176 "spl.lex"
 {adjust(); yylval.fval=atof(yytext); return REAL;}
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
-#line 179 "spl.lex"
+#line 178 "spl.lex"
 {adjust();}
 	YY_BREAK
 case 68:
 /* rule 68 can match eol */
 YY_RULE_SETUP
-#line 180 "spl.lex"
+#line 179 "spl.lex"
 {adjust(); EM_newline();}
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
-#line 181 "spl.lex"
+#line 180 "spl.lex"
 {adjust(); EM_error(EM_tokPos,"illegal token");}
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
-#line 182 "spl.lex"
+#line 181 "spl.lex"
 {yyless(0);BEGIN INITINAL;}
 	YY_BREAK
 case 71:
 YY_RULE_SETUP
-#line 187 "spl.lex"
+#line 186 "spl.lex"
 ECHO;
 	YY_BREAK
-#line 1310 "lex.yy.c"
+#line 1309 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(INITINAL):
 case YY_STATE_EOF(COMMENT):
@@ -2305,4 +2304,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 187 "spl.lex"
+#line 186 "spl.lex"

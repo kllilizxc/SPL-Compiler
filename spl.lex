@@ -96,10 +96,9 @@ reserverSYSTYPE boolean|char|integer|real|string
 <INITINAL>":="  {adjust(); return ASSIGN;}
 <INITINAL>{reserverSYSCON} {
   adjust();
-  if(strcmp(yytext,"true"))
-    yylval.ival = 1;
-  else if(strcmp(yytext,"false"))
-    yylval.ival = 0;
+  int size = strlen(yytext);
+  yylval.sval = checked_malloc(sizeof(char)*size);
+  strcpy(yylval.sval, yytext);
   return SYS_CON;
 }
 <INITINAL>{reserverSYSFUNCT} {

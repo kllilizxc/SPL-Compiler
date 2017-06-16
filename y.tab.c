@@ -631,18 +631,18 @@ static const yytype_int8 yyrhs[] =
 static const yytype_uint16 yyrline[] =
 {
        0,   104,   104,   106,   108,   110,   112,   113,   115,   116,
-     118,   120,   121,   122,   123,   124,   126,   127,   129,   130,
-     132,   134,   135,   136,   138,   139,   140,   141,   142,   143,
-     144,   146,   148,   150,   151,   153,   155,   156,   158,   162,
-     163,   165,   166,   168,   172,   173,   175,   176,   177,   178,
-     180,   183,   186,   187,   189,   190,   192,   193,   195,   197,
-     199,   201,   203,   204,   206,   207,   209,   210,   211,   212,
-     213,   214,   215,   216,   217,   219,   220,   221,   223,   224,
-     225,   226,   228,   229,   231,   233,   235,   236,   238,   240,
-     241,   243,   244,   246,   248,   250,   251,   253,   254,   255,
-     256,   257,   258,   259,   262,   264,   265,   266,   268,   270,
-     271,   272,   273,   274,   275,   278,   279,   280,   281,   282,
-     283,   286,   287,   288,   290,   291,   293
+     118,   120,   121,   122,   123,   124,   127,   128,   130,   131,
+     133,   135,   136,   137,   139,   140,   141,   142,   143,   144,
+     145,   147,   149,   151,   152,   154,   156,   157,   159,   163,
+     164,   166,   167,   169,   173,   174,   176,   177,   178,   179,
+     181,   184,   187,   188,   190,   191,   193,   194,   196,   198,
+     200,   202,   204,   205,   207,   208,   210,   211,   212,   213,
+     214,   215,   216,   217,   218,   220,   221,   222,   224,   225,
+     226,   227,   229,   230,   232,   234,   236,   237,   239,   241,
+     242,   244,   245,   247,   249,   251,   252,   254,   255,   256,
+     257,   258,   259,   260,   263,   265,   266,   267,   269,   271,
+     272,   273,   274,   275,   276,   279,   280,   281,   282,   283,
+     284,   287,   288,   289,   291,   292,   294
 };
 #endif
 
@@ -1825,567 +1825,568 @@ yyreduce:
 
   case 15:
 #line 124 "spl.y"
-    {(yyval.constt) = A_Int(EM_tokPos, (yyvsp[(1) - (1)].sval));}
+    {if(strcmp((yyvsp[(1) - (1)].sval), "true"))(yyval.constt) = A_Int(EM_tokPos, 1);
+                       else (yyval.constt) = A_Int(EM_tokPos, 0);}
     break;
 
   case 16:
-#line 126 "spl.y"
+#line 127 "spl.y"
     {(yyval.decPart) = NULL;}
     break;
 
   case 17:
-#line 127 "spl.y"
+#line 128 "spl.y"
     {(yyval.decPart) = A_DecPart(EM_tokPos, (yyvsp[(2) - (2)].decList));}
     break;
 
   case 18:
-#line 129 "spl.y"
+#line 130 "spl.y"
     {(yyval.decList) = A_DecList((yyvsp[(1) - (1)].dec), NULL);}
     break;
 
   case 19:
-#line 130 "spl.y"
+#line 131 "spl.y"
     {(yyval.decList) = A_DecList((yyvsp[(1) - (2)].dec), (yyvsp[(2) - (2)].decList));}
     break;
 
   case 20:
-#line 132 "spl.y"
+#line 133 "spl.y"
     {(yyval.dec) = A_TypeDec(EM_tokPos, S_Symbol((yyvsp[(1) - (4)].sval)), (yyvsp[(3) - (4)].ty));}
     break;
 
   case 21:
-#line 134 "spl.y"
+#line 135 "spl.y"
     {(yyval.ty) = A_SimpleTy(EM_tokPos, (yyvsp[(1) - (1)].simpleTy));}
     break;
 
   case 22:
-#line 135 "spl.y"
-    {(yyval.ty) = (yyvsp[(1) - (1)].ty);}
-    break;
-
-  case 23:
 #line 136 "spl.y"
     {(yyval.ty) = (yyvsp[(1) - (1)].ty);}
     break;
 
+  case 23:
+#line 137 "spl.y"
+    {(yyval.ty) = (yyvsp[(1) - (1)].ty);}
+    break;
+
   case 24:
-#line 138 "spl.y"
+#line 139 "spl.y"
     {(yyval.simpleTy) = A_SysTy(EM_tokPos, S_Symbol((yyvsp[(1) - (1)].sval)));}
     break;
 
   case 25:
-#line 139 "spl.y"
+#line 140 "spl.y"
     {(yyval.simpleTy) = A_SingleTy(EM_tokPos, S_Symbol((yyvsp[(1) - (1)].sval)));}
     break;
 
   case 26:
-#line 140 "spl.y"
+#line 141 "spl.y"
     {(yyval.simpleTy) = A_ListTy(EM_tokPos, (yyvsp[(2) - (3)].nameList));}
     break;
 
   case 27:
-#line 141 "spl.y"
+#line 142 "spl.y"
     {(yyval.simpleTy) = A_DoubleCTy(EM_tokPos, (yyvsp[(1) - (3)].exp), (yyvsp[(3) - (3)].exp));}
     break;
 
   case 28:
-#line 142 "spl.y"
+#line 143 "spl.y"
     {(yyval.simpleTy) = A_DoubleCTy(EM_tokPos, A_OpExp(EM_tokPos, A_minusOp, A_ConstExp(EM_tokPos, A_Int(EM_tokPos,0)), (yyvsp[(2) - (4)].exp)), (yyvsp[(4) - (4)].exp));}
     break;
 
   case 29:
-#line 143 "spl.y"
+#line 144 "spl.y"
     {(yyval.simpleTy) = A_DoubleCTy(EM_tokPos, A_OpExp(EM_tokPos, A_minusOp, A_ConstExp(EM_tokPos, A_Int(EM_tokPos,0)), (yyvsp[(2) - (5)].exp)), A_OpExp(EM_tokPos, A_minusOp, A_ConstExp(EM_tokPos, A_Int(EM_tokPos,0)), (yyvsp[(5) - (5)].exp)));}
     break;
 
   case 30:
-#line 144 "spl.y"
+#line 145 "spl.y"
     {(yyval.simpleTy) = A_DoubleNTy(EM_tokPos, S_Symbol((yyvsp[(1) - (3)].sval)), S_Symbol((yyvsp[(3) - (3)].sval)));}
     break;
 
   case 31:
-#line 146 "spl.y"
+#line 147 "spl.y"
     {(yyval.ty) = A_ArrayTy(EM_tokPos, (yyvsp[(3) - (6)].simpleTy), (yyvsp[(6) - (6)].ty));}
     break;
 
   case 32:
-#line 148 "spl.y"
+#line 149 "spl.y"
     {(yyval.ty) = A_RecordTy(EM_tokPos, (yyvsp[(2) - (3)].fieldList));}
     break;
 
   case 33:
-#line 150 "spl.y"
+#line 151 "spl.y"
     {(yyval.fieldList) = A_FieldList((yyvsp[(1) - (1)].field), NULL);}
     break;
 
   case 34:
-#line 151 "spl.y"
+#line 152 "spl.y"
     {(yyval.fieldList) = A_FieldList((yyvsp[(1) - (2)].field), (yyvsp[(2) - (2)].fieldList));}
     break;
 
   case 35:
-#line 153 "spl.y"
+#line 154 "spl.y"
     {(yyval.field) = A_Field((yyvsp[(1) - (4)].nameList), (yyvsp[(3) - (4)].ty));}
     break;
 
   case 36:
-#line 155 "spl.y"
+#line 156 "spl.y"
     {(yyval.nameList) = A_NameList((yyvsp[(1) - (1)].name), NULL);}
     break;
 
   case 37:
-#line 156 "spl.y"
+#line 157 "spl.y"
     {(yyval.nameList) = A_NameList((yyvsp[(1) - (3)].name), (yyvsp[(3) - (3)].nameList));}
     break;
 
   case 38:
-#line 158 "spl.y"
+#line 159 "spl.y"
     {(yyval.name) = A_Name(EM_tokPos, S_Symbol((yyvsp[(1) - (1)].sval)));}
     break;
 
   case 39:
-#line 162 "spl.y"
+#line 163 "spl.y"
     {(yyval.decPart) = NULL;}
     break;
 
   case 40:
-#line 163 "spl.y"
+#line 164 "spl.y"
     {(yyval.decPart) = A_DecPart(EM_tokPos, (yyvsp[(2) - (2)].decList));}
     break;
 
   case 41:
-#line 165 "spl.y"
+#line 166 "spl.y"
     {(yyval.decList) = A_DecList((yyvsp[(1) - (1)].dec), NULL);}
     break;
 
   case 42:
-#line 166 "spl.y"
+#line 167 "spl.y"
     {(yyval.decList) = A_DecList((yyvsp[(1) - (2)].dec), (yyvsp[(2) - (2)].decList));}
     break;
 
   case 43:
-#line 168 "spl.y"
+#line 169 "spl.y"
     {(yyval.dec) = A_VarDec(EM_tokPos, A_Field((yyvsp[(1) - (4)].nameList), (yyvsp[(3) - (4)].ty)));}
     break;
 
   case 44:
-#line 172 "spl.y"
+#line 173 "spl.y"
     {(yyval.decPart) = NULL;}
     break;
 
   case 45:
-#line 173 "spl.y"
+#line 174 "spl.y"
     {(yyval.decPart) = A_DecPart(EM_tokPos, (yyvsp[(1) - (1)].decList));}
     break;
 
   case 46:
-#line 175 "spl.y"
-    {(yyval.decList) = A_DecList((yyvsp[(1) - (1)].dec), NULL);}
-    break;
-
-  case 47:
 #line 176 "spl.y"
     {(yyval.decList) = A_DecList((yyvsp[(1) - (1)].dec), NULL);}
     break;
 
-  case 48:
+  case 47:
 #line 177 "spl.y"
-    {(yyval.decList) = A_DecList((yyvsp[(1) - (2)].dec), (yyvsp[(2) - (2)].decList));}
+    {(yyval.decList) = A_DecList((yyvsp[(1) - (1)].dec), NULL);}
     break;
 
-  case 49:
+  case 48:
 #line 178 "spl.y"
     {(yyval.decList) = A_DecList((yyvsp[(1) - (2)].dec), (yyvsp[(2) - (2)].decList));}
     break;
 
+  case 49:
+#line 179 "spl.y"
+    {(yyval.decList) = A_DecList((yyvsp[(1) - (2)].dec), (yyvsp[(2) - (2)].decList));}
+    break;
+
   case 50:
-#line 180 "spl.y"
+#line 181 "spl.y"
     {(yyval.dec) = A_RoutineDec(EM_tokPos, S_Symbol((yyvsp[(2) - (8)].sval)), (yyvsp[(3) - (8)].fieldList), (yyvsp[(5) - (8)].simpleTy), (yyvsp[(7) - (8)].routine));}
     break;
 
   case 51:
-#line 183 "spl.y"
+#line 184 "spl.y"
     {(yyval.dec) = A_RoutineDec(EM_tokPos, S_Symbol((yyvsp[(2) - (6)].sval)), (yyvsp[(3) - (6)].fieldList), NULL, (yyvsp[(5) - (6)].routine));}
     break;
 
   case 52:
-#line 186 "spl.y"
+#line 187 "spl.y"
     {(yyval.fieldList) = NULL;}
     break;
 
   case 53:
-#line 187 "spl.y"
+#line 188 "spl.y"
     {(yyval.fieldList) = (yyvsp[(2) - (3)].fieldList);}
     break;
 
   case 54:
-#line 189 "spl.y"
+#line 190 "spl.y"
     {(yyval.fieldList) = A_FieldList((yyvsp[(1) - (1)].field), NULL);}
     break;
 
   case 55:
-#line 190 "spl.y"
+#line 191 "spl.y"
     {(yyval.fieldList) = A_FieldList((yyvsp[(1) - (3)].field), (yyvsp[(3) - (3)].fieldList));}
     break;
 
   case 56:
-#line 192 "spl.y"
-    {(yyval.field) = A_Field((yyvsp[(1) - (3)].nameList), A_SimpleTy(EM_tokPos, (yyvsp[(3) - (3)].simpleTy)));}
-    break;
-
-  case 57:
 #line 193 "spl.y"
     {(yyval.field) = A_Field((yyvsp[(1) - (3)].nameList), A_SimpleTy(EM_tokPos, (yyvsp[(3) - (3)].simpleTy)));}
     break;
 
+  case 57:
+#line 194 "spl.y"
+    {(yyval.field) = A_Field((yyvsp[(1) - (3)].nameList), A_SimpleTy(EM_tokPos, (yyvsp[(3) - (3)].simpleTy)));}
+    break;
+
   case 58:
-#line 195 "spl.y"
+#line 196 "spl.y"
     {(yyval.nameList) = (yyvsp[(2) - (2)].nameList);}
     break;
 
   case 59:
-#line 197 "spl.y"
+#line 198 "spl.y"
     {(yyval.nameList) = (yyvsp[(1) - (1)].nameList);}
     break;
 
   case 60:
-#line 199 "spl.y"
+#line 200 "spl.y"
     {(yyval.routineBody) = A_RoutineBody((yyvsp[(1) - (1)].stmt));}
     break;
 
   case 61:
-#line 201 "spl.y"
+#line 202 "spl.y"
     {(yyval.stmt) = A_CompoundStmt(EM_tokPos, (yyvsp[(2) - (3)].stmtList));}
     break;
 
   case 62:
-#line 203 "spl.y"
+#line 204 "spl.y"
     {(yyval.stmtList) = NULL;}
     break;
 
   case 63:
-#line 204 "spl.y"
+#line 205 "spl.y"
     {(yyval.stmtList) = A_StmtList((yyvsp[(1) - (3)].stmt), (yyvsp[(3) - (3)].stmtList));}
     break;
 
   case 64:
-#line 206 "spl.y"
+#line 207 "spl.y"
     {(yyval.stmt) = A_Stmt(EM_tokPos, A_Int(EM_tokPos, -1), (yyvsp[(1) - (1)].stmt));}
     break;
 
   case 65:
-#line 207 "spl.y"
+#line 208 "spl.y"
     {(yyval.stmt) = A_Stmt(EM_tokPos, A_Int(EM_tokPos, (yyvsp[(1) - (3)].ival)), (yyvsp[(3) - (3)].stmt));}
     break;
 
   case 66:
-#line 209 "spl.y"
+#line 210 "spl.y"
     {(yyval.stmt) = (yyvsp[(1) - (1)].stmt);}
     break;
 
   case 67:
-#line 210 "spl.y"
+#line 211 "spl.y"
     {(yyval.stmt) = A_ProcStmt(EM_tokPos, (yyvsp[(1) - (1)].proc));}
     break;
 
   case 68:
-#line 211 "spl.y"
-    {(yyval.stmt) = (yyvsp[(1) - (1)].stmt);}
-    break;
-
-  case 69:
 #line 212 "spl.y"
     {(yyval.stmt) = (yyvsp[(1) - (1)].stmt);}
     break;
 
-  case 70:
+  case 69:
 #line 213 "spl.y"
     {(yyval.stmt) = (yyvsp[(1) - (1)].stmt);}
     break;
 
-  case 71:
+  case 70:
 #line 214 "spl.y"
     {(yyval.stmt) = (yyvsp[(1) - (1)].stmt);}
     break;
 
-  case 72:
+  case 71:
 #line 215 "spl.y"
     {(yyval.stmt) = (yyvsp[(1) - (1)].stmt);}
     break;
 
-  case 73:
+  case 72:
 #line 216 "spl.y"
     {(yyval.stmt) = (yyvsp[(1) - (1)].stmt);}
     break;
 
-  case 74:
+  case 73:
 #line 217 "spl.y"
     {(yyval.stmt) = (yyvsp[(1) - (1)].stmt);}
     break;
 
+  case 74:
+#line 218 "spl.y"
+    {(yyval.stmt) = (yyvsp[(1) - (1)].stmt);}
+    break;
+
   case 75:
-#line 219 "spl.y"
+#line 220 "spl.y"
     {(yyval.stmt) = A_AssignStmt(EM_tokPos, A_SimpleVar(EM_tokPos, S_Symbol((yyvsp[(1) - (3)].sval))), (yyvsp[(3) - (3)].exp));}
     break;
 
   case 76:
-#line 220 "spl.y"
+#line 221 "spl.y"
     {(yyval.stmt) = A_AssignStmt(EM_tokPos, A_SubscriptVar(EM_tokPos, S_Symbol((yyvsp[(1) - (6)].sval)), (yyvsp[(3) - (6)].exp)), (yyvsp[(6) - (6)].exp));}
     break;
 
   case 77:
-#line 221 "spl.y"
+#line 222 "spl.y"
     {(yyval.stmt) = A_AssignStmt(EM_tokPos, A_FieldVar(EM_tokPos, S_Symbol((yyvsp[(1) - (5)].sval)), S_Symbol((yyvsp[(3) - (5)].sval))), (yyvsp[(5) - (5)].exp));}
     break;
 
   case 78:
-#line 223 "spl.y"
+#line 224 "spl.y"
     {(yyval.proc) = A_Func(EM_tokPos, S_Symbol((yyvsp[(1) - (1)].sval)), NULL);}
     break;
 
   case 79:
-#line 224 "spl.y"
+#line 225 "spl.y"
     {(yyval.proc) = A_Func(EM_tokPos, S_Symbol((yyvsp[(1) - (4)].sval)), (yyvsp[(3) - (4)].expList));}
     break;
 
   case 80:
-#line 225 "spl.y"
+#line 226 "spl.y"
     {(yyval.proc) = A_SysProc(EM_tokPos, S_Symbol((yyvsp[(1) - (1)].sval)), NULL);}
     break;
 
   case 81:
-#line 226 "spl.y"
+#line 227 "spl.y"
     {(yyval.proc) = A_SysProc(EM_tokPos, S_Symbol((yyvsp[(1) - (4)].sval)), (yyvsp[(3) - (4)].expList));}
     break;
 
   case 82:
-#line 228 "spl.y"
+#line 229 "spl.y"
     {(yyval.stmt) = A_IfStmt(EM_tokPos, (yyvsp[(2) - (6)].exp), (yyvsp[(4) - (6)].stmt), (yyvsp[(6) - (6)].stmt));}
     break;
 
   case 83:
-#line 229 "spl.y"
+#line 230 "spl.y"
     {(yyval.stmt) = A_IfStmt(EM_tokPos, (yyvsp[(2) - (4)].exp), (yyvsp[(4) - (4)].stmt), NULL);}
     break;
 
   case 84:
-#line 231 "spl.y"
+#line 232 "spl.y"
     {(yyval.stmt) = A_RepeatStmt(EM_tokPos, (yyvsp[(4) - (4)].exp), (yyvsp[(2) - (4)].stmtList));}
     break;
 
   case 85:
-#line 233 "spl.y"
+#line 234 "spl.y"
     {(yyval.stmt) = A_WhileStmt(EM_tokPos, (yyvsp[(2) - (4)].exp), (yyvsp[(4) - (4)].stmt));}
     break;
 
   case 86:
-#line 235 "spl.y"
-    {(yyval.stmt) = A_ForStmt(EM_tokPos, S_Symbol((yyvsp[(2) - (8)].sval)), (yyvsp[(4) - (8)].exp), (yyvsp[(6) - (8)].exp), (yyvsp[(8) - (8)].stmt));}
-    break;
-
-  case 87:
 #line 236 "spl.y"
     {(yyval.stmt) = A_ForStmt(EM_tokPos, S_Symbol((yyvsp[(2) - (8)].sval)), (yyvsp[(4) - (8)].exp), (yyvsp[(6) - (8)].exp), (yyvsp[(8) - (8)].stmt));}
     break;
 
+  case 87:
+#line 237 "spl.y"
+    {(yyval.stmt) = A_ForStmt(EM_tokPos, S_Symbol((yyvsp[(2) - (8)].sval)), (yyvsp[(4) - (8)].exp), (yyvsp[(6) - (8)].exp), (yyvsp[(8) - (8)].stmt));}
+    break;
+
   case 88:
-#line 238 "spl.y"
+#line 239 "spl.y"
     {(yyval.stmt) = A_CaseStmt(EM_tokPos, (yyvsp[(2) - (5)].exp), (yyvsp[(4) - (5)].caseList));}
     break;
 
   case 89:
-#line 240 "spl.y"
+#line 241 "spl.y"
     {(yyval.caseList) = A_CaseList((yyvsp[(1) - (1)].casee), NULL);}
     break;
 
   case 90:
-#line 241 "spl.y"
+#line 242 "spl.y"
     {(yyval.caseList) = A_CaseList((yyvsp[(1) - (2)].casee), (yyvsp[(2) - (2)].caseList));}
     break;
 
   case 91:
-#line 243 "spl.y"
+#line 244 "spl.y"
     {(yyval.casee) = A_Case(EM_tokPos, (yyvsp[(1) - (4)].constt), NULL, (yyvsp[(3) - (4)].stmt));}
     break;
 
   case 92:
-#line 244 "spl.y"
+#line 245 "spl.y"
     {(yyval.casee) = A_Case(EM_tokPos, A_Int(EM_tokPos, -1), S_Symbol((yyvsp[(1) - (4)].sval)), (yyvsp[(3) - (4)].stmt));}
     break;
 
   case 93:
-#line 246 "spl.y"
+#line 247 "spl.y"
     {(yyval.stmt) = A_GotoStmt(EM_tokPos, A_Int(EM_tokPos, (yyvsp[(2) - (2)].ival)));}
     break;
 
   case 94:
-#line 248 "spl.y"
+#line 249 "spl.y"
     {(yyval.expList) = (yyvsp[(1) - (1)].expList);}
     break;
 
   case 95:
-#line 250 "spl.y"
+#line 251 "spl.y"
     {(yyval.expList) = A_ExpList((yyvsp[(1) - (1)].exp), NULL);}
     break;
 
   case 96:
-#line 251 "spl.y"
+#line 252 "spl.y"
     {(yyval.expList) = A_ExpList((yyvsp[(1) - (3)].exp), (yyvsp[(3) - (3)].expList));}
     break;
 
   case 97:
-#line 253 "spl.y"
-    {(yyval.exp) = (yyvsp[(1) - (1)].exp);}
-    break;
-
-  case 98:
 #line 254 "spl.y"
     {(yyval.exp) = (yyvsp[(1) - (1)].exp);}
     break;
 
-  case 99:
+  case 98:
 #line 255 "spl.y"
     {(yyval.exp) = (yyvsp[(1) - (1)].exp);}
     break;
 
-  case 100:
+  case 99:
 #line 256 "spl.y"
     {(yyval.exp) = (yyvsp[(1) - (1)].exp);}
     break;
 
-  case 101:
+  case 100:
 #line 257 "spl.y"
     {(yyval.exp) = (yyvsp[(1) - (1)].exp);}
     break;
 
-  case 102:
+  case 101:
 #line 258 "spl.y"
+    {(yyval.exp) = (yyvsp[(1) - (1)].exp);}
+    break;
+
+  case 102:
+#line 259 "spl.y"
     {(yyval.exp) = A_FuncExp(EM_tokPos, (yyvsp[(1) - (1)].proc));}
     break;
 
   case 103:
-#line 259 "spl.y"
+#line 260 "spl.y"
     {(yyval.exp) = (yyvsp[(1) - (1)].exp);}
     break;
 
   case 104:
-#line 262 "spl.y"
+#line 263 "spl.y"
     {(yyval.exp) = A_VarExp(EM_tokPos, (yyvsp[(1) - (1)].var));}
     break;
 
   case 105:
-#line 264 "spl.y"
+#line 265 "spl.y"
     {(yyval.var) = A_SimpleVar(EM_tokPos, S_Symbol((yyvsp[(1) - (1)].sval)));}
     break;
 
   case 106:
-#line 265 "spl.y"
+#line 266 "spl.y"
     {(yyval.var) = A_SubscriptVar(EM_tokPos, S_Symbol((yyvsp[(1) - (4)].sval)), (yyvsp[(3) - (4)].exp));}
     break;
 
   case 107:
-#line 266 "spl.y"
+#line 267 "spl.y"
     {(yyval.var) = A_FieldVar(EM_tokPos, S_Symbol((yyvsp[(1) - (3)].sval)), S_Symbol((yyvsp[(3) - (3)].sval)));}
     break;
 
   case 108:
-#line 268 "spl.y"
+#line 269 "spl.y"
     {(yyval.exp) = A_ConstExp(EM_tokPos, (yyvsp[(1) - (1)].constt));}
     break;
 
   case 109:
-#line 270 "spl.y"
+#line 271 "spl.y"
     {(yyval.exp) = A_OpExp(EM_tokPos, A_plusOp, (yyvsp[(1) - (3)].exp), (yyvsp[(3) - (3)].exp));}
     break;
 
   case 110:
-#line 271 "spl.y"
+#line 272 "spl.y"
     {(yyval.exp) = A_OpExp(EM_tokPos, A_minusOp, (yyvsp[(1) - (3)].exp), (yyvsp[(3) - (3)].exp));}
     break;
 
   case 111:
-#line 272 "spl.y"
+#line 273 "spl.y"
     {(yyval.exp) = A_OpExp(EM_tokPos, A_modOp, (yyvsp[(1) - (3)].exp), (yyvsp[(3) - (3)].exp));}
     break;
 
   case 112:
-#line 273 "spl.y"
+#line 274 "spl.y"
     {(yyval.exp) = A_OpExp(EM_tokPos, A_timesOp, (yyvsp[(1) - (3)].exp), (yyvsp[(3) - (3)].exp));}
     break;
 
   case 113:
-#line 274 "spl.y"
+#line 275 "spl.y"
     {(yyval.exp) = A_OpExp(EM_tokPos, A_divideOp, (yyvsp[(1) - (3)].exp), (yyvsp[(3) - (3)].exp));}
     break;
 
   case 114:
-#line 275 "spl.y"
+#line 276 "spl.y"
     {(yyval.exp) = A_OpExp(EM_tokPos, A_minusOp, A_ConstExp(EM_tokPos, A_Int(EM_tokPos,0)), (yyvsp[(2) - (2)].exp));}
     break;
 
   case 115:
-#line 278 "spl.y"
+#line 279 "spl.y"
     {(yyval.exp) = A_OpExp(EM_tokPos, A_eqOp, (yyvsp[(1) - (3)].exp), (yyvsp[(3) - (3)].exp));}
     break;
 
   case 116:
-#line 279 "spl.y"
+#line 280 "spl.y"
     {(yyval.exp) = A_OpExp(EM_tokPos, A_neqOp, (yyvsp[(1) - (3)].exp), (yyvsp[(3) - (3)].exp));}
     break;
 
   case 117:
-#line 280 "spl.y"
+#line 281 "spl.y"
     {(yyval.exp) = A_OpExp(EM_tokPos, A_gtOp, (yyvsp[(1) - (3)].exp), (yyvsp[(3) - (3)].exp));}
     break;
 
   case 118:
-#line 281 "spl.y"
+#line 282 "spl.y"
     {(yyval.exp) = A_OpExp(EM_tokPos, A_geOp, (yyvsp[(1) - (3)].exp), (yyvsp[(3) - (3)].exp));}
     break;
 
   case 119:
-#line 282 "spl.y"
+#line 283 "spl.y"
     {(yyval.exp) = A_OpExp(EM_tokPos, A_leOp, (yyvsp[(1) - (3)].exp), (yyvsp[(3) - (3)].exp));}
     break;
 
   case 120:
-#line 283 "spl.y"
+#line 284 "spl.y"
     {(yyval.exp) = A_OpExp(EM_tokPos, A_ltOp, (yyvsp[(1) - (3)].exp), (yyvsp[(3) - (3)].exp));}
     break;
 
   case 121:
-#line 286 "spl.y"
+#line 287 "spl.y"
     {(yyval.exp) = A_IfExp(EM_tokPos, (yyvsp[(2) - (2)].exp), A_ConstExp(EM_tokPos,A_Int(EM_tokPos, 0)), A_ConstExp(EM_tokPos, A_Int(EM_tokPos, 1)));}
     break;
 
   case 122:
-#line 287 "spl.y"
+#line 288 "spl.y"
     {(yyval.exp) = A_IfExp(EM_tokPos, (yyvsp[(1) - (3)].exp), (yyvsp[(3) - (3)].exp), A_ConstExp(EM_tokPos,A_Int(EM_tokPos, 0)));}
     break;
 
   case 123:
-#line 288 "spl.y"
+#line 289 "spl.y"
     {(yyval.exp) = A_IfExp(EM_tokPos, (yyvsp[(1) - (3)].exp), A_ConstExp(EM_tokPos,A_Int(EM_tokPos, 1)), (yyvsp[(3) - (3)].exp));}
     break;
 
   case 124:
-#line 290 "spl.y"
-    {(yyval.proc) = A_Func(EM_tokPos, S_Symbol((yyvsp[(1) - (4)].sval)), (yyvsp[(3) - (4)].expList));}
-    break;
-
-  case 125:
 #line 291 "spl.y"
     {(yyval.proc) = A_Func(EM_tokPos, S_Symbol((yyvsp[(1) - (4)].sval)), (yyvsp[(3) - (4)].expList));}
     break;
 
+  case 125:
+#line 292 "spl.y"
+    {(yyval.proc) = A_Func(EM_tokPos, S_Symbol((yyvsp[(1) - (4)].sval)), (yyvsp[(3) - (4)].expList));}
+    break;
+
   case 126:
-#line 293 "spl.y"
+#line 294 "spl.y"
     {(yyval.exp) = A_ParenExp(EM_tokPos, (yyvsp[(2) - (3)].exp));}
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 2389 "y.tab.c"
+#line 2390 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);

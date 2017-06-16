@@ -15,20 +15,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e2091950-3e49-43ff-a880-77606a771af2" name="Default" comment="now a runnable program">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/SPL_Compiler.dir/lex.yy.c.o" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/SPL_Compiler.dir/main.cpp.o" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SPL_Compiler" afterPath="$PROJECT_DIR$/SPL_Compiler" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/absyn.c" afterPath="$PROJECT_DIR$/absyn.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/absyn.h" afterPath="$PROJECT_DIR$/absyn.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lex.yy.c" afterPath="$PROJECT_DIR$/lex.yy.c" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.cpp" afterPath="$PROJECT_DIR$/main.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/prabsyn.c" afterPath="$PROJECT_DIR$/prabsyn.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/refs/sample1.out" afterPath="$PROJECT_DIR$/refs/sample1.out" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spl.lex" afterPath="$PROJECT_DIR$/spl.lex" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spl.y" afterPath="$PROJECT_DIR$/spl.y" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testAsm/test" afterPath="$PROJECT_DIR$/testAsm/test" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testcase/test3.spl" afterPath="$PROJECT_DIR$/testcase/test3.spl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/y.tab.c" afterPath="$PROJECT_DIR$/y.tab.c" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -45,7 +36,7 @@
     <favorites_list name="SPL_Compiler" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.39101622">
+    <splitter split-orientation="horizontal" split-proportion="0.5036819">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
           <file leaf-file-name="ir.hpp" pinned="false" current-in-tab="false">
@@ -61,21 +52,21 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="spl.lex" pinned="false" current-in-tab="true">
+          <file leaf-file-name="spl.lex" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/spl.lex">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="374">
-                  <caret line="111" column="29" lean-forward="true" selection-start-line="111" selection-start-column="29" selection-end-line="111" selection-end-column="29" />
+                <state relative-caret-position="308">
+                  <caret line="100" column="30" lean-forward="false" selection-start-line="100" selection-start-column="30" selection-end-line="100" selection-end-column="30" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="spl.y" pinned="false" current-in-tab="false">
+          <file leaf-file-name="spl.y" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/spl.y">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="124">
-                  <caret line="89" column="0" lean-forward="false" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+                <state relative-caret-position="45">
+                  <caret line="3" column="18" lean-forward="false" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
                   <folding />
                 </state>
               </provider>
@@ -114,22 +105,9 @@
           <file leaf-file-name="Value.h" pinned="false" current-in-tab="false">
             <entry file="file:///usr/local/include/llvm/IR/Value.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="608">
-                  <caret line="229" column="0" lean-forward="false" selection-start-line="229" selection-start-column="0" selection-end-line="229" selection-end-column="0" />
+                <state relative-caret-position="143">
+                  <caret line="198" column="33" lean-forward="true" selection-start-line="198" selection-start-column="33" selection-end-line="198" selection-end-column="33" />
                   <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/main.cpp">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="569">
-                  <caret line="98" column="28" lean-forward="false" selection-start-line="98" selection-start-column="28" selection-end-line="98" selection-end-column="28" />
-                  <folding>
-                    <element signature="e#0#18#0" expanded="true" />
-                    <element signature="e#231#249#0" expanded="true" />
-                  </folding>
                 </state>
               </provider>
             </entry>
@@ -186,8 +164,8 @@
               <file leaf-file-name="absyn.h" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/absyn.h">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="206">
-                      <caret line="209" column="34" lean-forward="true" selection-start-line="209" selection-start-column="34" selection-end-line="209" selection-end-column="34" />
+                    <state relative-caret-position="236">
+                      <caret line="211" column="14" lean-forward="false" selection-start-line="211" selection-start-column="14" selection-end-line="211" selection-end-column="14" />
                       <folding />
                     </state>
                   </provider>
@@ -269,7 +247,7 @@
           </split-first>
           <split-second>
             <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-              <file leaf-file-name="test2.spl" pinned="false" current-in-tab="false">
+              <file leaf-file-name="test2.spl" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/testcase/test2.spl">
                   <provider selected="true" editor-type-id="text-editor">
                     <state relative-caret-position="109">
@@ -329,7 +307,7 @@
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="test1.spl" pinned="false" current-in-tab="true">
+              <file leaf-file-name="test1.spl" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/testcase/test1.spl">
                   <provider selected="true" editor-type-id="text-editor">
                     <state relative-caret-position="90">
@@ -430,12 +408,12 @@
         <option value="$PROJECT_DIR$/ir.hpp" />
         <option value="$PROJECT_DIR$/testcase/test3.spl" />
         <option value="$PROJECT_DIR$/refs/sample1.out" />
-        <option value="$PROJECT_DIR$/spl.y" />
         <option value="$PROJECT_DIR$/absyn.h" />
         <option value="$PROJECT_DIR$/absyn.c" />
-        <option value="$PROJECT_DIR$/main.cpp" />
         <option value="$PROJECT_DIR$/prabsyn.c" />
+        <option value="$PROJECT_DIR$/main.cpp" />
         <option value="$PROJECT_DIR$/spl.lex" />
+        <option value="$PROJECT_DIR$/spl.y" />
       </list>
     </option>
   </component>
@@ -743,7 +721,7 @@
       <workItem from="1497176352670" duration="10704000" />
       <workItem from="1497422245087" duration="78256000" />
       <workItem from="1497539279950" duration="2808000" />
-      <workItem from="1497542132127" duration="11674000" />
+      <workItem from="1497542132127" duration="12930000" />
     </task>
     <task id="LOCAL-00001" summary="now a runnable program">
       <created>1497438870386</created>
@@ -763,7 +741,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="199642000" />
+    <option name="totallyTimeSpent" value="200898000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -780,15 +758,15 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17094018" sideWeight="0.4960452" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28265306" sideWeight="0.497558" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3265306" sideWeight="0.3821734" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34387755" sideWeight="0.497558" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3265306" sideWeight="0.37667888" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34387755" sideWeight="0.495116" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32857144" sideWeight="0.495116" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32857144" sideWeight="0.43101344" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32857144" sideWeight="0.490232" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32857144" sideWeight="0.42307693" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31555554" sideWeight="0.5039548" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3265306" sideWeight="0.61782664" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3265306" sideWeight="0.6233211" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20974027" sideWeight="0.5021807" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32040817" sideWeight="0.42490843" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32040817" sideWeight="0.42307693" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -918,6 +896,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="498">
           <caret line="184" column="0" lean-forward="false" selection-start-line="184" selection-start-column="0" selection-end-line="184" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1121,22 +1100,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/include/llvm/IR/Value.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="608">
-          <caret line="229" column="0" lean-forward="false" selection-start-line="229" selection-start-column="0" selection-end-line="229" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testcase/test2.spl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="13" column="22" lean-forward="false" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ir.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="441">
@@ -1247,18 +1210,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/absyn.h">
+    <entry file="file://$PROJECT_DIR$/prabsyn.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="209" column="34" lean-forward="true" selection-start-line="209" selection-start-column="34" selection-end-line="209" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/spl.y">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="89" column="0" lean-forward="false" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+        <state relative-caret-position="427">
+          <caret line="172" column="44" lean-forward="false" selection-start-line="172" selection-start-column="44" selection-end-line="172" selection-end-column="44" />
           <folding />
         </state>
       </provider>
@@ -1271,10 +1226,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/testcase/test2.spl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="13" column="22" lean-forward="false" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="569">
-          <caret line="98" column="28" lean-forward="false" selection-start-line="98" selection-start-column="28" selection-end-line="98" selection-end-column="28" />
+        <state relative-caret-position="987">
+          <caret line="70" column="29" lean-forward="false" selection-start-line="70" selection-start-column="29" selection-end-line="70" selection-end-column="29" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
             <element signature="e#231#249#0" expanded="true" />
@@ -1282,18 +1245,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/prabsyn.c">
+    <entry file="file://$PROJECT_DIR$/absyn.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="427">
-          <caret line="172" column="44" lean-forward="false" selection-start-line="172" selection-start-column="44" selection-end-line="172" selection-end-column="44" />
+        <state relative-caret-position="236">
+          <caret line="211" column="14" lean-forward="false" selection-start-line="211" selection-start-column="14" selection-end-line="211" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/include/llvm/IR/Value.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="198" column="33" lean-forward="true" selection-start-line="198" selection-start-column="33" selection-end-line="198" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/spl.lex">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="111" column="29" lean-forward="true" selection-start-line="111" selection-start-column="29" selection-end-line="111" selection-end-column="29" />
+        <state relative-caret-position="308">
+          <caret line="100" column="30" lean-forward="false" selection-start-line="100" selection-start-column="30" selection-end-line="100" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spl.y">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="18" lean-forward="false" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
           <folding />
         </state>
       </provider>
