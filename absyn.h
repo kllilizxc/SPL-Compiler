@@ -84,7 +84,7 @@ struct A_const_ {enum A_const_Kind kind;
         float reall;
         char charr;
         string stringg;
-        S_symbol syscon;
+        int syscon;
     } u;
 };
 
@@ -209,7 +209,7 @@ A_const A_Int(A_pos pos, int i);
 A_const A_Real(A_pos pos, float f);
 A_const A_Char(A_pos pos, char c);
 A_const A_String(A_pos pos, string s);
-A_const A_Syscon(A_pos pos, S_symbol sysc);
+A_const A_Syscon(A_pos pos, int sysc);
 
 
 A_name A_Name(A_pos pos, S_symbol name);

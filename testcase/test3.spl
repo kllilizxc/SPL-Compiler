@@ -15,19 +15,16 @@ begin
 	begin
 	    go := 1;
 	end
-	else
-	begin
-		if a = 2 then
-		begin
-			go := 2;
-		end
-		else
-		begin
-			go := go(a - 1) + go(a - 2);
-		end
-		;
-	end
-	;
+    ;
+    if a = 2 then
+    begin
+        go := 2;
+    end
+    else
+    begin
+        go := go(a - 1) + go(a - 2);
+    end
+    ;
 end
 ;
 

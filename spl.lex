@@ -27,7 +27,7 @@ void adjust(void)
 %}
   /* You can add lex definitions here. */
 digits [0-9]+ 
-reserverSYSCON false|maxint|true
+reserverSYSCON false|true
 reserverSYSFUNCT abs|chr|odd|ord|pred|sqr|sqrt|succ
 reserverSYSPROC write|writeln|read
 reserverSYSTYPE boolean|char|integer|real|string
@@ -95,10 +95,11 @@ reserverSYSTYPE boolean|char|integer|real|string
 <INITINAL>">="  {adjust(); return GE;}
 <INITINAL>":="  {adjust(); return ASSIGN;}
 <INITINAL>{reserverSYSCON} {
-  adjust(); 
-  int size = strlen(yytext);
-  yylval.sval = checked_malloc(sizeof(char)*size);
-  strcpy(yylval.sval, yytext);
+  adjust();
+  if(strcmp(yytext,"true"))
+    yylval.ival = 1;
+  else if(strcmp(yytext,"false"))
+    yylval.ival = 0;
   return SYS_CON;
 }
 <INITINAL>{reserverSYSFUNCT} {

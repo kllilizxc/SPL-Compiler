@@ -1825,7 +1825,7 @@ yyreduce:
 
   case 15:
 #line 124 "spl.y"
-    {(yyval.constt) = A_Syscon(EM_tokPos, S_Symbol((yyvsp[(1) - (1)].sval)));}
+    {(yyval.constt) = A_Int(EM_tokPos, (yyvsp[(1) - (1)].sval));}
     break;
 
   case 16:

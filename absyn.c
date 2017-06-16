@@ -139,7 +139,7 @@ A_const A_String(A_pos pos, string s)
     return p;
 }
 
-A_const A_Syscon(A_pos pos, S_symbol sysc)
+A_const A_Syscon(A_pos pos, int sysc)
 {
     A_const p = checked_malloc(sizeof(*p));
     p->kind = A_syscon;

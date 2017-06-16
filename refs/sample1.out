@@ -236,9 +236,6 @@
           Func : 
           printf
           ArgsList : 
-           VarExp : 
-            simpleVar : 
-             i
 
 
 

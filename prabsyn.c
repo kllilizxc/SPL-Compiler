@@ -170,7 +170,7 @@ static void pr_const(FILE *out, A_const v, int d)
         case A_syscon:
             fprintf(out, "Syscon : \n");
             indent(out, d+1);
-            fprintf(out, "%s\n", S_name(v->u.syscon));
+            fprintf(out, "%d\n", v->u.syscon);
             break;
         default:
             break;
