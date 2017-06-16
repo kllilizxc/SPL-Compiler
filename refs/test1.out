@@ -27,19 +27,10 @@
 
            constDec : 
             e
-            Syscon : 
-             true
-
+            
             constDec : 
              f
-             Syscon : 
-              false
-
-             constDec : 
-              g
-              Syscon : 
-               maxint
-
+             
 
     typePart : 
      
@@ -48,7 +39,7 @@
        varDec : 
         Field : 
          NameList : 
-          Name : I
+          Name : A
 
 
          Type : 
@@ -59,7 +50,7 @@
         varDec : 
          Field : 
           NameList : 
-           Name : D
+           Name : B
 
 
           Type : 
@@ -76,18 +67,29 @@
            Type : 
             SimpleTy : 
              SysTy : 
-              char
+              string
 
           varDec : 
            Field : 
             NameList : 
-             Name : S
+             Name : D
 
 
             Type : 
              SimpleTy : 
               SysTy : 
-               string
+               char
+
+           varDec : 
+            Field : 
+             NameList : 
+              Name : E
+
+
+             Type : 
+              SimpleTy : 
+               SysTy : 
+                boolean
 
 
     routinePart : 
@@ -102,11 +104,11 @@
 
        AssignStmt : 
         simpleVar : 
-         D
+         A
 
         VarExp : 
          simpleVar : 
-          b
+          a
 
        LabelStmt : 
         Int : 
@@ -114,11 +116,11 @@
 
         AssignStmt : 
          simpleVar : 
-          I
+          B
 
          VarExp : 
           simpleVar : 
-           e
+           b
 
         LabelStmt : 
          Int : 
@@ -126,7 +128,7 @@
 
          AssignStmt : 
           simpleVar : 
-           S
+           C
 
           VarExp : 
            simpleVar : 
@@ -138,7 +140,7 @@
 
           AssignStmt : 
            simpleVar : 
-            C
+            D
 
            VarExp : 
             simpleVar : 
@@ -148,11 +150,13 @@
            Int : 
             -1
 
-           ProcStmt : 
-             Func : 
-             printf
-             ArgsList : 
+           AssignStmt : 
+            simpleVar : 
+             E
 
+            VarExp : 
+             simpleVar : 
+              f
 
            LabelStmt : 
             Int : 
@@ -182,6 +186,26 @@
                 Func : 
                 printf
                 ArgsList : 
+
+
+              LabelStmt : 
+               Int : 
+                -1
+
+               ProcStmt : 
+                 Func : 
+                 printf
+                 ArgsList : 
+
+
+               LabelStmt : 
+                Int : 
+                 -1
+
+                ProcStmt : 
+                  Func : 
+                  printf
+                  ArgsList : 
 
 
 

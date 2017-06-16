@@ -68,82 +68,58 @@
               10
 
           typeDec : 
-           simplety4
+           simplety5
            SimpleTy : 
-            doubleCTy : 
-             OpExp : 
-              MINUS
-              ConstExp : 
-               Int : 
-                0
+            doubleNTy : 
+             left
 
+             right
+
+           typeDec : 
+            arrayty
+            ArrayTy : 
+             doubleCTy : 
               ConstExp : 
                Int : 
                 1
-
-             OpExp : 
-              MINUS
-              ConstExp : 
-               Int : 
-                0
 
               ConstExp : 
                Int : 
                 10
 
-           typeDec : 
-            simplety5
-            SimpleTy : 
-             doubleNTy : 
-              left
-
-              right
+             SimpleTy : 
+              SysTy : 
+               integer
 
             typeDec : 
-             arrayty
-             ArrayTy : 
-              doubleCTy : 
-               ConstExp : 
-                Int : 
-                 1
+             recordty
+             RecordTy : 
+              Fieldlist : 
+               Field : 
+                NameList : 
+                 Name : a
 
-               ConstExp : 
-                Int : 
-                 10
+                  Name : b
 
-              SimpleTy : 
-               SysTy : 
-                integer
+                   Name : c
 
-             typeDec : 
-              recordty
-              RecordTy : 
-               Fieldlist : 
+
+                Type : 
+                 SimpleTy : 
+                  SysTy : 
+                   integer
+
                 Field : 
                  NameList : 
-                  Name : a
+                  Name : d
 
-                   Name : b
-
-                    Name : c
+                   Name : e
 
 
                  Type : 
                   SimpleTy : 
                    SysTy : 
-                    integer
-
-                 Field : 
-                  NameList : 
-                   Name : d
-
-                    Name : e
-
-
-                  Type : 
-                   SimpleTy : 
-                    SysTy : 
-                     char
+                    char
 
 
 
@@ -186,46 +162,35 @@
           varDec : 
            Field : 
             NameList : 
-             Name : simplevar4
+             Name : simplevar5
 
 
             Type : 
              SimpleTy : 
               SingleTy : 
-               simplety4
+               simplety5
 
            varDec : 
             Field : 
              NameList : 
-              Name : simplevar5
+              Name : arrayvar
 
 
              Type : 
               SimpleTy : 
                SingleTy : 
-                simplety5
+                arrayty
 
             varDec : 
              Field : 
               NameList : 
-               Name : arrayvar
+               Name : recordvar
 
 
               Type : 
                SimpleTy : 
                 SingleTy : 
-                 arrayty
-
-             varDec : 
-              Field : 
-               NameList : 
-                Name : recordvar
-
-
-               Type : 
-                SimpleTy : 
-                 SingleTy : 
-                  recordty
+                 recordty
 
 
     routinePart : 
@@ -276,29 +241,21 @@
 
           AssignStmt : 
            simpleVar : 
-            simplevar4
+            simplevar5
 
-           OpExp : 
-            MINUS
-            ConstExp : 
-             Int : 
-              0
-
-            ConstExp : 
-             Int : 
-              11
+           ConstExp : 
+            Int : 
+             3
 
           LabelStmt : 
            Int : 
             -1
 
-           AssignStmt : 
-            simpleVar : 
-             simplevar5
+           ProcStmt : 
+             Func : 
+             printf
+             ArgsList : 
 
-            ConstExp : 
-             Int : 
-              3
 
            LabelStmt : 
             Int : 
@@ -340,15 +297,9 @@
                    -1
 
                   ProcStmt : 
-                    SysProc : 
-                    writeln
+                    Func : 
+                    printf
                     ArgsList : 
-                     VarExp : 
-                      Subscriptvar : 
-                       arrayvar
-                       VarExp : 
-                        simpleVar : 
-                         i
 
 
 
@@ -371,13 +322,9 @@
                -1
 
               ProcStmt : 
-                SysProc : 
-                write
+                Func : 
+                printf
                 ArgsList : 
-                 VarExp : 
-                  FieldVar : 
-                   recordvar
-                   a
 
 
 

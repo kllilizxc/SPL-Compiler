@@ -122,7 +122,7 @@ const_value : INTEGER  {$$ = A_Int(EM_tokPos, $1);}
             | REAL  {$$ = A_Real(EM_tokPos, $1);}
             | CHAR  {$$ = A_Char(EM_tokPos, $1);}
             | STRING  {$$ = A_String(EM_tokPos, $1);}
-            | SYS_CON {if(strcmp($1, "true"))$$ = A_Bool(EM_tokPos, 1);
+            | SYS_CON {if(!strcmp($1, "true")){$$ = A_Bool(EM_tokPos, 1);}
                        else $$ = A_Bool(EM_tokPos, 0);}
 //TYPE
 type_part : %prec LOWEST {$$ = NULL;}

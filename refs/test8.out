@@ -96,7 +96,7 @@
 
          ProcStmt : 
            Func : 
-           go
+           printf
            ArgsList : 
 
 

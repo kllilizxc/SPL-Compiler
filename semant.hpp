@@ -995,10 +995,10 @@ public:
                 return ExpressionAndType(VarType::getCharType(), new ConstCharIR(constValue->u.charr), true);
             case A_string:
                 return ExpressionAndType(VarType::getStringType(), new ConstStringIR(constValue->u.stringg), true);
-            case A_syscon:
-                return translateSyscon(valueEnvironment, typeEnvironment, constValue->u.syscon, constValue->pos);
+//            case A_syscon:
+//                return translateSyscon(valueEnvironment, typeEnvironment, constValue->u.syscon, constValue->pos);
             case A_bool:
-				return ExpressionAndType(VarType::getBoolType(), new ConstBoolIR(constValue->u.booll), true);
+				return ExpressionAndType(VarType::getBooleanType(), new ConstBoolIR(constValue->u.booll), true);
             default:
                 EM_error(constValue->pos, "Not recognized const value!");
                 return ExpressionAndType(VarType::getNilType(), nullptr);

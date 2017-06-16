@@ -30,45 +30,47 @@ int main() {
     FILE *out;
     std::string syslib = "testcase/syslib.spl";
 
-    std::string fnamepart[31] =
-            {
-                    "sample1",
-                    "sample2",
-                    "sample3",
-                    "test1",
-                    "test1_error1",
-                    "test1_error2",
-                    "test2",
-                    "test2_error1",
-                    "test2_error2",
-                    "test2_error3",
-                    "test2_error4",
-                    "test3",
-                    "test3_error1",
-                    "test3_error2",
-                    "test3_error3",
-                    "test3_error4",
-                    "test4",
-                    "test4_error1",
-                    "test4_error2",
-                    "test5",
-                    "test5_error1",
-                    "test6",
-                    "test7",
-                    "test8",
-                    "test8_error1",
-                    "test8_error2",
-                    "test9",
-                    "test9_error1",
-                    "test10",
-                    "test10_error1",
-                    "test10_error2"
-            };
+//    std::string fnamepart[31] =
+//            {
+//                    "sample1",
+//                    "sample2",
+//                    "sample3",
+//                    "test1",
+//                    "test1_error1",
+//                    "test1_error2",
+//                    "test2",
+//                    "test2_error1",
+//                    "test2_error2",
+//                    "test2_error3",
+//                    "test2_error4",
+//                    "test3",
+//                    "test3_error1",
+//                    "test3_error2",
+//                    "test3_error3",
+//                    "test3_error4",
+//                    "test4",
+//                    "test4_error1",
+//                    "test4_error2",
+//                    "test5",
+//                    "test5_error1",
+//                    "test6",
+//                    "test7",
+//                    "test8",
+//                    "test8_error1",
+//                    "test8_error2",
+//                    "test9",
+//                    "test9_error1",
+//                    "test10",
+//                    "test10_error1",
+//                    "test10_error2"
+//            };
 
 //    for(i = 0; i < 1; ++i)
 //    {
     char fname[30] = "testcase/", fout[30] = "refs/";
-    strcat(fname, fnamepart[4].data());
+    std:string fnamepart = "test1";
+//    strcat(fname, fnamepart[28].data());
+    strcat(fname, fnamepart);
     strcat(fname, ".spl");
     parse(fname);
 
@@ -96,7 +98,8 @@ int main() {
     engine->finalizeObject();
     engine->runFunction(mainFunc, std::vector<llvm::GenericValue>());
 
-    strcat(fout, fnamepart[4].data());
+//    strcat(fout, fnamepart[28].data());
+    strcat(fout, fnamepart);
     strcat(fout, ".out");
     out = fopen(fout, "w");
     pr_pro(out, absyn_root, 0);

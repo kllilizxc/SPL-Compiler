@@ -37,7 +37,7 @@ public:
     }
 
     static Type *genType(std::shared_ptr<VarType> type) {
-        if(type == nullptr)
+        if (type == nullptr)
             return Type::getVoidTy(TheContext);
         else if (type == VarType::getIntegerType())
             return Type::getInt32Ty(TheContext);
@@ -54,7 +54,7 @@ public:
             assert(recordType != nullptr);
 
             std::vector<Type *> types;
-            for(auto field : recordType->getFieldList()) {
+            for (auto field : recordType->getFieldList()) {
                 types.push_back(genType(field.getType()));
             }
             ArrayRef<Type *> fields(types);
@@ -65,12 +65,13 @@ public:
             assert(arrayType != nullptr);
 
             return ArrayType::get(genType(arrayType->getType()), arrayType->getRangeType()->getSize());
-        } if (type->getKind() == TypeKind::Enum) {
+        }
+        if (type->getKind() == TypeKind::Enum) {
             auto enumType = std::static_pointer_cast<EnumVarType>(type);
             assert(enumType != nullptr);
 
             int index = 0;
-            for(auto name : enumType->getItems()) {
+            for (auto name : enumType->getItems()) {
                 NamedValues[S_name(name)] = ConstantInt::get(TheContext, APInt(32, index++));
             }
 
@@ -81,14 +82,19 @@ public:
             return Type::getInt32Ty(TheContext);
     }
 
-    static bool isPtrType(Type *type) {
-        return type == Type::getDoublePtrTy(TheContext)
-               || type == Type::getInt32PtrTy(TheContext);
-//               || type == Type::getInt8PtrTy(TheContext);
+    static bool isConst(Value *value) {
+        return !NamedValues[value->getName()];
     }
 
-    Value *loadIfIsPtr(Value * value) {
-        return isPtrType(value->getType()) ? Builder.CreateLoad(value, value->getName()) : value;
+    static bool isPtrType(Type *type) {
+        return type != Type::getDoubleTy(TheContext)
+               && type != Type::getInt32Ty(TheContext)
+               && type != Type::getInt8Ty(TheContext);
+    }
+
+
+    Value *loadIfIsConst(Value *value) {
+        return isConst(value) ? value : Builder.CreateLoad(value, value->getType());
     }
 
     static void genBaseNamedValues() {
@@ -97,7 +103,7 @@ public:
         NamedValues["maxint"] = ConstantInt::get(Type::getInt32Ty(TheContext), APInt(32, INT32_MAX));
     }
 
-    template <class T>
+    template<class T>
     static void linkExternFunction(std::string name) {
         FunctionType *type = TypeBuilder<T, false>::get(TheContext);
         auto function = Function::Create(type, Function::ExternalLinkage, name, TheModule.get());
@@ -131,6 +137,7 @@ public:
     }
 
     virtual Value *genCode() = 0;
+
     virtual Value *genCodeGlobal() {
         return genCode();
     }
@@ -230,7 +237,7 @@ public:
     OpPlusIR(IR *L, IR *R) : L(L), R(R) {}
 
     Value *genCode() {
-        return Builder.CreateAdd(loadIfIsPtr(L->genCode()), loadIfIsPtr(R->genCode()));
+        return Builder.CreateAdd(loadIfIsConst(L->genCode()), loadIfIsConst(R->genCode()));
     }
 };
 
@@ -242,7 +249,7 @@ public:
     OpMinusIR(IR *L, IR *R) : L(L), R(R) {}
 
     Value *genCode() {
-        return Builder.CreateSub(loadIfIsPtr(L->genCode()), loadIfIsPtr(R->genCode()));
+        return Builder.CreateSub(loadIfIsConst(L->genCode()), loadIfIsConst(R->genCode()));
     }
 };
 
@@ -254,7 +261,7 @@ public:
     OpTimesIR(IR *L, IR *R) : L(L), R(R) {}
 
     Value *genCode() {
-        return Builder.CreateMul(loadIfIsPtr(L->genCode()), loadIfIsPtr(R->genCode()));
+        return Builder.CreateMul(loadIfIsConst(L->genCode()), loadIfIsConst(R->genCode()));
     }
 };
 
@@ -266,7 +273,7 @@ public:
     OpDivideIR(IR *L, IR *R) : L(L), R(R) {}
 
     Value *genCode() {
-        return Builder.CreateUDiv(loadIfIsPtr(L->genCode()), loadIfIsPtr(R->genCode()));
+        return Builder.CreateUDiv(loadIfIsConst(L->genCode()), loadIfIsConst(R->genCode()));
     }
 };
 
@@ -278,7 +285,7 @@ public:
     OpEqIR(IR *L, IR *R) : L(L), R(R) {}
 
     Value *genCode() {
-        return Builder.CreateICmpEQ(loadIfIsPtr(L->genCode()), loadIfIsPtr(R->genCode()));
+        return Builder.CreateICmpEQ(loadIfIsConst(L->genCode()), loadIfIsConst(R->genCode()));
     }
 };
 
@@ -290,7 +297,7 @@ public:
     OpNeqIR(IR *L, IR *R) : L(L), R(R) {}
 
     Value *genCode() {
-        return Builder.CreateICmpNE(loadIfIsPtr(L->genCode()), loadIfIsPtr(R->genCode()));
+        return Builder.CreateICmpNE(loadIfIsConst(L->genCode()), loadIfIsConst(R->genCode()));
     }
 };
 
@@ -302,7 +309,7 @@ public:
     OpLtIR(IR *L, IR *R) : L(L), R(R) {}
 
     Value *genCode() {
-        return Builder.CreateICmpULT(loadIfIsPtr(L->genCode()), loadIfIsPtr(R->genCode()));
+        return Builder.CreateICmpULT(loadIfIsConst(L->genCode()), loadIfIsConst(R->genCode()));
     }
 };
 
@@ -314,7 +321,7 @@ public:
     OpLeIR(IR *L, IR *R) : L(L), R(R) {}
 
     Value *genCode() {
-        return Builder.CreateICmpULE(loadIfIsPtr(L->genCode()), loadIfIsPtr(R->genCode()));
+        return Builder.CreateICmpULE(loadIfIsConst(L->genCode()), loadIfIsConst(R->genCode()));
     }
 };
 
@@ -326,7 +333,7 @@ public:
     OpGtIR(IR *L, IR *R) : L(L), R(R) {}
 
     Value *genCode() {
-        return Builder.CreateICmpUGT(loadIfIsPtr(L->genCode()), loadIfIsPtr(R->genCode()));
+        return Builder.CreateICmpUGT(loadIfIsConst(L->genCode()), loadIfIsConst(R->genCode()));
     }
 };
 
@@ -338,7 +345,7 @@ public:
     OpGeIR(IR *L, IR *R) : L(L), R(R) {}
 
     Value *genCode() {
-        return Builder.CreateICmpUGE(loadIfIsPtr(L->genCode()), loadIfIsPtr(R->genCode()));
+        return Builder.CreateICmpUGE(loadIfIsConst(L->genCode()), loadIfIsConst(R->genCode()));
     }
 };
 
@@ -351,7 +358,7 @@ public:
     FOpPlusIR(IR *L, IR *R) : L(L), R(R) {}
 
     Value *genCode() {
-        return Builder.CreateFAdd(loadIfIsPtr(L->genCode()), loadIfIsPtr(R->genCode()));
+        return Builder.CreateFAdd(loadIfIsConst(L->genCode()), loadIfIsConst(R->genCode()));
     }
 };
 
@@ -363,7 +370,7 @@ public:
     FOpMinusIR(IR *L, IR *R) : L(L), R(R) {}
 
     Value *genCode() {
-        return Builder.CreateFSub(loadIfIsPtr(L->genCode()), loadIfIsPtr(R->genCode()));
+        return Builder.CreateFSub(loadIfIsConst(L->genCode()), loadIfIsConst(R->genCode()));
     }
 };
 
@@ -375,7 +382,7 @@ public:
     FOpTimesIR(IR *L, IR *R) : L(L), R(R) {}
 
     Value *genCode() {
-        return Builder.CreateFMul(loadIfIsPtr(L->genCode()), loadIfIsPtr(R->genCode()));
+        return Builder.CreateFMul(loadIfIsConst(L->genCode()), loadIfIsConst(R->genCode()));
     }
 };
 
@@ -387,7 +394,7 @@ public:
     FOpDivideIR(IR *L, IR *R) : L(L), R(R) {}
 
     Value *genCode() {
-        return Builder.CreateFDiv(loadIfIsPtr(L->genCode()), loadIfIsPtr(R->genCode()));
+        return Builder.CreateFDiv(loadIfIsConst(L->genCode()), loadIfIsConst(R->genCode()));
     }
 };
 
@@ -399,7 +406,7 @@ public:
     FOpEqIR(IR *L, IR *R) : L(L), R(R) {}
 
     Value *genCode() {
-        return Builder.CreateFCmpUEQ(loadIfIsPtr(L->genCode()), loadIfIsPtr(R->genCode()));
+        return Builder.CreateFCmpUEQ(loadIfIsConst(L->genCode()), loadIfIsConst(R->genCode()));
     }
 };
 
@@ -411,7 +418,7 @@ public:
     FOpNeqIR(IR *L, IR *R) : L(L), R(R) {}
 
     Value *genCode() {
-        return Builder.CreateFCmpUNE(loadIfIsPtr(L->genCode()), loadIfIsPtr(R->genCode()));
+        return Builder.CreateFCmpUNE(loadIfIsConst(L->genCode()), loadIfIsConst(R->genCode()));
     }
 };
 
@@ -423,7 +430,7 @@ public:
     FOpLtIR(IR *L, IR *R) : L(L), R(R) {}
 
     Value *genCode() {
-        return Builder.CreateFCmpULT(loadIfIsPtr(L->genCode()), loadIfIsPtr(R->genCode()));
+        return Builder.CreateFCmpULT(loadIfIsConst(L->genCode()), loadIfIsConst(R->genCode()));
     }
 };
 
@@ -435,7 +442,7 @@ public:
     FOpLeIR(IR *L, IR *R) : L(L), R(R) {}
 
     Value *genCode() {
-        return Builder.CreateFCmpULE(loadIfIsPtr(L->genCode()), loadIfIsPtr(R->genCode()));
+        return Builder.CreateFCmpULE(loadIfIsConst(L->genCode()), loadIfIsConst(R->genCode()));
     }
 };
 
@@ -447,7 +454,7 @@ public:
     FOpGtIR(IR *L, IR *R) : L(L), R(R) {}
 
     Value *genCode() {
-        return Builder.CreateFCmpUGT(loadIfIsPtr(L->genCode()), loadIfIsPtr(R->genCode()));
+        return Builder.CreateFCmpUGT(loadIfIsConst(L->genCode()), loadIfIsConst(R->genCode()));
     }
 };
 
@@ -459,7 +466,7 @@ public:
     FOpGeIR(IR *L, IR *R) : L(L), R(R) {}
 
     Value *genCode() {
-        return Builder.CreateFCmpUGE(loadIfIsPtr(L->genCode()), loadIfIsPtr(R->genCode()));
+        return Builder.CreateFCmpUGE(loadIfIsConst(L->genCode()), loadIfIsConst(R->genCode()));
     }
 };
 
@@ -489,8 +496,8 @@ public:
         assert(type && "No such array!");
         Value *subscriptVal = subscript->genCode();
 
-        return Builder.CreateInBoundsGEP(type, array, ArrayRef<Value *>({ ConstantInt::get(TheContext, APInt(32, 0)),
-                                                                 subscriptVal }));
+        return Builder.CreateInBoundsGEP(type, array, ArrayRef<Value *>({ConstantInt::get(TheContext, APInt(32, 0)),
+                                                                         subscriptVal}));
     }
 };
 
@@ -500,7 +507,9 @@ private:
     std::string fieldName;
     int fieldIndex;
 public:
-    FieldVarIR(std::string recordName, std::string fieldName, int fieldIndex) : recordName(recordName), fieldName(fieldName), fieldIndex(fieldIndex) {}
+    FieldVarIR(std::string recordName, std::string fieldName, int fieldIndex) : recordName(recordName),
+                                                                                fieldName(fieldName),
+                                                                                fieldIndex(fieldIndex) {}
 
     Value *genCode() {
         Value *record = NamedValues[recordName];
@@ -541,7 +550,7 @@ public:
         for (auto arg : args) {
             Value *argVal = arg->genCode();
             assert(argVal);
-            argValues.push_back(loadIfIsPtr(argVal));
+            argValues.push_back(loadIfIsConst(argVal));
         }
 
         return Builder.CreateCall(callee, argValues);
@@ -556,7 +565,7 @@ public:
     AssignIR(IR *var, IR *exp) : var(var), exp(exp) {}
 
     Value *genCode() {
-        return Builder.CreateStore(loadIfIsPtr(exp->genCode()), var->genCode());
+        return Builder.CreateStore(loadIfIsConst(exp->genCode()), var->genCode());
     }
 };
 
@@ -693,6 +702,7 @@ private:
 public:
     RepeatIR(IR *condition, const std::vector<IR *, std::allocator<IR *>> &statements) : condition(condition),
                                                                                          statements(statements) {}
+
     Value *genCode() {
         auto backupValues = backUpNamedValues();
         auto backupTypes = backUpNamedTypes();
@@ -709,7 +719,7 @@ public:
         // Start insertion in LoopBB.
         Builder.SetInsertPoint(LoopBB);
 
-        for(auto statement : statements) {
+        for (auto statement : statements) {
             statement->genCode();
         }
 
@@ -734,7 +744,7 @@ public:
 class WhileIR : public IR {
 private:
     IR *condition;
-    IR * statement;
+    IR *statement;
 public:
     WhileIR(IR *condition, IR *statement) : condition(condition), statement(statement) {}
 
@@ -789,8 +799,8 @@ private:
 public:
     CaseIR(IR *condition, const std::vector<int, std::allocator<int>> &testCases,
            const std::vector<IR *, std::allocator<IR *>> &statements) : condition(condition),
-                                                                              testCases(testCases),
-                                                                              statements(statements) {}
+                                                                        testCases(testCases),
+                                                                        statements(statements) {}
 
     Value *genCode() {
         auto backupValues = backUpNamedValues();
@@ -800,9 +810,9 @@ public:
 
         BasicBlock *exitBB = BasicBlock::Create(TheContext, "exit");
 
-        SwitchInst *switchInst = Builder.CreateSwitch(loadIfIsPtr(condition->genCode()), exitBB, testCases.size());
+        SwitchInst *switchInst = Builder.CreateSwitch(loadIfIsConst(condition->genCode()), exitBB, testCases.size());
         int index = 0;
-        for(auto testCase : testCases) {
+        for (auto testCase : testCases) {
             // Make the new basic block for the loop header, inserting after current
             // block.
             BasicBlock *caseBB = BasicBlock::Create(TheContext, "case", TheFunction);
@@ -903,7 +913,7 @@ protected:
 public:
     VarDecIR(std::vector<std::string> names, Type *type) : names(names), type(type) {}
 
-    void decVar(Function* TheFunction, std::string name) {
+    void decVar(Function *TheFunction, std::string name) {
         AllocaInst *Alloca = CreateEntryBlockAlloca(TheFunction, name.c_str(), type);
         NamedValues[name] = Alloca;
         NamedTypes[name] = type;
@@ -1001,7 +1011,7 @@ public:
         BasicBlock *BB = BasicBlock::Create(TheContext, functionName, TheFunction);
         Builder.SetInsertPoint(BB);
 
-        if(TheFunction->getReturnType() != Type::getVoidTy(TheContext)) {
+        if (TheFunction->getReturnType() != Type::getVoidTy(TheContext)) {
             VarDecIR returnVar({TheFunction->getName()}, TheFunction->getReturnType());
             returnVar.genCode();
         }
@@ -1027,7 +1037,8 @@ public:
         if (funcBodyIR) funcBodyIR->genCode();
 
         Value *RetVal;
-        if (TheFunction->getReturnType() != Type::getVoidTy(TheContext) && (RetVal = NamedValues[TheFunction->getName()])) {
+        if (TheFunction->getReturnType() != Type::getVoidTy(TheContext) &&
+            (RetVal = NamedValues[TheFunction->getName()])) {
             // Finish off the function.
             Builder.CreateRet(Builder.CreateLoad(RetVal, RetVal->getName()));
         } else {
@@ -1046,9 +1057,11 @@ public:
 
 class ProgramIR : public RoutineBodyIR {
     friend class RoutineBodyIR;
+
 public:
     ProgramIR(std::string name, RoutineBodyIR *body) :
-    RoutineBodyIR(name, body->labelDecIR, body->constDecIR, body->typeDecIR, body->varDecIR, body->routineDecIR, body->funcBodyIR) {}
+            RoutineBodyIR(name, body->labelDecIR, body->constDecIR, body->typeDecIR, body->varDecIR, body->routineDecIR,
+                          body->funcBodyIR) {}
 
     virtual Value *genCode() {
         FunctionType *FT =

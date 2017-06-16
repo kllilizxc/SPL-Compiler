@@ -12,7 +12,7 @@
        varDec : 
         Field : 
          NameList : 
-          Name : i
+          Name : a
 
 
          Type : 
@@ -20,159 +20,43 @@
            SysTy : 
             integer
 
+        varDec : 
+         Field : 
+          NameList : 
+           Name : b
 
-    routinePart : 
-     decList : 
-       routineDec : 
-        go : 
-         FieldList : 
+
+          Type : 
+           SimpleTy : 
+            SysTy : 
+             real
+
+         varDec : 
+          Field : 
+           NameList : 
+            Name : c
+
+
+           Type : 
+            SimpleTy : 
+             SysTy : 
+              boolean
+
+          varDec : 
            Field : 
             NameList : 
-             Name : a
+             Name : d
 
 
             Type : 
              SimpleTy : 
               SysTy : 
-               integer
+               boolean
 
-
-
-         SysTy : 
-          integer
-
-         routine : 
-          routineHead : 
-           labelPart : 
-            
-           constPart : 
-            
-           typePart : 
-            
-           varPart : 
-            
-           routinePart : 
-            
-
-          routineBody : 
-           CompoundStmt : 
-            StmtList : 
-             LabelStmt : 
-              Int : 
-               -1
-
-              IfStmt : 
-               OpExp : 
-                EQUAL
-                VarExp : 
-                 simpleVar : 
-                  a
-
-                ConstExp : 
-                 Int : 
-                  1
-
-               LabelStmt : 
-                Int : 
-                 -1
-
-                CompoundStmt : 
-                 StmtList : 
-                  LabelStmt : 
-                   Int : 
-                    -1
-
-                   AssignStmt : 
-                    simpleVar : 
-                     go
-
-                    ConstExp : 
-                     Int : 
-                      1
-
-
-
-               LabelStmt : 
-                Int : 
-                 -1
-
-                CompoundStmt : 
-                 StmtList : 
-                  LabelStmt : 
-                   Int : 
-                    -1
-
-                   IfStmt : 
-                    OpExp : 
-                     EQUAL
-                     VarExp : 
-                      simpleVar : 
-                       a
-
-                     ConstExp : 
-                      Int : 
-                       2
-
-                    LabelStmt : 
-                     Int : 
-                      -1
-
-                     CompoundStmt : 
-                      StmtList : 
-                       LabelStmt : 
-                        Int : 
-                         -1
-
-                        AssignStmt : 
-                         simpleVar : 
-                          go
-
-                         ConstExp : 
-                          Int : 
-                           2
-
-
-
-                    LabelStmt : 
-                     Int : 
-                      -1
-
-                     CompoundStmt : 
-                      StmtList : 
-                       LabelStmt : 
-                        Int : 
-                         -1
-
-                        AssignStmt : 
-                         simpleVar : 
-                          go
-
-                         OpExp : 
-                          PLUS
-                          FuncExp : 
-                            Func : 
-                            go
-                            ArgsList : 
-
-
-                          FuncExp : 
-                            Func : 
-                            go
-                            ArgsList : 
-
-
-
-
-
-
-
-
-        routineDec : 
-         progo : 
-          FieldList : 
+           varDec : 
             Field : 
              NameList : 
-              Name : a
+              Name : e
 
 
              Type : 
@@ -181,42 +65,8 @@
                 integer
 
 
-
-
-
-          routine : 
-           routineHead : 
-            labelPart : 
-             
-            constPart : 
-             
-            typePart : 
-             
-            varPart : 
-             
-            routinePart : 
-             
-
-           routineBody : 
-            CompoundStmt : 
-             StmtList : 
-              LabelStmt : 
-               Int : 
-                -1
-
-               AssignStmt : 
-                simpleVar : 
-                 i
-
-                FuncExp : 
-                  Func : 
-                  go
-                  ArgsList : 
-
-
-
-
-
+    routinePart : 
+     
 
    routineBody : 
     CompoundStmt : 
@@ -225,20 +75,143 @@
        Int : 
         -1
 
-       ProcStmt : 
-         Func : 
-         progo
-         ArgsList : 
+       AssignStmt : 
+        simpleVar : 
+         a
 
+        OpExp : 
+         MINUS
+         OpExp : 
+          PLUS
+          OpExp : 
+           TIMES
+           parenExp : 
+            OpExp : 
+             PLUS
+             OpExp : 
+              MINUS
+              ConstExp : 
+               Int : 
+                0
+
+              ConstExp : 
+               Int : 
+                1
+
+             ConstExp : 
+              Int : 
+               2
+
+           ConstExp : 
+            Int : 
+             4
+
+          OpExp : 
+           DIVIDE
+           ConstExp : 
+            Int : 
+             4
+
+           ConstExp : 
+            Int : 
+             2
+
+         ConstExp : 
+          Int : 
+           3
 
        LabelStmt : 
         Int : 
          -1
 
-        ProcStmt : 
-          Func : 
-          printf
-          ArgsList : 
+        AssignStmt : 
+         simpleVar : 
+          b
+
+         OpExp : 
+          MINUS
+          OpExp : 
+           MINUS
+           ConstExp : 
+            Int : 
+             0
+
+           ConstExp : 
+            Real : 
+             3.500000
+
+          ConstExp : 
+           Real : 
+            5.780000
+
+        LabelStmt : 
+         Int : 
+          -1
+
+         AssignStmt : 
+          simpleVar : 
+           c
+
+          ConstExp : 
+           
+         LabelStmt : 
+          Int : 
+           -1
+
+          AssignStmt : 
+           simpleVar : 
+            d
+
+           ConstExp : 
+            
+          LabelStmt : 
+           Int : 
+            -1
+
+           ProcStmt : 
+             Func : 
+             printf
+             ArgsList : 
+
+
+           LabelStmt : 
+            Int : 
+             -1
+
+            ProcStmt : 
+              Func : 
+              printf
+              ArgsList : 
+
+
+            LabelStmt : 
+             Int : 
+              -1
+
+             ProcStmt : 
+               Func : 
+               printf
+               ArgsList : 
+
+
+             LabelStmt : 
+              Int : 
+               -1
+
+              ProcStmt : 
+                Func : 
+                printf
+                ArgsList : 
+
+
+              LabelStmt : 
+               Int : 
+                -1
+
+               ProcStmt : 
+                 Func : 
+                 printf
+                 ArgsList : 
 
 
 

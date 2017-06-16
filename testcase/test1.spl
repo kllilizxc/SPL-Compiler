@@ -10,23 +10,25 @@ const
 	d = 'c';
 	e = true;
 	f = false;
-	g = maxint;
 
 var
-    I : integer;
-    D : real;
-    C : char;
-    S : string;
+    A : integer;
+    B : real;
+    C : string;
+    D : char;
+    E : boolean;
 
 
 begin
-	D := b;
-	I := e;
-	S := c;
-	C := d;
-	printf("%f\n",D);
-	printf("%d\n",e);
-	printf("%s\n",S);
-	printf("%c\n",C);
+	A := a;
+	B := b;
+	C := c;
+	D := d;
+	E := f;
+	printf("%d\n",A);
+	printf("%f\n",B);
+	printf("%s\n",C);
+	printf("%c\n",D);
+	printf("%d\n",E);
 end
 .

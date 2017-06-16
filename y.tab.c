@@ -1826,7 +1826,7 @@ yyreduce:
 
   case 15:
 #line 125 "spl.y"
-    {if(strcmp((yyvsp[(1) - (1)].sval), "true"))(yyval.constt) = A_Bool(EM_tokPos, 1);
+    {if(!strcmp((yyvsp[(1) - (1)].sval), "true")){(yyval.constt) = A_Bool(EM_tokPos, 1);}
                        else (yyval.constt) = A_Bool(EM_tokPos, 0);}
     break;
 
